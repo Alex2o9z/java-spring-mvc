@@ -9,7 +9,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -17,9 +21,19 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    @Email(message = "Email không hợp lệ", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
+
+    @NotNull
+    @Size(message = "Password phải có tối thiểu 5 kí tự", min = 5)
     private String password;
+
+    @NotNull
+    @Size(message = "Họ tên phải có tối thiểu 2 kí tự", min = 2)
     private String fullName;
+
     private String address;
     private String phone;
     private String avatar;
@@ -30,6 +44,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     List<Order> orders;
+
+    @OneToOne(mappedBy = "user")
+    private Cart cart;
 
     // public User(Long id, String email, String password, String fullName, String
     // address, String phone) {
@@ -111,6 +128,14 @@ public class User {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     @Override

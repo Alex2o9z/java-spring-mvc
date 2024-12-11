@@ -11,7 +11,7 @@
                 <meta name="description" content="" />
                 <meta name="author" content="" />
                 <title>Manage Products</title>
-                <link href="/css/styles.css" rel="stylesheet" />
+                <link href="/admin/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
 
@@ -46,7 +46,7 @@
                                                     <form:input value="${id}" type="text" class="form-control"
                                                         path="id" />
                                                 </div>
-                                                <a href="/admin/user" class="btn btn-success">Back</a>
+                                                <a href="/admin/product" class="btn btn-success">Back</a>
                                                 <button class="btn btn-danger">Confirm</button>
                                             </form:form>
                                         </div>
@@ -61,7 +61,7 @@
                 </div>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
                     crossorigin="anonymous"></script>
-                <script src="js/scripts.js"></script>
+                <script src="/admin/js/scripts.js"></script>
             </body>
 
             </html>

@@ -11,7 +11,7 @@
                 <meta name="description" content="" />
                 <meta name="author" content="" />
                 <title>Manage Products</title>
-                <link href="/css/styles.css" rel="stylesheet" />
+                <link href="/admin/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
 
@@ -43,9 +43,13 @@
                                                 <ul class="list-group list-group-flush">
                                                     <li class="list-group-item">ID: ${user.id}</li>
                                                     <li class="list-group-item">Email: ${user.email}</li>
+                                                    <li class="list-group-item">Phone: ${user.phone}</li>
                                                     <li class="list-group-item">Full name: ${user.fullName}</li>
                                                     <li class="list-group-item">Address: ${user.address}</li>
-                                                    <li class="list-group-item">Phone: ${user.phone}</li>
+                                                    <li class="list-group-item">Role: ${user.role.name}</li>
+                                                    <li class="list-group-item"><img
+                                                            style="max-height: 250px; display: block;"
+                                                            src="/admin/images/avatar/${user.avatar}"></li>
                                                 </ul>
                                             </div>
                                             <a href="/admin/user" class="btn btn-success mt-3">Back</a>
@@ -62,7 +66,7 @@
                 </div>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
                     crossorigin="anonymous"></script>
-                <script src="js/scripts.js"></script>
+                <script src="/admin/js/scripts.js"></script>
             </body>
 
             </html>

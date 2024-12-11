@@ -2,17 +2,18 @@ package vn.hoidanit.laptopshop.controller.admin;
 
 import java.util.List;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.servlet.ServletContext;
+import jakarta.validation.Valid;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.service.UploadService;
 import vn.hoidanit.laptopshop.service.UserService;
@@ -25,21 +26,21 @@ public class UserController {
     private final UploadService uploadService;
     private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService, ServletContext servletContext, UploadService uploadService,
+    public UserController(UserService userService, UploadService uploadService,
             PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.uploadService = uploadService;
         this.passwordEncoder = passwordEncoder;
     }
 
-    @RequestMapping("/")
-    public String getHomePage(Model model) {
-        List<User> arrUsers = this.userService.getAllUserByEmail("sang@gmail.com");
-        System.out.println(arrUsers);
-        model.addAttribute("eric", "test");
-        model.addAttribute("hoidanit", "from controller");
-        return "hello";
-    }
+    // @RequestMapping("/")
+    // public String getHomePage(Model model) {
+    // List<User> arrUsers = this.userService.getAllUserByEmail("sang@gmail.com");
+    // System.out.println(arrUsers);
+    // model.addAttribute("eric", "test");
+    // model.addAttribute("hoidanit", "from controller");
+    // return "hello";
+    // }
 
     @RequestMapping("/admin/user")
     public String getUserPage(Model model) {
@@ -49,7 +50,7 @@ public class UserController {
     }
 
     @RequestMapping("/admin/user/{id}")
-    public String getUserDetailPage(Model model, @PathVariable long id) {
+    public String getDetailUserPage(Model model, @PathVariable long id) {
         User user = this.userService.getUserById(id);
         model.addAttribute("user", user);
         return "admin/user/detail";
@@ -62,11 +63,32 @@ public class UserController {
     }
 
     @PostMapping("/admin/user/create")
-    public String createUserPage(Model model, @ModelAttribute("newUser") User hoidanit,
+    public String createUserPage(Model model,
+            @ModelAttribute("newUser") @Valid User user,
+            BindingResult newUserBindingResult,
             @RequestParam("sangFile") MultipartFile file) {
+
+        // List<FieldError> errors = newUserBindingResult.getFieldErrors();
+        // for (FieldError error : errors) {
+        // System.out.println(">>>>>>>>>>>>>>>>>>" + error.getField() + " - " +
+        // error.getDefaultMessage());
+        // }
+
+        // validate
+        if (newUserBindingResult.hasErrors()) {
+            return "/admin/user/create";
+        }
+
+        // uploadFile
         String avatar = this.uploadService.handleSaveUploadfile(file, "avatar");
-        String hashPassword = this.passwordEncoder.encode(hoidanit.getPassword());
-        // this.userService.handleSaveUser(hoidanit);
+
+        // hashPass
+        String hashPassword = this.passwordEncoder.encode(user.getPassword());
+
+        user.setAvatar(avatar);
+        user.setPassword(hashPassword);
+        user.setRole(this.userService.geRoleByName(user.getRole().getName()));
+        this.userService.handleSaveUser(user);
         return "redirect:/admin/user";
     }
 
@@ -84,6 +106,7 @@ public class UserController {
             currentUser.setAddress(user.getAddress());
             currentUser.setFullName(user.getFullName());
             currentUser.setPhone(user.getPhone());
+            currentUser.setRole(this.userService.geRoleByName(user.getRole().getName()));
             this.userService.handleSaveUser(currentUser);
         }
         return "redirect:/admin/user";

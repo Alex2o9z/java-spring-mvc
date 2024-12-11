@@ -19,7 +19,13 @@ public class UploadService {
     }
 
     public String handleSaveUploadfile(MultipartFile file, String targetFolder) {
-        String rootPath = this.servletContext.getRealPath("/resources/images");
+        // don't upload file
+        if (file.isEmpty()) {
+            return "";
+        }
+
+        // upload
+        String rootPath = this.servletContext.getRealPath("/resources/admin/images");
         String finalName = "";
         try {
             byte[] bytes = file.getBytes();
