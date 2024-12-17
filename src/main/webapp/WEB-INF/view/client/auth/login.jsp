@@ -63,9 +63,9 @@
                                                 </form>
                                                 <div class="mt-4 mb-0">
                                                     <div class="d-grid">
-                                                        <button class="btn btn-primary btn-block">
+                                                        <a href="/face-login" class="btn btn-primary btn-block">
                                                             Xác nhận khuôn mặt
-                                                        </button>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>

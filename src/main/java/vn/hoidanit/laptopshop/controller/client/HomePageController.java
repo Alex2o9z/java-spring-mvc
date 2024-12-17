@@ -107,4 +107,14 @@ public class HomePageController {
         return "client/cart/order-history";
     }
 
+    @GetMapping("/face-login")
+    public String getFaceLoginPage(Model model) {
+        return "client/auth/face-login";
+    }
+
+    @GetMapping("/face-register")
+    public String getFaceRegisterPage(Model model) {
+        return "client/auth/face-register";
+    }
+
 }
