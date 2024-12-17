@@ -2,6 +2,7 @@ package vn.hoidanit.laptopshop.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -211,7 +212,8 @@ public class ProductService {
 
     public void handlePlaceOrder(
             User user, HttpSession session,
-            String receiverName, String receiverAddress, String receiverPhone) {
+            String receiverName, String receiverAddress, String receiverPhone,
+            String paymentMethod, String uuid) {
 
         // step 1: get cart by user
         Cart cart = this.cartRepository.findByUser(user);
@@ -228,28 +230,32 @@ public class ProductService {
                 order.setReceiverPhone(receiverPhone);
                 order.setStatus("PENDING");
 
+                order.setPaymentMethod(paymentMethod);
+                order.setPaymentStatus("PAYMENT_UNPAID");
+                order.setPaymentRef(paymentMethod.equals("COD") ? "UNKNOWN" : uuid);
+
                 double sum = 0;
-                for (CartDetail cartDetail : cartDetails) {
-                    sum += cartDetail.getPrice();
+                for (CartDetail cd : cartDetails) {
+                    sum += cd.getPrice();
                 }
                 order.setTotalPrice(sum);
                 order = this.orderRepository.save(order);
 
                 // create orderDetail
 
-                for (CartDetail cartDetail : cartDetails) {
+                for (CartDetail cd : cartDetails) {
                     OrderDetail orderDetail = new OrderDetail();
                     orderDetail.setOrder(order);
-                    orderDetail.setProduct(cartDetail.getProduct());
-                    orderDetail.setPrice(cartDetail.getPrice());
-                    orderDetail.setQuantity(cartDetail.getQuantity());
+                    orderDetail.setProduct(cd.getProduct());
+                    orderDetail.setPrice(cd.getPrice());
+                    orderDetail.setQuantity(cd.getQuantity());
 
                     this.orderDetailRepository.save(orderDetail);
                 }
 
                 // step 2: delete cart_detail and cart
-                for (CartDetail cartDetail : cartDetails) {
-                    this.cartDetailRepository.deleteById(cartDetail.getId());
+                for (CartDetail cd : cartDetails) {
+                    this.cartDetailRepository.deleteById(cd.getId());
                 }
 
                 this.cartRepository.deleteById(cart.getId());
@@ -259,5 +265,15 @@ public class ProductService {
             }
         }
 
+    }
+
+    public void updatePaymentStatus(String paymentRef, String paymentStatus) {
+        Optional<Order> orderOptional = this.orderRepository.findByPaymentRef(paymentRef);
+        if (orderOptional.isPresent()) {
+            // update
+            Order order = orderOptional.get();
+            order.setPaymentStatus(paymentStatus);
+            this.orderRepository.save(order);
+        }
     }
 }
