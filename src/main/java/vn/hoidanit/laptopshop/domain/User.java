@@ -2,6 +2,7 @@ package vn.hoidanit.laptopshop.domain;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -39,6 +40,18 @@ public class User {
     private String phone;
     private String avatar;
     private String provider;
+
+    @Column(name = "type_views_1", columnDefinition = "BIGINT DEFAULT 0")
+    private Long type_views_1;
+
+    @Column(name = "type_views_2", columnDefinition = "BIGINT DEFAULT 0")
+    private Long type_views_2;
+
+    @Column(name = "type_views_3", columnDefinition = "BIGINT DEFAULT 0")
+    private Long type_views_3;
+
+    @Column(name = "type_views_4", columnDefinition = "BIGINT DEFAULT 0")
+    private Long type_views_4;
 
     @PrePersist
     public void prePersist() {
@@ -154,6 +167,60 @@ public class User {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public Long getType_views_1() {
+        return type_views_1;
+    }
+
+    public void setType_views_1(Long type_views_1) {
+        this.type_views_1 = type_views_1;
+    }
+
+    public Long getType_views_2() {
+        return type_views_2;
+    }
+
+    public void setType_views_2(Long type_views_2) {
+        this.type_views_2 = type_views_2;
+    }
+
+    public Long getType_views_3() {
+        return type_views_3;
+    }
+
+    public void setType_views_3(Long type_views_3) {
+        this.type_views_3 = type_views_3;
+    }
+
+    public Long getType_views_4() {
+        return type_views_4;
+    }
+
+    public void setType_views_4(Long type_views_4) {
+        this.type_views_4 = type_views_4;
+    }
+
+    public void plusOne(String target) {
+        switch (target) {
+            case "GAMING":
+                this.type_views_1 += 1;
+                break;
+            case "THIET-KE-DO-HOA":
+                this.type_views_1 += 1;
+                break;
+            case "SINHVIEN-VANPHONG":
+                this.type_views_2 += 1;
+                break;
+            case "MONG-NHE":
+                this.type_views_3 += 1;
+                break;
+            case "DOANH-NHAN":
+                this.type_views_4 += 1;
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

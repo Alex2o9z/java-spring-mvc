@@ -42,6 +42,28 @@
 
                     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css"
                         rel="stylesheet">
+                    <style>
+                        /* Hiệu ứng hover cho liên kết sản phẩm */
+                        .product-link {
+                            transition: all 0.3s ease-in-out;
+                        }
+
+                        .product-link:hover {
+                            transform: scale(1.05);
+                            /* Phóng to nhẹ khi hover */
+                            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+                            /* Thêm bóng */
+                            text-decoration: none;
+                            /* Loại bỏ gạch chân */
+                        }
+
+                        /* Thay đổi màu chữ hoặc các thuộc tính con */
+                        .product-link:hover h6,
+                        .product-link:hover h5 {
+                            color: #10aa2a;
+                            /* Thay đổi màu chữ */
+                        }
+                    </style>
                 </head>
 
                 <body>
@@ -268,6 +290,19 @@
                                                 </ul>
                                             </div>
                                         </div>
+
+                                        ${user.type_views_1}
+                                        ${user.type_views_2}
+                                        ${user.type_views_3}
+                                        ${user.type_views_4}
+                                        <div class="col-lg-12">
+                                            <h4 class="mb-4">Gợi ý</h4>
+
+                                            <div id="product-list" class="d-flex flex-column">
+                                                <!-- Sản phẩm sẽ được thêm động vào đây -->
+                                            </div>
+                                        </div>
+
                                         <div class="col-lg-12">
                                             <h4 class="mb-4">Featured products</h4>
                                             <div class="d-flex align-items-center justify-content-start">
@@ -600,6 +635,110 @@
                     <script src="/client/js/main.js"></script>
                     <script
                         src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
+                    <script>
+                        const a = "${user.type_views_1}"
+                        const b = "${user.type_views_2}"
+                        const c = "${user.type_views_3}"
+                        const d = "${user.type_views_4}"
+                        // Tạo đối tượng chứa các giá trị bạn muốn gửi
+                        const data = {
+                            gaming_view: a,
+                            mac_view: b,
+                            office_view: c,
+                            workstation_view: d
+                        };
+
+                        // Gửi dữ liệu tới server Flask
+                        fetch('http://127.0.0.1:5000/recommend', {
+                            method: 'POST', // Phương thức gửi là POST
+                            headers: {
+                                'Content-Type': 'application/json', // Đảm bảo server nhận dạng kiểu dữ liệu JSON
+                            },
+                            body: JSON.stringify(data) // Chuyển đổi dữ liệu thành chuỗi JSON
+                        })
+                            .then(response => response.json())  // Xử lý phản hồi từ server dưới dạng JSON
+                            .then(data => {
+                                console.log('Response from server:', data); // In kết quả từ server ra console
+                                const result = data.result;
+
+                                console.log(result)
+
+                                // Lấy phần tử container
+                                const productList = document.getElementById("product-list");
+
+                                // Tạo đối tượng định dạng số
+                                const formatter = new Intl.NumberFormat('vi-VN', {
+                                    style: 'currency',
+                                    currency: 'VND'
+                                });
+
+                                // Tạo các phần tử HTML động bằng DOM
+                                result.forEach(element => {
+                                    // Tạo thẻ <a> chứa sản phẩm
+                                    const productLink = document.createElement("a");
+                                    productLink.href = "/product/" + element.id; // Thay đổi URL phù hợp với hệ thống của bạn
+                                    productLink.className = "text-decoration-none text-dark product-link"; // Thêm lớp product-link
+
+                                    // Tạo thẻ chứa sản phẩm
+                                    const productDiv = document.createElement("div");
+                                    productDiv.className = "d-flex align-items-center justify-content-start mb-3";
+
+                                    // Tạo thẻ chứa hình ảnh
+                                    const imgDiv = document.createElement("div");
+                                    imgDiv.className = "rounded";
+                                    imgDiv.style.width = "100px";
+                                    imgDiv.style.height = "100px";
+
+                                    const img = document.createElement("img");
+                                    img.src = "/admin/images/product/" + element.image; // Thêm đường dẫn gốc vào đây
+                                    img.alt = element.name;
+                                    img.className = "img-fluid rounded";
+
+                                    // Gắn hình ảnh vào div
+                                    imgDiv.appendChild(img);
+
+                                    // Tạo thẻ chứa thông tin sản phẩm
+                                    const infoDiv = document.createElement("div");
+                                    infoDiv.style.marginLeft = "20px"; // Thêm margin-left cho toàn bộ thông tin
+
+                                    // Tạo tên sản phẩm
+                                    const productName = document.createElement("h6");
+                                    productName.className = "mb-2";
+                                    productName.style.marginBottom = "10px";
+                                    productName.textContent = element.name;
+
+                                    // Tạo div chứa giá sản phẩm
+                                    const priceDiv = document.createElement("div");
+                                    priceDiv.className = "d-flex mb-2";
+
+                                    const price = document.createElement("h5");
+                                    price.className = "fw-bold me-2";
+                                    price.style.marginBottom = "5px";
+                                    price.style.fontSize = "14px"; // Thu nhỏ kích thước chữ
+                                    price.textContent = formatter.format(element.price); // Định dạng số
+
+                                    // Gắn giá vào div
+                                    priceDiv.appendChild(price);
+
+                                    // Gắn tên và giá vào infoDiv
+                                    infoDiv.appendChild(productName);
+                                    infoDiv.appendChild(priceDiv);
+
+                                    // Gắn imgDiv và infoDiv vào productDiv
+                                    productDiv.appendChild(imgDiv);
+                                    productDiv.appendChild(infoDiv);
+
+                                    // Gắn productDiv vào productLink
+                                    productLink.appendChild(productDiv);
+
+                                    // Gắn productLink vào productList
+                                    productList.appendChild(productLink);
+                                });
+                            })
+                            .catch((error) => {
+                                console.error('Error:', error); // Xử lý lỗi nếu có
+                            });
+                    </script>
                 </body>
 
                 </html>

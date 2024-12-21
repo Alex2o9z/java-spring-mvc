@@ -28,25 +28,45 @@ import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.service.VNPayService;
 import vn.hoidanit.laptopshop.domain.dto.ProductCriteriaDTO;
 import vn.hoidanit.laptopshop.service.ProductService;
+import vn.hoidanit.laptopshop.service.UserService;
 
 @Controller
 public class ItemController {
 
     private final ProductService productService;
     private final VNPayService vNPayService;
+    private final UserService userService;
 
     public ItemController(
             ProductService productService,
-            VNPayService vNPayService) {
+            VNPayService vNPayService,
+            UserService userService) {
         this.productService = productService;
         this.vNPayService = vNPayService;
+        this.userService = userService;
     }
 
+    // @GetMapping("/product/{id}")
+    // public String getProductPage(Model model, @PathVariable long id) {
+    // Product product = this.productService.fetchProductById(id).get();
+    // model.addAttribute("product", product);
+    // model.addAttribute("id", id);
+    // return "client/product/detail";
+    // }
+
     @GetMapping("/product/{id}")
-    public String getProductPage(Model model, @PathVariable long id) {
+    public String getProductPage(Model model, @PathVariable long id, HttpServletRequest request) {
         Product product = this.productService.fetchProductById(id).get();
         model.addAttribute("product", product);
-        model.addAttribute("id", id);
+        String target = product.getTarget();
+
+        HttpSession session = request.getSession(false);
+        long idUser = (long) session.getAttribute("id");
+        User currentUser = userService.getUserById(idUser);
+        currentUser.plusOne(target);
+        userService.handleSaveUser(currentUser);
+
+        model.addAttribute("user", currentUser);
         return "client/product/detail";
     }
 

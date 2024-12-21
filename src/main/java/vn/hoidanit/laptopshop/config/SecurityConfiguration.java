@@ -24,7 +24,8 @@ public class SecurityConfiguration {
     @Bean
     public PasswordEncoder passwordEncoder() {
         // return new BCryptPasswordEncoder();
-        return new PasswordEnconderTest();
+        // return new PasswordEnconderTest();
+        return new AESPasswordEncoder();
     }
 
     @Bean
@@ -74,7 +75,7 @@ public class SecurityConfiguration {
                                 DispatcherType.INCLUDE)
                         .permitAll()
 
-                        .requestMatchers("/", "/login", "/product/**", "/register",
+                        .requestMatchers("/", "/login", "/face-register", "/face-login", "/product/**", "/register",
                                 "/products/**",
                                 "/client/**", "/css/**", "/js/**", "/images/**",
                                 "/admin/css/**", "/admin/images/**", "/admin/js/**")

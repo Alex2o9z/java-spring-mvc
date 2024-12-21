@@ -16,6 +16,7 @@ import vn.hoidanit.laptopshop.domain.Order;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.domain.dto.RegisterDTO;
+import vn.hoidanit.laptopshop.service.AesService;
 import vn.hoidanit.laptopshop.service.OrderService;
 import vn.hoidanit.laptopshop.service.ProductService;
 import vn.hoidanit.laptopshop.service.UserService;
@@ -33,16 +34,19 @@ public class HomePageController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final OrderService orderService;
+    private final AesService aesService;
 
     public HomePageController(
             ProductService productService,
             UserService userService,
             PasswordEncoder passwordEncoder,
-            OrderService orderService) {
+            OrderService orderService,
+            AesService aesService) {
         this.productService = productService;
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.orderService = orderService;
+        this.aesService = aesService;
     }
 
     @GetMapping("/")
@@ -73,7 +77,8 @@ public class HomePageController {
         User user = this.userService.registerDTOtoUser(registerDTO);
 
         // hashPass
-        String hashPassword = this.passwordEncoder.encode(user.getPassword());
+        // String hashPassword = this.passwordEncoder.encode(user.getPassword());
+        String hashPassword = this.aesService.encrypt(user.getPassword());
 
         user.setPassword(hashPassword);
         user.setRole(this.userService.geRoleByName("USER"));
