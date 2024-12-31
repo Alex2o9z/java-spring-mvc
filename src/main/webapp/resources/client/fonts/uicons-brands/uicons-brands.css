@@ -1,0 +1,922 @@
+/*!
+*   _____       _             __                 _____                               ______ _       _   _
+*  |_   _|     | |           / _|               |_   _|                             |  ____| |     | | (_)
+*    | |  _ __ | |_ ___ _ __| |_ __ _  ___ ___    | |  ___ ___  _ __  ___   ______  | |__  | | __ _| |_ _  ___ ___  _ __
+*    | | | '_ \| __/ _ \ '__|  _/ _` |/ __/ _ \   | | / __/ _ \| '_ \/ __| |______| |  __| | |/ _` | __| |/ __/ _ \| '_ \
+*   _| |_| | | | ||  __/ |  | || (_| | (_|  __/  _| || (_| (_) | | | \__ \          | |    | | (_| | |_| | (_| (_) | | | |
+*  |_____|_| |_|\__\___|_|  |_| \__,_|\___\___| |_____\___\___/|_| |_|___/          |_|    |_|\__,_|\__|_|\___\___/|_| |_|
+*
+*                         UIcons 2.6.0 - https://www.flaticon.com/uicons/interface-icons
+*/
+@font-face {
+    font-family: "Uicons Brands";
+    src: url("./uicons-brands.woff2") format("woff2"),
+        url("./uicons-brands.woff") format("woff"),
+        url("./uicons-brands.eot#iefix") format("embedded-opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    @font-face {
+        font-family: "Uicons Brands";
+        src: url("./uicons-brands.svg#uicons-brands") format("svg");
+    }
+}
+
+[class^="uicons-brands-"] {
+    font-size: inherit;
+    line-height: 1;
+}
+
+[class^="uicons-brands-"]:before,
+[class*=" uicons-brands-"]:before,
+[class^="uicons-brands-"]:after,
+[class*=" uicons-brands-"]:after {
+    font-family: Uicons Brands;
+    font-style: normal;
+}
+
+.uicons-brands-3m:before {
+    content: "\e00c";
+}
+
+.uicons-brands-500px:before {
+    content: "\e012";
+}
+
+.uicons-brands-abbot-laboratories:before {
+    content: "\e01d";
+}
+
+.uicons-brands-accusoft:before {
+    content: "\e020";
+}
+
+.uicons-brands-acrobat:before {
+    content: "\e022";
+}
+
+.uicons-brands-adobe:before {
+    content: "\e031";
+}
+
+.uicons-brands-aecom:before {
+    content: "\e035";
+}
+
+.uicons-brands-aero:before {
+    content: "\e036";
+}
+
+.uicons-brands-after-effects:before {
+    content: "\e037";
+}
+
+.uicons-brands-airbnb:before {
+    content: "\e049";
+}
+
+.uicons-brands-algolia:before {
+    content: "\e055";
+}
+
+.uicons-brands-amd:before {
+    content: "\e060";
+}
+
+.uicons-brands-american-express:before {
+    content: "\e061";
+}
+
+.uicons-brands-android:before {
+    content: "\e06b";
+}
+
+.uicons-brands-animate:before {
+    content: "\e087";
+}
+
+.uicons-brands-app-store-ios:before {
+    content: "\e091";
+}
+
+.uicons-brands-apple:before {
+    content: "\e092";
+}
+
+.uicons-brands-apple-pay:before {
+    content: "\e096";
+}
+
+.uicons-brands-artstation:before {
+    content: "\e106";
+}
+
+.uicons-brands-astrazeneca:before {
+    content: "\e10e";
+}
+
+.uicons-brands-asus:before {
+    content: "\e10f";
+}
+
+.uicons-brands-atandt:before {
+    content: "\e111";
+}
+
+.uicons-brands-atlassian:before {
+    content: "\e112";
+}
+
+.uicons-brands-atom:before {
+    content: "\e113";
+}
+
+.uicons-brands-audition:before {
+    content: "\e11e";
+}
+
+.uicons-brands-behance:before {
+    content: "\e186";
+}
+
+.uicons-brands-bitcoin:before {
+    content: "\e1ad";
+}
+
+.uicons-brands-blackberry:before {
+    content: "\e1b0";
+}
+
+.uicons-brands-blogger:before {
+    content: "\e1c2";
+}
+
+.uicons-brands-bluetooth:before {
+    content: "\e1ca";
+}
+
+.uicons-brands-bootstrap:before {
+    content: "\e1f8";
+}
+
+.uicons-brands-bridgestone:before {
+    content: "\e25b";
+}
+
+.uicons-brands-burger-king:before {
+    content: "\e289";
+}
+
+.uicons-brands-c:before {
+    content: "\e293";
+}
+
+.uicons-brands-capture:before {
+    content: "\e2de";
+}
+
+.uicons-brands-cc-amazon-pay:before {
+    content: "\e323";
+}
+
+.uicons-brands-cc-apple-pay:before {
+    content: "\e324";
+}
+
+.uicons-brands-cc-diners-club:before {
+    content: "\e325";
+}
+
+.uicons-brands-cc-visa:before {
+    content: "\e326";
+}
+
+.uicons-brands-centos:before {
+    content: "\e32a";
+}
+
+.uicons-brands-character:before {
+    content: "\e333";
+}
+
+.uicons-brands-chromecast:before {
+    content: "\e385";
+}
+
+.uicons-brands-cloudflare:before {
+    content: "\e42f";
+}
+
+.uicons-brands-confluence:before {
+    content: "\e491";
+}
+
+.uicons-brands-creative-commons:before {
+    content: "\e4b2";
+}
+
+.uicons-brands-creative-commons-by:before {
+    content: "\e4b3";
+}
+
+.uicons-brands-creative-commons-nc:before {
+    content: "\e4b4";
+}
+
+.uicons-brands-creative-commons-nc-eu:before {
+    content: "\e4b5";
+}
+
+.uicons-brands-creative-commons-nc-jp:before {
+    content: "\e4b6";
+}
+
+.uicons-brands-creative-commons-nd:before {
+    content: "\e4b7";
+}
+
+.uicons-brands-creative-commons-pd:before {
+    content: "\e4b8";
+}
+
+.uicons-brands-creative-commons-pd-alt:before {
+    content: "\e4b9";
+}
+
+.uicons-brands-creative-commons-remix:before {
+    content: "\e4ba";
+}
+
+.uicons-brands-creative-commons-sa:before {
+    content: "\e4bb";
+}
+
+.uicons-brands-creative-commons-sampling:before {
+    content: "\e4bc";
+}
+
+.uicons-brands-creative-commons-sampling-plus:before {
+    content: "\e4bd";
+}
+
+.uicons-brands-creative-commons-share:before {
+    content: "\e4be";
+}
+
+.uicons-brands-creative-commons-zero:before {
+    content: "\e4bf";
+}
+
+.uicons-brands-css3:before {
+    content: "\e4da";
+}
+
+.uicons-brands-css3-alt:before {
+    content: "\e4db";
+}
+
+.uicons-brands-dailymotion:before {
+    content: "\e4fb";
+}
+
+.uicons-brands-deezer:before {
+    content: "\e50f";
+}
+
+.uicons-brands-delphi:before {
+    content: "\e516";
+}
+
+.uicons-brands-dev:before {
+    content: "\e523";
+}
+
+.uicons-brands-devianart:before {
+    content: "\e524";
+}
+
+.uicons-brands-digg:before {
+    content: "\e552";
+}
+
+.uicons-brands-dimension:before {
+    content: "\e55b";
+}
+
+.uicons-brands-discord:before {
+    content: "\e564";
+}
+
+.uicons-brands-docker:before {
+    content: "\e57c";
+}
+
+.uicons-brands-dribbble:before {
+    content: "\e5ae";
+}
+
+.uicons-brands-dropbox:before {
+    content: "\e5b7";
+}
+
+.uicons-brands-drupal:before {
+    content: "\e5c0";
+}
+
+.uicons-brands-ebay:before {
+    content: "\e5db";
+}
+
+.uicons-brands-elementor:before {
+    content: "\e5e7";
+}
+
+.uicons-brands-ethereum:before {
+    content: "\e612";
+}
+
+.uicons-brands-etsy:before {
+    content: "\e614";
+}
+
+.uicons-brands-evernote:before {
+    content: "\e619";
+}
+
+.uicons-brands-facebook:before {
+    content: "\e675";
+}
+
+.uicons-brands-facebook-messenger:before {
+    content: "\e676";
+}
+
+.uicons-brands-fedex:before {
+    content: "\e688";
+}
+
+.uicons-brands-figma:before {
+    content: "\e697";
+}
+
+.uicons-brands-firefox:before {
+    content: "\e6e0";
+}
+
+.uicons-brands-firefox-browser:before {
+    content: "\e6e1";
+}
+
+.uicons-brands-flaticon:before {
+    content: "\e6fb";
+}
+
+.uicons-brands-flaticon-1:before {
+    content: "\e6fc";
+}
+
+.uicons-brands-flickr:before {
+    content: "\e6fe";
+}
+
+.uicons-brands-flipboard:before {
+    content: "\e700";
+}
+
+.uicons-brands-fonts:before {
+    content: "\e735";
+}
+
+.uicons-brands-foursquare:before {
+    content: "\e746";
+}
+
+.uicons-brands-freepik:before {
+    content: "\e74d";
+}
+
+.uicons-brands-freepik-1:before {
+    content: "\e74e";
+}
+
+.uicons-brands-fresco:before {
+    content: "\e751";
+}
+
+.uicons-brands-github:before {
+    content: "\e787";
+}
+
+.uicons-brands-gitlab:before {
+    content: "\e788";
+}
+
+.uicons-brands-goodreads:before {
+    content: "\e79d";
+}
+
+.uicons-brands-google:before {
+    content: "\e79e";
+}
+
+.uicons-brands-haskell:before {
+    content: "\e821";
+}
+
+.uicons-brands-hbo:before {
+    content: "\e82c";
+}
+
+.uicons-brands-hotjar:before {
+    content: "\e87d";
+}
+
+.uicons-brands-html5:before {
+    content: "\e8a4";
+}
+
+.uicons-brands-huawei:before {
+    content: "\e8a5";
+}
+
+.uicons-brands-hubspot:before {
+    content: "\e8a6";
+}
+
+.uicons-brands-ibm:before {
+    content: "\e8ae";
+}
+
+.uicons-brands-iconfinder:before {
+    content: "\e8b3";
+}
+
+.uicons-brands-illustrator:before {
+    content: "\e8b8";
+}
+
+.uicons-brands-illustrator-draw:before {
+    content: "\e8b9";
+}
+
+.uicons-brands-imdb:before {
+    content: "\e8bd";
+}
+
+.uicons-brands-incopy:before {
+    content: "\e8c6";
+}
+
+.uicons-brands-indesign:before {
+    content: "\e8c8";
+}
+
+.uicons-brands-instagram:before {
+    content: "\e8de";
+}
+
+.uicons-brands-intel:before {
+    content: "\e8e4";
+}
+
+.uicons-brands-invision:before {
+    content: "\e8f0";
+}
+
+.uicons-brands-itunes:before {
+    content: "\e901";
+}
+
+.uicons-brands-janseen:before {
+    content: "\e905";
+}
+
+.uicons-brands-java:before {
+    content: "\e909";
+}
+
+.uicons-brands-jcb:before {
+    content: "\e90b";
+}
+
+.uicons-brands-jira:before {
+    content: "\e90c";
+}
+
+.uicons-brands-johnson-and-johnson:before {
+    content: "\e90d";
+}
+
+.uicons-brands-joomla:before {
+    content: "\e910";
+}
+
+.uicons-brands-js:before {
+    content: "\e917";
+}
+
+.uicons-brands-kickstarter:before {
+    content: "\e92d";
+}
+
+.uicons-brands-line:before {
+    content: "\e9a1";
+}
+
+.uicons-brands-linkedin:before {
+    content: "\e9a9";
+}
+
+.uicons-brands-lisp:before {
+    content: "\e9b0";
+}
+
+.uicons-brands-mailchimp:before {
+    content: "\e9e8";
+}
+
+.uicons-brands-marriott-international:before {
+    content: "\ea07";
+}
+
+.uicons-brands-mcdonalds:before {
+    content: "\ea18";
+}
+
+.uicons-brands-media-encoder:before {
+    content: "\ea1c";
+}
+
+.uicons-brands-medium:before {
+    content: "\ea20";
+}
+
+.uicons-brands-meta:before {
+    content: "\ea4b";
+}
+
+.uicons-brands-microsoft:before {
+    content: "\ea5a";
+}
+
+.uicons-brands-microsoft-edge:before {
+    content: "\ea5b";
+}
+
+.uicons-brands-microsoft-explorer:before {
+    content: "\ea5c";
+}
+
+.uicons-brands-mysql:before {
+    content: "\eaca";
+}
+
+.uicons-brands-napster:before {
+    content: "\eacd";
+}
+
+.uicons-brands-nestle:before {
+    content: "\ead1";
+}
+
+.uicons-brands-netflix:before {
+    content: "\ead2";
+}
+
+.uicons-brands-node-js:before {
+    content: "\eaf0";
+}
+
+.uicons-brands-nvidia:before {
+    content: "\eb08";
+}
+
+.uicons-brands-oracle:before {
+    content: "\eb2d";
+}
+
+.uicons-brands-patreon:before {
+    content: "\eb68";
+}
+
+.uicons-brands-paypal:before {
+    content: "\eb71";
+}
+
+.uicons-brands-pfizer:before {
+    content: "\ebda";
+}
+
+.uicons-brands-photoshop:before {
+    content: "\ebec";
+}
+
+.uicons-brands-photoshop-camera:before {
+    content: "\ebed";
+}
+
+.uicons-brands-photoshop-express:before {
+    content: "\ebee";
+}
+
+.uicons-brands-photoshop-lightroom:before {
+    content: "\ebef";
+}
+
+.uicons-brands-photoshop-lightroom-classic:before {
+    content: "\ebf0";
+}
+
+.uicons-brands-php:before {
+    content: "\ebf1";
+}
+
+.uicons-brands-pinterest:before {
+    content: "\ec0a";
+}
+
+.uicons-brands-postgre:before {
+    content: "\ec5a";
+}
+
+.uicons-brands-premiere:before {
+    content: "\ec62";
+}
+
+.uicons-brands-premiere-rush:before {
+    content: "\ec63";
+}
+
+.uicons-brands-product-hunt:before {
+    content: "\ec78";
+}
+
+.uicons-brands-python:before {
+    content: "\ec93";
+}
+
+.uicons-brands-raspberry-pi:before {
+    content: "\ecbc";
+}
+
+.uicons-brands-reddit:before {
+    content: "\ecd4";
+}
+
+.uicons-brands-samsung:before {
+    content: "\ed51";
+}
+
+.uicons-brands-sap:before {
+    content: "\ed54";
+}
+
+.uicons-brands-sass:before {
+    content: "\ed55";
+}
+
+.uicons-brands-shopify:before {
+    content: "\edcd";
+}
+
+.uicons-brands-siemens:before {
+    content: "\ede5";
+}
+
+.uicons-brands-sketch:before {
+    content: "\ee0d";
+}
+
+.uicons-brands-skype:before {
+    content: "\ee24";
+}
+
+.uicons-brands-slack:before {
+    content: "\ee25";
+}
+
+.uicons-brands-slidesgo:before {
+    content: "\ee2f";
+}
+
+.uicons-brands-snapchat:before {
+    content: "\ee3f";
+}
+
+.uicons-brands-sony:before {
+    content: "\ee56";
+}
+
+.uicons-brands-soundcloud:before {
+    content: "\ee6b";
+}
+
+.uicons-brands-spark:before {
+    content: "\ee78";
+}
+
+.uicons-brands-spotify:before {
+    content: "\ee8a";
+}
+
+.uicons-brands-starbucks:before {
+    content: "\eee4";
+}
+
+.uicons-brands-stock:before {
+    content: "\eef3";
+}
+
+.uicons-brands-storyset:before {
+    content: "\ef02";
+}
+
+.uicons-brands-stripe:before {
+    content: "\ef08";
+}
+
+.uicons-brands-substance-3d-designer:before {
+    content: "\ef14";
+}
+
+.uicons-brands-substance-3d-painter:before {
+    content: "\ef15";
+}
+
+.uicons-brands-substance-3d-sampler:before {
+    content: "\ef16";
+}
+
+.uicons-brands-substance-3d-stager:before {
+    content: "\ef17";
+}
+
+.uicons-brands-swift:before {
+    content: "\ef37";
+}
+
+.uicons-brands-t-mobile:before {
+    content: "\ef48";
+}
+
+.uicons-brands-telegram:before {
+    content: "\ef7b";
+}
+
+.uicons-brands-tencent:before {
+    content: "\ef85";
+}
+
+.uicons-brands-the-home-depot:before {
+    content: "\ef9e";
+}
+
+.uicons-brands-tik-tok:before {
+    content: "\efbf";
+}
+
+.uicons-brands-trello:before {
+    content: "\f043";
+}
+
+.uicons-brands-tripadvisor:before {
+    content: "\f04a";
+}
+
+.uicons-brands-tumblr:before {
+    content: "\f072";
+}
+
+.uicons-brands-twitch:before {
+    content: "\f07b";
+}
+
+.uicons-brands-twitter:before {
+    content: "\f07c";
+}
+
+.uicons-brands-twitter-alt:before {
+    content: "\f07d";
+}
+
+.uicons-brands-twitter-alt-circle:before {
+    content: "\f07e";
+}
+
+.uicons-brands-twitter-alt-square:before {
+    content: "\f07f";
+}
+
+.uicons-brands-typescript:before {
+    content: "\f082";
+}
+
+.uicons-brands-uber:before {
+    content: "\f085";
+}
+
+.uicons-brands-ubuntu:before {
+    content: "\f086";
+}
+
+.uicons-brands-unilever:before {
+    content: "\f092";
+}
+
+.uicons-brands-unity:before {
+    content: "\f093";
+}
+
+.uicons-brands-unsplash:before {
+    content: "\f096";
+}
+
+.uicons-brands-ups:before {
+    content: "\f09e";
+}
+
+.uicons-brands-usaa:before {
+    content: "\f0a2";
+}
+
+.uicons-brands-verizon:before {
+    content: "\f0fb";
+}
+
+.uicons-brands-videvo:before {
+    content: "\f106";
+}
+
+.uicons-brands-vimeo:before {
+    content: "\f108";
+}
+
+.uicons-brands-visa:before {
+    content: "\f10d";
+}
+
+.uicons-brands-visual-basic:before {
+    content: "\f112";
+}
+
+.uicons-brands-vk:before {
+    content: "\f113";
+}
+
+.uicons-brands-walmart:before {
+    content: "\f12f";
+}
+
+.uicons-brands-wepik:before {
+    content: "\f14f";
+}
+
+.uicons-brands-whatsapp:before {
+    content: "\f151";
+}
+
+.uicons-brands-wikipedia:before {
+    content: "\f163";
+}
+
+.uicons-brands-windows:before {
+    content: "\f16d";
+}
+
+.uicons-brands-wix:before {
+    content: "\f176";
+}
+
+.uicons-brands-wordpress:before {
+    content: "\f17a";
+}
+
+.uicons-brands-xd:before {
+    content: "\f18c";
+}
+
+.uicons-brands-xing:before {
+    content: "\f18d";
+}
+
+.uicons-brands-yahoo:before {
+    content: "\f18f";
+}
+
+.uicons-brands-yandex:before {
+    content: "\f190";
+}
+
+.uicons-brands-yelp:before {
+    content: "\f191";
+}
+
+.uicons-brands-youtube:before {
+    content: "\f199";
+}
+
+.uicons-brands-zoom:before {
+    content: "\f19d";
+}

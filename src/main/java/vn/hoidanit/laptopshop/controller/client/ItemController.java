@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.beans.factory.annotation.Value;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -36,6 +38,9 @@ public class ItemController {
     private final ProductService productService;
     private final VNPayService vNPayService;
     private final UserService userService;
+
+    @Value("${stproject.general.value.page-size:Default 10}")
+    private int pageSize;
 
     public ItemController(
             ProductService productService,
@@ -208,6 +213,7 @@ public class ItemController {
             ProductCriteriaDTO productCriteriaDTO,
             HttpServletRequest request) {
         int page = 1;
+        // int pageSize = 5;
         try {
             if (productCriteriaDTO.getPage().isPresent()) {
                 // convert from String to int
@@ -221,14 +227,14 @@ public class ItemController {
         }
 
         // check sort price
-        Pageable pageable = PageRequest.of(page - 1, 10);
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
 
         if (productCriteriaDTO.getSort() != null && productCriteriaDTO.getSort().isPresent()) {
             String sort = productCriteriaDTO.getSort().get();
             if (sort.equals("gia-tang-dan")) {
-                pageable = PageRequest.of(page - 1, 10, Sort.by(Product_.PRICE).ascending());
+                pageable = PageRequest.of(page - 1, pageSize, Sort.by(Product_.PRICE).ascending());
             } else if (sort.equals("gia-giam-dan")) {
-                pageable = PageRequest.of(page - 1, 10, Sort.by(Product_.PRICE).descending());
+                pageable = PageRequest.of(page - 1, pageSize, Sort.by(Product_.PRICE).descending());
             }
         }
 
@@ -243,9 +249,16 @@ public class ItemController {
             qs = qs.replace("page=" + page, "");
         }
 
+        long totalResults = prs.getTotalElements();
+        int startResult = (page - 1) * pageSize + 1;
+        int endResult = Math.min(page * pageSize, (int) totalResults);
+
         model.addAttribute("products", products);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", prs.getTotalPages());
+        model.addAttribute("totalResults", totalResults);
+        model.addAttribute("startResult", startResult);
+        model.addAttribute("endResult", endResult);
         model.addAttribute("queryString", qs);
         return "client/product/show";
     }

@@ -6,229 +6,401 @@
                 <!DOCTYPE html>
                 <html lang="en">
 
-                <head>
-                    <meta charset="utf-8">
-                    <title> Giỏ hàng - Laptopshop</title>
-                    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-                    <meta content="" name="keywords">
-                    <meta content="" name="description">
+                <jsp:include page="../layout/head.jsp">
+                    <jsp:param name="pageTitle" value="Giỏ hàng (${sessionScope.sum})" />
+                </jsp:include>
 
-                    <!-- Google Web Fonts -->
-                    <link rel="preconnect" href="https://fonts.googleapis.com">
-                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-                    <link
-                        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
-                        rel="stylesheet">
-
-                    <!-- Icon Font Stylesheet -->
-                    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
-                    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-                        rel="stylesheet">
-
-                    <!-- Libraries Stylesheet -->
-                    <link href="/client/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-                    <link href="/client/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-
-                    <!-- Customized Bootstrap Stylesheet -->
-                    <link href="/client/css/bootstrap.min.css" rel="stylesheet">
-
-                    <!-- Template Stylesheet -->
-                    <link href="/client/css/style.css" rel="stylesheet">
-                </head>
-
-                <body>
-
-                    <!-- Spinner Start -->
-                    <div id="spinner"
-                        class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
-                        <div class="spinner-grow text-primary" role="status"></div>
-                    </div>
-                    <!-- Spinner End -->
+                <body class="single single-product">
 
                     <jsp:include page="../layout/header.jsp" />
 
-                    <!-- Cart Page Start -->
-                    <div class="container-fluid py-5" style="margin-top: 5%;">
-                        <div class="container py-5">
-                            <div class="mb-3">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Chi Tiết Giỏ Hàng</li>
-                                    </ol>
-                                </nav>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Sản phẩm</th>
-                                            <th scope="col">Tên</th>
-                                            <th scope="col">Giá</th>
-                                            <th scope="col">Số lượng</th>
-                                            <th scope="col">Thành tiền</th>
-                                            <th scope="col">Xử lý</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:if test="${ empty cartDetails}">
-                                            <tr>
-                                                <td colspan="6">
-                                                    Không có sản phẩm trong giỏ hàng
-                                                </td>
-                                            </tr>
-                                        </c:if>
-                                        <c:forEach var="cartDetail" items="${cartDetails}" varStatus="status">
+                    <!--  Content Start -->
+                    <div class="banner-wrapper no_background">
+                        <div class="banner-wrapper-inner">
+                            <nav class="kobolg-breadcrumb container"><a href="/">Trang chủ</a>
+                                <i class="fa fa-angle-right"></i>Giỏ hàng
+                            </nav>
+                        </div>
+                    </div>
 
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="/admin/images/product/${cartDetail.product.image}"
-                                                            class="img-fluid me-5 rounded-circle"
-                                                            style="width: 80px; height: 80px;" alt="">
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    <p class="mb-0 mt-4">
-                                                        <a href="/product/${cartDetail.product.id}" target="_blank">
-                                                            ${cartDetail.product.name}
-                                                        </a>
-                                                    </p>
-                                                </td>
-                                                <td>
-                                                    <p class="mb-0 mt-4">
-                                                        <fmt:formatNumber type="number" value="${cartDetail.price}" /> đ
-                                                    </p>
-                                                </td>
-                                                <td>
-                                                    <div class="input-group quantity mt-4" style="width: 100px;">
-                                                        <div class="input-group-btn">
-                                                            <button
-                                                                class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                                                <i class="fa fa-minus"></i>
-                                                            </button>
-                                                        </div>
-                                                        <input type="text"
-                                                            class="form-control form-control-sm text-center border-0"
-                                                            value="${cartDetail.quantity}"
-                                                            data-cart-detail-id="${cartDetail.id}"
-                                                            data-cart-detail-price="${cartDetail.price}"
-                                                            data-cart-detail-index="${status.index}">
-                                                        <div class="input-group-btn">
-                                                            <button
-                                                                class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                                                <i class="fa fa-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="mb-0 mt-4" data-cart-detail-id="${cartDetail.id}">
-                                                        <fmt:formatNumber type="number"
-                                                            value="${cartDetail.price * cartDetail.quantity}" /> đ
-                                                    </p>
-                                                </td>
-                                                <td>
-                                                    <form method="post" action="/delete-cart-product/${cartDetail.id}">
-                                                        <input type="hidden" name="${_csrf.parameterName}"
-                                                            value="${_csrf.token}" />
-                                                        <button class="btn btn-md rounded-circle bg-light border mt-4">
-                                                            <i class="fa fa-times text-danger"></i>
-                                                        </button>
-                                                    </form>
-                                                </td>
+                    <main class="site-main main-container no-sidebar pt-3">
+                        <div class="container">
+                            <div class="row">
+                                <div class="main-content col-md-12">
+                                    <div class="page-main-content">
+                                        <div class="kobolg">
 
-                                            </tr>
-                                        </c:forEach>
+                                            <div class="kobolg-notices-wrapper"></div>
 
-                                    </tbody>
-                                </table>
-                            </div>
-                            <c:if test="${not empty cartDetails}">
-                                <div class="mt-5 row g-4 justify-content-start">
-                                    <div class="col-12 col-md-8">
-                                        <div class="bg-light rounded">
-                                            <div class="p-4">
-                                                <h1 class="display-6 mb-4">Thông tin <span class="fw-normal">Đơn
-                                                        hàng</span>
-                                                </h1>
-                                                <div class="d-flex justify-content-between mb-4">
-                                                    <h5 class="mb-0 me-4">Tạm tính:</h5>
-                                                    <p class="mb-0" data-cart-total-price="${totalPrice}">
-                                                        <fmt:formatNumber type="number" value="${totalPrice}" /> đ
-                                                    </p>
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <h5 class="mb-0 me-4">Phí vận chuyển:</h5>
-                                                    <div class="">
-                                                        <p class="mb-0">0 đ</p>
-                                                    </div>
-                                                </div>
-                                                <!-- <p class="mb-0 text-end">Shipping to Ukraine.</p> -->
+                                            <!-- Cart content -->
+                                            <!-- <form class="kobolg-cart-form"> -->
+                                            <div class="kobolg-cart-form">
+                                                <table
+                                                    class="shop_table shop_table_responsive cart kobolg-cart-form__contents"
+                                                    cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="product-remove">&nbsp;</th>
+                                                            <th class="product-thumbnail">&nbsp;</th>
+                                                            <th class="product-name">Sản phẩm</th>
+                                                            <th class="product-price">Giá</th>
+                                                            <th class="product-quantity">Số lượng</th>
+                                                            <th class="product-subtotal">Thành tiền</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <c:if test="${ empty cartDetails}">
+                                                            <tr>
+                                                                <td colspan="6" class="text-center p-5">
+                                                                    Không có sản phẩm trong giỏ hàng
+                                                                </td>
+                                                            </tr>
+                                                        </c:if>
+                                                        <c:forEach var="cartDetail" items="${cartDetails}"
+                                                            varStatus="status">
+                                                            <tr class="kobolg-cart-form__cart-item cart_item">
+                                                                <td class="product-remove">
+                                                                    <form id="cart-item-delete-${status.index}"
+                                                                        method="post"
+                                                                        action="/delete-cart-product/${cartDetail.id}">
+                                                                        <input type="hidden"
+                                                                            name="${_csrf.parameterName}"
+                                                                            value="${_csrf.token}" />
+                                                                        <a href="javascript:$('#cart-item-delete-${status.index}').submit();"
+                                                                            class="remove"
+                                                                            aria-label="Remove this item">×</a>
+                                                                    </form>
+                                                                </td>
+                                                                <td class="product-thumbnail">
+                                                                    <a href="#"><img
+                                                                            src="/admin/images/product/${cartDetail.product.image}"
+                                                                            class="attachment-kobolg_thumbnail size-kobolg_thumbnail"
+                                                                            alt="img" width="600" height="778"></a>
+                                                                </td>
+                                                                <td class="product-name" data-title="Product">
+                                                                    <a
+                                                                        href="/product/${cartDetail.product.id}">${cartDetail.product.name}</a>
+                                                                </td>
+                                                                <td class="product-price" data-title="Price">
+                                                                    <span class="kobolg-Price-amount amount">
+                                                                        <fmt:formatNumber type="number"
+                                                                            value="${cartDetail.price}" /> <span
+                                                                            class="kobolg-Price-currencySymbol">
+                                                                            đ</span>
+                                                                    </span>
+                                                                    </span>
+                                                                </td>
+                                                                <td class="product-quantity" data-title="Quantity">
+                                                                    <div class="quantity">
+                                                                        <span class="qty-label">Số lượng:</span>
+                                                                        <div class="control">
+                                                                            <a class="btn-number qtyminus quantity-minus"
+                                                                                href="#">-</a>
+                                                                            <input type="text" title="Qty" data-step="1"
+                                                                                min="1" max=""
+                                                                                class="input-qty input-text qty text"
+                                                                                size="4" pattern="[0-9]*"
+                                                                                inputmode="numeric" name="quantity"
+                                                                                value="${cartDetail.quantity}"
+                                                                                data-cart-detail-id="${cartDetail.id}"
+                                                                                data-cart-detail-price="${cartDetail.price}"
+                                                                                data-cart-detail-index="${status.index}">
+                                                                            <a class="btn-number qtyplus quantity-plus"
+                                                                                href="#">+</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="product-subtotal" data-title="Total">
+                                                                    <span class="kobolg-Price-amount amount"
+                                                                        data-cart-detail-id="${cartDetail.id}">
+                                                                        <fmt:formatNumber type="number"
+                                                                            value="${cartDetail.price * cartDetail.quantity}" />
+                                                                        <span class="kobolg-Price-currencySymbol">
+                                                                            đ</span>
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                        <tr>
+                                                            <td colspan="6" class="actions">
+                                                                <div class="coupon">
+                                                                    <label for="coupon_code">Mã khuyến mãi:</label>
+                                                                    <input type="text" name="coupon_code"
+                                                                        class="input-text" id="coupon_code" value=""
+                                                                        placeholder="Mã khuyến mã">
+                                                                    <button type="submit" class="button"
+                                                                        name="apply_coupon" value="Apply coupon">Nhập mã
+                                                                    </button>
+                                                                </div>
+                                                                <button type="submit" class="button" name="update_cart"
+                                                                    value="Update cart" disabled="">Cập nhật giỏ hàng
+                                                                </button>
+                                                                <input type="hidden" id="kobolg-cart-nonce"
+                                                                    name="kobolg-cart-nonce" value="f41b5bf554"><input
+                                                                    type="hidden" name="_wp_http_referer"
+                                                                    value="/kobolg/cart/">
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                            <div
-                                                class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
-                                                <h5 class="mb-0 ps-4 me-4">Tổng tiền:</h5>
-                                                <p class="mb-0 pe-4" data-cart-total-price="${totalPrice}">
-                                                    <fmt:formatNumber type="number" value="${totalPrice}" /> đ
-                                                </p>
-                                            </div>
+                                            <!-- </form> -->
 
-                                            <form:form action="/confirm-checkout" method="post" modelAttribute="cart">
-                                                <input type="hidden" name="${_csrf.parameterName}"
-                                                    value="${_csrf.token}" />
-                                                <div style="display: none;">
-                                                    <c:forEach var="cartDetail" items="${cart.cartDetails}"
-                                                        varStatus="status">
-                                                        <div class="mb-3">
-                                                            <div class="form-group">
-                                                                <label>Id:</label>
-                                                                <form:input class="form-control" type="text"
-                                                                    value="${cartDetail.id}"
-                                                                    path="cartDetails[${status.index}].id" />
+                                            <!-- Cart totals -->
+                                            <c:if test="${not empty cartDetails}">
+                                                <div class="cart-collaterals">
+                                                    <div class="cart_totals ">
+                                                        <h2>Tổng đơn hàng</h2>
+                                                        <table class="shop_table shop_table_responsive" cellspacing="0">
+                                                            <tbody>
+                                                                <tr class="cart-subtotal">
+                                                                    <th>Tạm tính</th>
+                                                                    <td data-title="Subtotal">
+                                                                        <span class="kobolg-Price-amount amount"
+                                                                            data-cart-total-price="${totalPrice}">
+                                                                            <fmt:formatNumber type="number"
+                                                                                value="${totalPrice}" />
+                                                                            <span class="kobolg-Price-currencySymbol">
+                                                                                đ</span>
+                                                                        </span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="order-total">
+                                                                    <th>Tổng tiền</th>
+                                                                    <td data-title="Total">
+                                                                        <strong>
+                                                                            <span class="kobolg-Price-amount amount"
+                                                                                data-cart-total-price="${totalPrice}">
+                                                                                <fmt:formatNumber type="number"
+                                                                                    value="${totalPrice}" />
+                                                                                <span
+                                                                                    class="kobolg-Price-currencySymbol">
+                                                                                    đ</span>
+                                                                            </span>
+                                                                        </strong>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="kobolg-proceed-to-checkout">
+
+                                                            <form:form id="confirm-checkout" action="/confirm-checkout"
+                                                                method="post" modelAttribute="cart">
+                                                                <input type="hidden" name="${_csrf.parameterName}"
+                                                                    value="${_csrf.token}" />
+                                                                <div style="display: none;">
+                                                                    <c:forEach var="cartDetail"
+                                                                        items="${cart.cartDetails}" varStatus="status">
+                                                                        <div class="mb-3">
+                                                                            <div class="form-group">
+                                                                                <label>Id:</label>
+                                                                                <form:input class="form-control"
+                                                                                    type="text" value="${cartDetail.id}"
+                                                                                    path="cartDetails[${status.index}].id" />
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label>Quantity:</label>
+                                                                                <form:input class="form-control"
+                                                                                    type="text"
+                                                                                    value="${cartDetail.quantity}"
+                                                                                    path="cartDetails[${status.index}].quantity" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </c:forEach>
+                                                                </div>
+
+                                                                <a href="javascript:$('#confirm-checkout').submit();"
+                                                                    class="checkout-button button alt kobolg-forward">
+                                                                    Đi đến thanh toán</a>
+                                                            </form:form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </c:if>
+
+                                            <!-- Cross sell products -->
+                                            <!-- <div class="col-md-12 col-sm-12 dreaming_crosssell-product">
+                                                <div class="block-title">
+                                                    <h2 class="product-grid-title">
+                                                        <span>Cross Sell Products</span>
+                                                    </h2>
+                                                </div>
+                                                <div class="owl-slick owl-products equal-container better-height"
+                                                    data-slick="{&quot;arrows&quot;:false,&quot;slidesMargin&quot;:30,&quot;dots&quot;:true,&quot;infinite&quot;:false,&quot;slidesToShow&quot;:4}"
+                                                    data-responsive="[{&quot;breakpoint&quot;:480,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesMargin&quot;:&quot;10&quot;}},{&quot;breakpoint&quot;:768,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesMargin&quot;:&quot;10&quot;}},{&quot;breakpoint&quot;:992,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesMargin&quot;:&quot;20&quot;}},{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesMargin&quot;:&quot;20&quot;}},{&quot;breakpoint&quot;:1500,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesMargin&quot;:&quot;30&quot;}}]">
+                                                    <div
+                                                        class="product-item style-01 post-278 page type-page status-publish hentry">
+                                                        <div class="product-inner tooltip-left">
+                                                            <div class="product-thumb">
+                                                                <a class="thumb-link" href="#" tabindex="0">
+                                                                    <img class="img-responsive"
+                                                                        src="/client/images/apro51012-1-600x778.jpg"
+                                                                        alt="Multi Cellphone" width="600" height="778">
+                                                                </a>
+                                                                <div class="flash">
+                                                                    <span class="onsale"><span
+                                                                            class="number">-21%</span></span>
+                                                                    <span class="onnew"><span
+                                                                            class="text">New</span></span>
+                                                                </div>
+                                                                <div class="group-button">
+                                                                    <div class="yith-wcwl-add-to-wishlist">
+                                                                        <div class="yith-wcwl-add-button show">
+                                                                            <a href="#" class="add_to_wishlist">
+                                                                                Add to Wishlist</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="kobolg product compare-button"><a
+                                                                            href="#" class="compare button">Compare</a>
+                                                                    </div>
+                                                                    <a href="#" class="button yith-wcqv-button">Quick
+                                                                        View</a>
+                                                                    <div class="add-to-cart">
+                                                                        <a href="#"
+                                                                            class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add
+                                                                            to cart
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label>Quantity:</label>
-                                                                <form:input class="form-control" type="text"
-                                                                    value="${cartDetail.quantity}"
-                                                                    path="cartDetails[${status.index}].quantity" />
+                                                            <div class="product-info equal-elem">
+                                                                <h3 class="product-name product_title">
+                                                                    <a href="#" tabindex="0">Multi Cellphone</a>
+                                                                </h3>
+                                                                <div class="rating-wapper nostar">
+                                                                    <div class="star-rating"><span
+                                                                            style="width:0%">Rated <strong
+                                                                                class="rating">0</strong> out of
+                                                                            5</span></div>
+                                                                    <span class="review">(0)</span>
+                                                                </div>
+                                                                <span class="price"><del><span
+                                                                            class="kobolg-Price-amount amount"><span
+                                                                                class="kobolg-Price-currencySymbol">$</span>125.00</span></del>
+                                                                    <ins><span class="kobolg-Price-amount amount"><span
+                                                                                class="kobolg-Price-currencySymbol">$</span>99.00</span></ins></span>
                                                             </div>
                                                         </div>
-                                                    </c:forEach>
+                                                    </div>
+                                                    <div
+                                                        class="product-item style-01 post-36 product type-product status-publish has-post-thumbnail product_cat-table product_cat-bed product_tag-light product_tag-table product_tag-sock first instock sale shipping-taxable purchasable product-type-simple">
+                                                        <div class="product-inner tooltip-left">
+                                                            <div class="product-thumb">
+                                                                <a class="thumb-link" href="#" tabindex="0">
+                                                                    <img class="img-responsive"
+                                                                        src="/client/images/apro71-1-600x778.jpg"
+                                                                        alt="Gaming Mouse" width="600" height="778">
+                                                                </a>
+                                                                <div class="flash">
+                                                                    <span class="onsale"><span
+                                                                            class="number">-18%</span></span>
+                                                                    <span class="onnew"><span
+                                                                            class="text">New</span></span>
+                                                                </div>
+                                                                <div class="group-button">
+                                                                    <div class="yith-wcwl-add-to-wishlist">
+                                                                        <div class="yith-wcwl-add-button show">
+                                                                            <a href="#" class="add_to_wishlist">
+                                                                                Add to Wishlist</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="kobolg product compare-button"><a
+                                                                            href="#" class="compare button">Compare</a>
+                                                                    </div>
+                                                                    <a href="#" class="button yith-wcqv-button">Quick
+                                                                        View</a>
+                                                                    <div class="add-to-cart">
+                                                                        <a href="#"
+                                                                            class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add
+                                                                            to cart
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-info equal-elem">
+                                                                <h3 class="product-name product_title">
+                                                                    <a href="#" tabindex="0">Gaming Mouse</a>
+                                                                </h3>
+                                                                <div class="rating-wapper nostar">
+                                                                    <div class="star-rating"><span
+                                                                            style="width:0%">Rated <strong
+                                                                                class="rating">0</strong> out of
+                                                                            5</span></div>
+                                                                    <span class="review">(0)</span>
+                                                                </div>
+                                                                <span class="price"><del><span
+                                                                            class="kobolg-Price-amount amount"><span
+                                                                                class="kobolg-Price-currencySymbol">$</span>109.00</span></del>
+                                                                    <ins><span class="kobolg-Price-amount amount"><span
+                                                                                class="kobolg-Price-currencySymbol">$</span>89.00</span></ins></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="product-item style-01 post-32 product type-product status-publish has-post-thumbnail product_cat-light product_cat-chair product_cat-sofas product_tag-hat product_tag-sock  instock sale featured shipping-taxable purchasable product-type-simple">
+                                                        <div class="product-inner tooltip-left">
+                                                            <div class="product-thumb">
+                                                                <a class="thumb-link" href="#" tabindex="0">
+                                                                    <img class="img-responsive"
+                                                                        src="/client/images/apro91-1-600x778.jpg"
+                                                                        alt="Classic Watches" width="600" height="778">
+                                                                </a>
+                                                                <div class="flash">
+                                                                    <span class="onnew"><span
+                                                                            class="text">New</span></span>
+                                                                </div>
+                                                                <div class="group-button">
+                                                                    <div class="yith-wcwl-add-to-wishlist">
+                                                                        <div class="yith-wcwl-add-button show">
+                                                                            <a href="#" class="add_to_wishlist">
+                                                                                Add to Wishlist</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="kobolg product compare-button"><a
+                                                                            href="#" class="compare button">Compare</a>
+                                                                    </div>
+                                                                    <a href="#" class="button yith-wcqv-button">Quick
+                                                                        View</a>
+                                                                    <div class="add-to-cart">
+                                                                        <a href="#"
+                                                                            class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add
+                                                                            to cart
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-info equal-elem">
+                                                                <h3 class="product-name product_title">
+                                                                    <a href="#" tabindex="0">Classic Watches</a>
+                                                                </h3>
+                                                                <div class="rating-wapper nostar">
+                                                                    <div class="star-rating"><span
+                                                                            style="width:0%">Rated <strong
+                                                                                class="rating">0</strong> out of
+                                                                            5</span></div>
+                                                                    <span class="review">(0)</span>
+                                                                </div>
+                                                                <span class="price"><span
+                                                                        class="kobolg-Price-amount amount"><span
+                                                                            class="kobolg-Price-currencySymbol">$</span>89.00</span>
+                                                                    – <span class="kobolg-Price-amount amount"><span
+                                                                            class="kobolg-Price-currencySymbol">$</span>139.00</span></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <button
-                                                    class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4">
-                                                    Xác nhận đặt hàng
-                                                </button>
-                                            </form:form>
+                                            </div> -->
+
                                         </div>
                                     </div>
                                 </div>
-                            </c:if>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Cart Page End -->
-
+                    </main>
+                    <!-- Content End -->
 
                     <jsp:include page="../layout/footer.jsp" />
-
-
-                    <!-- Back to Top -->
-                    <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
-                            class="fa fa-arrow-up"></i></a>
-
-
-                    <!-- JavaScript Libraries -->
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-                    <script src="/client/lib/easing/easing.min.js"></script>
-                    <script src="/client/lib/waypoints/waypoints.min.js"></script>
-                    <script src="/client/lib/lightbox/js/lightbox.min.js"></script>
-                    <script src="/client/lib/owlcarousel/owl.carousel.min.js"></script>
-
-                    <!-- Template Javascript -->
-                    <script src="/client/js/main.js"></script>
+                    <jsp:include page="../layout/foot.jsp" />
                 </body>
 
                 </html>

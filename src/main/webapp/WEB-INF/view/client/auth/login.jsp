@@ -1,103 +1,165 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
             <!DOCTYPE html>
             <html lang="en">
 
-            <head>
-                <meta charset="utf-8" />
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <meta name="description" content="" />
-                <meta name="author" content="" />
-                <title>Login - SB Admin</title>
-                <link href="/admin/css/styles.css" rel="stylesheet" />
-                <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-            </head>
+            <jsp:include page="../layout/head.jsp">
+                <jsp:param name="pageTitle" value="Đăng nhập" />
+            </jsp:include>
 
-            <body class="bg-primary">
-                <div id="layoutAuthentication">
-                    <div id="layoutAuthentication_content">
-                        <main>
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-5">
-                                        <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                            <div class="card-header">
-                                                <h3 class="text-center font-weight-light my-4">Đăng nhập</h3>
-                                            </div>
-                                            <div class="card-body">
-                                                <form method="post" action="/login">
-                                                    <c:if test="${param.error != null}">
-                                                        <div class="my-2" style="color: red;">Invalid email or password.
-                                                        </div>
-                                                    </c:if>
+            <body>
 
-                                                    <c:if test="${param.logout != null}">
-                                                        <div class="my-2" style="color: green;">Đăng xuất thành công.
-                                                        </div>
-                                                    </c:if>
+                <jsp:include page="../layout/header.jsp" />
 
-                                                    <div class="form-floating mb-3">
-                                                        <input class="form-control" type="email"
-                                                            placeholder="name@example.com" name="username" />
-                                                        <!-- value="bqsang.20it1@gmail.com" style="display: none;" -->
-                                                        <label for="inputEmail">Email address</label>
-                                                    </div>
-                                                    <div class="form-floating mb-3">
-                                                        <input class="form-control" type="password"
-                                                            placeholder="Password" name="password" />
-                                                        <label for="inputPassword">Password</label>
-                                                    </div>
-                                                    <div>
+                <!--  Content Start -->
+                <main class="site-main  main-container no-sidebar" style="margin-top: -4.5rem;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="main-content col-md-12">
+                                <div class="page-main-content">
+                                    <div class="kobolg">
+                                        <div class="kobolg-notices-wrapper"></div>
+                                        <div class="u-columns col1-set" id="customer_login">
+                                            <div class="u-column0 col-0">
+                                                <h2>Đăng nhập</h2>
+                                                <form class="kobolg-form kobolg-form-login login" method="post"
+                                                    action="/login">
+
+                                                    <p
+                                                        class="kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
+                                                        <label for="username">Địa chỉ email&nbsp;<span
+                                                                class="required">*</span></label>
+                                                        <input type="email"
+                                                            class="kobolg-Input kobolg-Input--text input-text"
+                                                            name="username" id="username" autocomplete="username"
+                                                            value="">
+                                                    </p>
+
+                                                    <p
+                                                        class="kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
+                                                        <label for="password">Mật khẩu&nbsp;<span
+                                                                class="required">*</span></label>
+                                                        <input class="kobolg-Input kobolg-Input--text input-text"
+                                                            type="password" name="password" id="password"
+                                                            autocomplete="current-password">
+                                                    </p>
+
+                                                    <p
+                                                        class="kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
+                                                        <c:if test="${param.error != null}">
+                                                            <div style="color: red;">Địa chỉ email hoặc mật
+                                                                khẩu không đúng.
+                                                            </div>
+                                                        </c:if>
+
+                                                        <c:if test="${param.logout != null}">
+                                                            <div style="color: green;">Đăng xuất thành công.
+                                                            </div>
+                                                        </c:if>
+                                                    </p>
+
+
+                                                    <!-- <p class="form-row">
                                                         <input type="hidden" name="${_csrf.parameterName}"
                                                             value="${_csrf.token}" />
-                                                    </div>
-                                                    <div class="mt-4 mb-0">
-                                                        <div class="d-grid">
-                                                            <button class="btn btn-primary btn-block">
-                                                                Đăng nhập
+                                                        <button type="submit" class="kobolg-Button button" name="login"
+                                                            value="Log in">Đăng nhập
+                                                        </button>
+                                                        <label class="kobolg-form__label kobolg-form__label-for-checkbox inline">
+                                                            <input class="kobolg-form__input kobolg-form__input-checkbox"
+                                                                   name="rememberme" type="checkbox" id="rememberme" value="forever">
+                                                            <span>Remember me</span>
+                                                        </label>
+                                                    </p> -->
+
+                                                    <div class="row kobolg-form kobolg-form-login login">
+                                                        <div
+                                                            class="col kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
+                                                            <input type="hidden" name="${_csrf.parameterName}"
+                                                                value="${_csrf.token}" />
+                                                            <button type="submit" class="kobolg-Button button"
+                                                                name="login" value="Log in">Đăng nhập
                                                             </button>
                                                         </div>
+                                                        <div
+                                                            class="col kobolg-form-row kobolg-form-row--wide form-row form-row-wide align-self-center">
+                                                            Chưa có tài khoản?&nbsp;<a href="/register">Đăng ký!</a>
+                                                        </div>
                                                     </div>
+
+                                                    <!-- <div class="row">
+                                                        <div
+                                                            class="col kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
+                                                            <a href="my-account.htmllost-password/">Quên mật
+                                                                khẩu?</a>
+                                                        </div>
+                                                        <div
+                                                            class="col kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
+                                                            Chưa có tài khoản?&nbsp;<a href="/register">Đăng ký!</a>
+                                                        </div>
+                                                    </div> -->
+
                                                 </form>
-                                                <div class="mt-4 mb-0">
-                                                    <div class="d-grid">
-                                                        <a href="/face-login" class="btn btn-primary btn-block">
-                                                            Xác nhận khuôn mặt
-                                                        </a>
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <hr>
+                                                    </div>
+                                                    <div class="col text-nowrap">
+                                                        Hoặc đăng nhập với
+                                                    </div>
+                                                    <div class="col">
+                                                        <hr>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div>
-                                                <div style="text-align: center"><span>Hoặc sử dụng</span></div>
-                                                <div class="d-flex justify-content-center align-items-center my-3"
-                                                    style="gap: 20px">
-                                                    <a href="/oauth2/authorization/google" title="Đăng nhập với Google">
-                                                        <img height="40" width="40"
-                                                            src="/client/img/provider/default-google.png" />
-                                                    </a>
-                                                    <a href="/oauth2/authorization/github" title="Đăng nhập với Github">
-                                                        <img height="40" width="40"
-                                                            src="/client/img/provider/default-github.png" />
-                                                    </a>
+                                                <br>
+                                                <div class="row kobolg-form kobolg-form-login login">
+                                                    <div
+                                                        class="col kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
+                                                        <button class="kobolg-Button button btn-block"
+                                                            onclick="document.location='/oauth2/authorization/google'">
+                                                            <span class="uicons-brands-google"></span>
+                                                            Google
+                                                        </button>
+                                                    </div>
+                                                    <div
+                                                        class="col kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
+                                                        <button class="kobolg-Button button btn-block"
+                                                            onclick="document.location='/oauth2/authorization/github'">
+                                                            <span class="uicons-brands-github"></span>
+                                                            Github
+                                                        </button>
+                                                    </div>
+                                                    <div
+                                                        class="col kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
+                                                        <button class="kobolg-Button button btn-block"
+                                                            onclick="document.location='/face-login'">
+                                                            Xác nhận khuôn mặt
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="card-footer text-center py-3">
-                                                <div class="small"><a href="/register">Chưa có tài khoản? Đăng
-                                                        ký!</a>
+
+                                                <div
+                                                    class="kobolg-form-row kobolg-form-row--wide form-row form-row-wide text-center">
+                                                    <a href="my-account.htmllost-password/">Quên mật
+                                                        khẩu?</a>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </main>
+                        </div>
                     </div>
-                </div>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-                    crossorigin="anonymous"></script>
-                <script src="/admin/js/scripts.js"></script>
+                </main>
+                <!-- Content End -->
+
+                <jsp:include page="../layout/footer.jsp" />
+                <jsp:include page="../layout/foot.jsp" />
+
             </body>
 
             </html>

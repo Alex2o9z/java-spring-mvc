@@ -20,8 +20,17 @@ public class RegisterValidator implements ConstraintValidator<RegisterChecked, R
     public boolean isValid(RegisterDTO user, ConstraintValidatorContext context) {
         boolean valid = true;
 
+        if (user.getPassword() != null && (user.getPassword().length() < 6 || user.getPassword().length() > 100)) {
+            context.buildConstraintViolationWithTemplate("Mật khẩu phải có từ 6 đến 100 ký tự")
+                    .addPropertyNode("password")
+                    .addConstraintViolation()
+                    .disableDefaultConstraintViolation();
+            valid = false;
+        }
+
         // Check if password fields match
-        if (!user.getPassword().equals(user.getConfirmPassword())) {
+        if (user.getConfirmPassword() != null && !user.getConfirmPassword().trim().isEmpty()
+                && !user.getPassword().equals(user.getConfirmPassword())) {
             context.buildConstraintViolationWithTemplate("Mật khẩu không trùng khớp")
                     .addPropertyNode("confirmPassword")
                     .addConstraintViolation()
@@ -31,7 +40,14 @@ public class RegisterValidator implements ConstraintValidator<RegisterChecked, R
 
         // Additional validations can be added here
         // check email
-        if (this.userService.checkEmailExist(user.getEmail())) {
+        if (user.getEmail() != null && !user.getEmail().trim().isEmpty()
+                && !user.getEmail().matches("[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}")) {
+            context.buildConstraintViolationWithTemplate("Email không hợp lệ")
+                    .addPropertyNode("email")
+                    .addConstraintViolation()
+                    .disableDefaultConstraintViolation();
+            valid = false;
+        } else if (this.userService.checkEmailExist(user.getEmail())) {
             context.buildConstraintViolationWithTemplate("Email đã tồn tại")
                     .addPropertyNode("email")
                     .addConstraintViolation()

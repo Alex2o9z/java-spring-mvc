@@ -1,23 +1,33 @@
 package vn.hoidanit.laptopshop.domain.dto;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import vn.hoidanit.laptopshop.service.validator.RegisterChecked;
 
 @RegisterChecked
 public class RegisterDTO {
 
-    @Size(min = 1, message = "Họ không được để trống")
+    @NotBlank(message = "Họ không được để trống")
+    @Size(max = 50, message = "Họ không được vượt quá 50 ký tự")
     private String firstName;
 
-    @Size(min = 1, message = "Tên không được để trống")
+    @NotBlank(message = "Tên không được để trống")
+    @Size(max = 50, message = "Tên không được vượt quá 50 ký tự")
     private String lastName;
 
-    @Email(message = "Email không được để trống", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+    @NotBlank(message = "Email không được để trống")
+    // @Email(message = "Email không hợp lệ", regexp =
+    // "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x06\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")
     private String email;
+
+    @NotBlank(message = "Mật khẩu không được để trống")
+    // @Size(min = 6, max = 100, message = "Mật khẩu phải có từ 6 đến 100 ký tự")
     private String password;
 
-    @Size(min = 5, message = "Mật khẩu phải có tối thiểu 5 ký tự")
+    @NotBlank(message = "Xác nhận mật khẩu không được để trống")
+    // @Size(min = 6, max = 100, message = "Xác nhận mật khẩu phải có từ 6 đến 100
+    // ký tự")
     private String confirmPassword;
 
     public String getFirstName() {
@@ -59,5 +69,4 @@ public class RegisterDTO {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
-
 }

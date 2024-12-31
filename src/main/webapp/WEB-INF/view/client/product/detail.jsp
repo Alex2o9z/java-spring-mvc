@@ -2,743 +2,1059 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
             <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
                 <!DOCTYPE html>
                 <html lang="en">
 
-                <head>
-                    <meta charset="utf-8">
-                    <title> ${product.name} - Laptopshop</title>
-                    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-                    <meta content="" name="keywords">
-                    <meta content="" name="description">
+                <jsp:include page="../layout/head.jsp">
+                    <jsp:param name="pageTitle" value="${product.name}" />
+                </jsp:include>
 
-                    <!-- Google Web Fonts -->
-                    <link rel="preconnect" href="https://fonts.googleapis.com">
-                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-                    <link
-                        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
-                        rel="stylesheet">
-
-                    <!-- Icon Font Stylesheet -->
-                    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
-                    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-                        rel="stylesheet">
-
-                    <!-- Libraries Stylesheet -->
-                    <link href="/client/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-                    <link href="/client/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-
-                    <!-- Customized Bootstrap Stylesheet -->
-                    <link href="/client/css/bootstrap.min.css" rel="stylesheet">
-
-                    <!-- Template Stylesheet -->
-                    <link href="/client/css/style.css" rel="stylesheet">
-
-                    <meta name="_csrf" content="${_csrf.token}" />
-                    <!-- default header name is X-CSRF-TOKEN -->
-                    <meta name="_csrf_header" content="${_csrf.headerName}" />
-
-
-                    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css"
-                        rel="stylesheet">
-                    <style>
-                        /* Hiệu ứng hover cho liên kết sản phẩm */
-                        .product-link {
-                            transition: all 0.3s ease-in-out;
-                        }
-
-                        .product-link:hover {
-                            transform: scale(1.05);
-                            /* Phóng to nhẹ khi hover */
-                            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
-                            /* Thêm bóng */
-                            text-decoration: none;
-                            /* Loại bỏ gạch chân */
-                        }
-
-                        /* Thay đổi màu chữ hoặc các thuộc tính con */
-                        .product-link:hover h6,
-                        .product-link:hover h5 {
-                            color: #10aa2a;
-                            /* Thay đổi màu chữ */
-                        }
-                    </style>
-                </head>
-
-                <body>
-
-                    <!-- Spinner Start -->
-                    <div id="spinner"
-                        class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
-                        <div class="spinner-grow text-primary" role="status"></div>
-                    </div>
-                    <!-- Spinner End -->
-
+                <body class="single single-product">
 
                     <jsp:include page="../layout/header.jsp" />
 
-                    <!-- Modal Search Start -->
-                    <!-- <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-fullscreen">
-                        <div class="modal-content rounded-0">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body d-flex align-items-center">
-                                <div class="input-group w-75 mx-auto d-flex">
-                                    <input type="search" class="form-control p-3" placeholder="keywords"
-                                        aria-describedby="search-icon-1">
-                                    <span id="search-icon-1" class="input-group-text p-3"><i
-                                            class="fa fa-search"></i></span>
-                                </div>
-                            </div>
+                    <!--  Content Start -->
+                    <div class="banner-wrapper no_background">
+                        <div class="banner-wrapper-inner">
+                            <nav class="kobolg-breadcrumb container"><a href="/">Trang chủ</a><i
+                                    class="fa fa-angle-right"></i><a href="/products">Sản phẩm</a>
+                                <i class="fa fa-angle-right"></i>${product.name}
+                            </nav>
                         </div>
                     </div>
-                </div> -->
-                    <!-- Modal Search End -->
 
+                    <div class="single-thumb-vertical main-container shop-page left-sidebar">
+                        <div class="container">
+                            <div class="row">
+                                <div class="main-content col-xl-9 col-lg-8 col-md-8 col-sm-12 has-sidebar">
+                                    <div class="kobolg-notices-wrapper"></div>
+                                    <div id="product-27"
+                                        class="post-27 product type-product status-publish has-post-thumbnail product_cat-table product_cat-new-arrivals product_cat-lamp product_tag-table product_tag-sock first instock shipping-taxable purchasable product-type-variable has-default-attributes">
+                                        <div class="main-contain-summary">
+                                            <div class="contain-left has-gallery">
+                                                <div class="single-left">
+                                                    <div
+                                                        class="kobolg-product-gallery kobolg-product-gallery--with-images kobolg-product-gallery--columns-4 images">
+                                                        <!-- <a href="#" class="kobolg-product-gallery__trigger">
+                                                            <img draggable="false" class="emoji" alt="🔍"
+                                                                src="https://s.w.org/images/core/emoji/11/svg/1f50d.svg"></a> -->
 
-                    <!-- Single Product Start -->
-                    <div class="container-fluid py-5 mt-5">
-                        <div class="container py-5">
-                            <div class="row g-4 mb-5">
-                                <div class="mb-3" style="margin-top: 5%;">
-                                    <nav aria-label="breadcrumb">
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Chi Tiết Sản Phẩm
-                                            </li>
-                                        </ol>
-                                    </nav>
-                                </div>
-                                <div class="col-lg-8 col-xl-9">
-                                    <div class="row g-4">
-                                        <div class="col-lg-6">
-                                            <div class="border rounded">
-                                                <a href="#">
-                                                    <img src="/admin/images/product/${product.image}"
-                                                        class="img-fluid rounded" alt="Image">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <h4 class="fw-bold mb-3">${product.name}</h4>
-                                            <p class="mb-3">${product.factory}</p>
-                                            <h5 class="fw-bold mb-3">
+                                                        <div class="flex-viewport">
+                                                            <figure class="kobolg-product-gallery__wrapper">
+                                                                <c:forEach var="productImage" items="${product.image}">
+                                                                    <div class="kobolg-product-gallery__image">
+                                                                        <img alt="img"
+                                                                            src="/admin/images/product/${productImage}">
+                                                                    </div>
+                                                                </c:forEach>
+                                                            </figure>
+                                                        </div>
 
-                                                <fmt:formatNumber type="number" value="${product.price}" /> đ
-                                            </h5>
-                                            <div class="d-flex mb-4">
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                            <p class="mb-4">${product.shortDesc}</p>
-                                            <div class="input-group quantity mb-5" style="width: 100px;">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                                        <i class="fa fa-minus"></i>
-                                                    </button>
+                                                        <ol class="flex-control-nav flex-control-thumbs">
+                                                            <c:forEach var="productImage" items="${product.image}">
+                                                                <li><img src="/admin/images/product/${productImage}"
+                                                                        alt="img">
+                                                                </li>
+                                                            </c:forEach>
+                                                        </ol>
+
+                                                    </div>
                                                 </div>
-                                                <input type="text"
-                                                    class="form-control form-control-sm text-center border-0" value="1"
-                                                    data-cart-detail-index="0">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                                        <i class="fa fa-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
+                                                <div class="summary entry-summary">
+                                                    <div class="flash">
+                                                        <span class="onnew"><span class="text">New</span></span>
+                                                    </div>
+                                                    <h1 class="product_title entry-title">${product.name}</h1>
+                                                    <p class="price">
+                                                        <fmt:formatNumber type="number" value="${product.price}" />
+                                                        <span class="kobolg-Price-currencySymbol"> đ</span>
+                                                    </p>
+                                                    <c:if test="${product.quantity > 0}">
+                                                        <p class="stock in-stock">
+                                                            Tình trạng: <span> Còn hàng </span>
+                                                        </p>
+                                                    </c:if>
+                                                    <c:if test="${product.quantity == 0}">
+                                                        <p class="stock out-stock">
+                                                            Tình trạng: <span> Hết hàng </span>
+                                                        </p>
+                                                    </c:if>
+                                                    <div class="kobolg-product-details__short-description">
+                                                        <p>${product.shortDesc}</p>
+                                                    </div>
+                                                    <form class="variations_form cart">
+                                                        <!-- <table class="variations">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="label"><label>Color</label></td>
+                                                                    <td class="value">
+                                                                        <select title="box_style"
+                                                                            data-attributetype="box_style"
+                                                                            data-id="pa_color" class="attribute-select "
+                                                                            name="attribute_pa_color"
+                                                                            data-attribute_name="attribute_pa_color"
+                                                                            data-show_option_none="yes">
+                                                                            <option data-type="" data-pa_color=""
+                                                                                value="">Choose an option
+                                                                            </option>
+                                                                            <option data-width="30" data-height="30"
+                                                                                data-type="color"
+                                                                                data-pa_color="#3155e2" value="blue"
+                                                                                class="attached enabled">Blue
+                                                                            </option>
+                                                                            <option data-width="30" data-height="30"
+                                                                                data-type="color"
+                                                                                data-pa_color="#ff63cb" value="pink"
+                                                                                class="attached enabled">Pink
+                                                                            </option>
+                                                                            <option data-width="30" data-height="30"
+                                                                                data-type="color"
+                                                                                data-pa_color="#db2b00" value="red"
+                                                                                class="attached enabled">Red
+                                                                            </option>
+                                                                            <option data-width="30" data-height="30"
+                                                                                data-type="color"
+                                                                                data-pa_color="#e8e120" value="yellow"
+                                                                                class="attached enabled">Yellow
+                                                                            </option>
+                                                                        </select>
+                                                                        <div class="data-val attribute-pa_color"
+                                                                            data-attributetype="box_style">
+                                                                            <a class="change-value color" href="#"
+                                                                                style="background: #3155e2;"
+                                                                                data-value="blue"></a><a
+                                                                                class="change-value color" href="#"
+                                                                                style="background: #ff63cb;"
+                                                                                data-value="pink"></a><a
+                                                                                class="change-value color" href="#"
+                                                                                style="background: #db2b00;"
+                                                                                data-value="red"></a><a
+                                                                                class="change-value color" href="#"
+                                                                                style="background: #e8e120;"
+                                                                                data-value="yellow"></a>
+                                                                        </div>
+                                                                        <a class="reset_variations" href="#"
+                                                                            style="visibility: hidden;">Clear</a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table> -->
 
-                                            <!-- <form action="/add-product-from-view-detail" method="post"
-                                                modelAttribute="product"> -->
-                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                            <input class="form-control d-none" type="text" value="${product.id}"
-                                                name="id" />
-
-                                            <input class="form-control d-none" type="text" name="quantity"
-                                                id="cartDetails0.quantity" value="1" />
-                                            <button data-product-id="${product.id}"
-                                                class="btnAddToCartDetail btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-                                                    class="fa fa-shopping-bag me-2 text-primary"></i>
-                                                Add to cart
-                                            </button>
-                                            <!-- </form> -->
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <nav>
-                                                <div class="nav nav-tabs mb-3">
-                                                    <button class="nav-link active border-white border-bottom-0"
-                                                        type="button" role="tab" id="nav-about-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#nav-about" aria-controls="nav-about"
-                                                        aria-selected="true">Description</button>
-                                                </div>
-                                            </nav>
-                                            <div class="tab-content mb-5">
-                                                <div class="tab-pane active" id="nav-about" role="tabpanel"
-                                                    aria-labelledby="nav-about-tab">
-                                                    <p>${product.detailDesc}</p>
-
-
-                                                    <!--table Chi tiết sản phẩm -->
-                                                    <!-- <div class="px-2">
-                                                    <div class="row g-4">
-                                                        <div class="col-6">
-                                                            <div
-                                                                class="row bg-light align-items-center text-center justify-content-center py-2">
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">Weight</p>
+                                                        <div class="single_variation_wrap">
+                                                            <div class="kobolg-variation single_variation"></div>
+                                                            <div class="kobolg-variation-add-to-cart variations_button">
+                                                                <div class="quantity">
+                                                                    <span class="qty-label">Số lượng:</span>
+                                                                    <div class="control">
+                                                                        <a class="btn-number qtyminus quantity-minus"
+                                                                            href="#">-</a>
+                                                                        <input type="text" data-step="1" min="0" max=""
+                                                                            name="quantity" value="1" title="Qty"
+                                                                            class="input-qty input-text qty text"
+                                                                            size="4" pattern="[0-9]*"
+                                                                            inputmode="numeric"
+                                                                            id="cartDetails0.quantity">
+                                                                        <a class="btn-number qtyplus quantity-plus"
+                                                                            href="#">+</a>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">1 kg</p>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                class="row text-center align-items-center justify-content-center py-2">
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">Country of Origin</p>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">Agro Farm</p>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                class="row bg-light text-center align-items-center justify-content-center py-2">
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">Quality</p>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">Organic</p>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                class="row text-center align-items-center justify-content-center py-2">
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">Сheck</p>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">Healthy</p>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                class="row bg-light text-center align-items-center justify-content-center py-2">
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">Min Weight</p>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">250 Kg</p>
-                                                                </div>
+                                                                <input type="hidden" name="${_csrf.parameterName}"
+                                                                    value="${_csrf.token}" />
+                                                                <input class="form-control d-none" type="text"
+                                                                    value="${product.id}" name="id" />
+                                                                <button type="submit" data-product-id="${product.id}"
+                                                                    class="btnAddToCartDetail single_add_to_cart_button button alt kobolg-variation-selection-needed">
+                                                                    Thêm giỏ hàng
+                                                                </button>
                                                             </div>
                                                         </div>
+                                                    </form>
+
+                                                    <!-- <div class="yith-wcwl-add-to-wishlist">
+                                                        <div class="yith-wcwl-add-button show">
+                                                            <a href="#" rel="nofollow" data-product-id="27"
+                                                                data-product-type="variable" class="add_to_wishlist">
+                                                                Add to Wishlist</a>
+                                                        </div>
                                                     </div>
-                                                </div> -->
+                                                    <div class="clear"></div>
+                                                    <a href="#" class="compare button" data-product_id="27"
+                                                        rel="nofollow">Compare</a> -->
+
+                                                    <div class="product_meta">
+
+                                                        <!-- <div class="wcml-dropdown product wcml_currency_switcher">
+                                                            <ul>
+                                                                <li class="wcml-cs-active-currency">
+                                                                    <a class="wcml-cs-item-toggle">USD</a>
+                                                                    <ul class="wcml-cs-submenu">
+                                                                        <li>
+                                                                            <a>EUR</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </div> -->
+
+                                                        <!-- <span class="sku_wrapper">SKU: <span
+                                                                class="sku">885B712</span></span> -->
+
+                                                        <span class="posted_in">
+                                                            Danh mục:
+                                                            <c:forEach var="productTarget" items="${product.target}">
+                                                                <a href="#" rel="tag">
+                                                                    <c:if test="${productTarget == 'GAMING'}">Gaming
+                                                                    </c:if>
+                                                                    <c:if
+                                                                        test="${productTarget == 'SINHVIEN-VANPHONG'}">
+                                                                        Sinh viên - văn phòng</c:if>
+                                                                    <c:if test="${productTarget == 'THIET-KE-DO-HOA'}">
+                                                                        Thiết kế đồ hoạ</c:if>
+                                                                    <c:if test="${productTarget == 'DOANH-NHAN'}">Doanh
+                                                                        nhân</c:if>
+                                                                    <c:if test="${productTarget == 'MONG-NHE'}">Mỏng nhẹ
+                                                                    </c:if>
+                                                                </a>
+                                                            </c:forEach>
+                                                        </span>
+
+                                                        <!-- <span class="tagged_as">Tags: <a href="#" rel="tag">Game &
+                                                                Consoles</a>, <a href="#" rel="tag">Sock</a></span> -->
+
+                                                    </div>
+                                                    <!-- <div class="kobolg-share-socials">
+                                                        <h5 class="social-heading">Share: </h5>
+                                                        <a target="_blank" class="facebook" href="#">
+                                                            <i class="fa fa-facebook-f"></i>
+                                                        </a>
+                                                        <a target="_blank" class="twitter" href="#"><i
+                                                                class="fa fa-twitter"></i>
+                                                        </a>
+                                                        <a target="_blank" class="pinterest" href="#"> <i
+                                                                class="fa fa-pinterest"></i>
+                                                        </a>
+                                                        <a target="_blank" class="googleplus" href="#"><i
+                                                                class="fa fa-google-plus"></i>
+                                                        </a>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="kobolg-tabs kobolg-tabs-wrapper">
+                                            <ul class="tabs dreaming-tabs" role="tablist">
+                                                <li class="description_tab active" id="tab-title-description" role="tab"
+                                                    aria-controls="tab-description">
+                                                    <a href="#tab-description">Mô tả</a>
+                                                </li>
+                                                <li class="additional_information_tab"
+                                                    id="tab-title-additional_information" role="tab"
+                                                    aria-controls="tab-additional_information">
+                                                    <a href="#tab-additional_information">Thông số kỹ thuật</a>
+                                                </li>
+                                                <li class="reviews_tab" id="tab-title-reviews" role="tab"
+                                                    aria-controls="tab-reviews">
+                                                    <a href="#tab-reviews">Đánh giá (0)</a>
+                                                </li>
+                                            </ul>
+                                            <div class="kobolg-Tabs-panel kobolg-Tabs-panel--description panel entry-content kobolg-tab"
+                                                id="tab-description" role="tabpanel"
+                                                aria-labelledby="tab-title-description">
+                                                <h2>Description</h2>
+                                                <div class="container-table">
+                                                    <div class="container-cell">
+                                                        <div class="az_single_image-wrapper az_box_border_grey">
+                                                            <img src="https://cdn.tgdd.vn/Products/Images/44/328235/Kit/asus-gaming-tuf-f15-fx507zc4-i5-hn330w-note.jpg"
+                                                                class="az_single_image-img attachment-full" alt="img">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="kobolg-Tabs-panel kobolg-Tabs-panel--additional_information panel entry-content kobolg-tab"
+                                                id="tab-additional_information" role="tabpanel"
+                                                aria-labelledby="tab-title-additional_information">
+                                                <h2>Additional information</h2>
+                                                <table class="shop_attributes">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>Model</th>
+                                                            <td>
+                                                                <p>ASUS TUF Gaming</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Vì xử lý</th>
+                                                            <td>
+                                                                <p>Intel Core i5-11400H</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Card đồ họa</th>
+                                                            <td>
+                                                                <p>NVIDIA GeForce RTX 3060</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>RAM</th>
+                                                            <td>
+                                                                <p>16GB DDR4</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Bộ nhớ trong</th>
+                                                            <td>
+                                                                <p>512GB SSD</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Màn hình</th>
+                                                            <td>
+                                                                <p>15.6 inch Full HD (1920x1080), 144Hz</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Thời gian sử dụng pin</th>
+                                                            <td>
+                                                                <p>Lên đến 8 giờ</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Hệ điều hành</th>
+                                                            <td>
+                                                                <p>Windows 11 Home</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
 
+                                            </div>
+                                            <div class="kobolg-Tabs-panel kobolg-Tabs-panel--reviews panel entry-content kobolg-tab"
+                                                id="tab-reviews" role="tabpanel" aria-labelledby="tab-title-reviews">
+                                                <div id="reviews" class="kobolg-Reviews">
+                                                    <div id="comments">
+                                                        <h2 class="kobolg-Reviews-title">Reviews</h2>
+                                                        <p class="kobolg-noreviews">There are no reviews yet.</p>
+                                                    </div>
+                                                    <div id="review_form_wrapper">
+                                                        <div id="review_form">
+                                                            <div id="respond" class="comment-respond">
+                                                                <span id="reply-title" class="comment-reply-title">Be
+                                                                    the first to review “T-shirt with skirt”</span>
+                                                                <form id="commentform" class="comment-form">
+                                                                    <p class="comment-notes"><span id="email-notes">Your
+                                                                            email addresses will not be
+                                                                            published.</span>
+                                                                        Required fields are marked <span
+                                                                            class="required">*</span></p>
+                                                                    <p class="comment-form-author">
+                                                                        <label for="author">Name&nbsp;<span
+                                                                                class="required">*</span></label>
+                                                                        <input id="author" name="author" value=""
+                                                                            size="30" required="" type="text">
+                                                                    </p>
+                                                                    <p class="comment-form-email"><label
+                                                                            for="email">Email&nbsp;
+                                                                            <span class="required">*</span></label>
+                                                                        <input id="email" name="email" value=""
+                                                                            size="30" required="" type="email">
+                                                                    </p>
+                                                                    <div class="comment-form-rating"><label
+                                                                            for="rating">Your rating</label>
+                                                                        <p class="stars">
+                                                                            <span>
+                                                                                <a class="star-1" href="#">1</a>
+                                                                                <a class="star-2" href="#">2</a>
+                                                                                <a class="star-3" href="#">3</a>
+                                                                                <a class="star-4" href="#">4</a>
+                                                                                <a class="star-5" href="#">5</a>
+                                                                            </span>
+                                                                        </p>
+                                                                        <select title="product_cat" name="rating"
+                                                                            id="rating" required=""
+                                                                            style="display: none;">
+                                                                            <option value="">Rate…</option>
+                                                                            <option value="5">Perfect</option>
+                                                                            <option value="4">Good</option>
+                                                                            <option value="3">Average</option>
+                                                                            <option value="2">Not that bad</option>
+                                                                            <option value="1">Very poor</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <p class="comment-form-comment"><label
+                                                                            for="comment">Your
+                                                                            review&nbsp;<span
+                                                                                class="required">*</span></label><textarea
+                                                                            id="comment" name="comment" cols="45"
+                                                                            rows="8" required=""></textarea></p><input
+                                                                        name="wpml_language_code" value="en"
+                                                                        type="hidden">
+                                                                    <p class="form-submit"><input name="submit"
+                                                                            id="submit" class="submit" value="Submit"
+                                                                            type="submit"> <input name="comment_post_ID"
+                                                                            value="27" id="comment_post_ID"
+                                                                            type="hidden">
+                                                                        <input name="comment_parent" id="comment_parent"
+                                                                            value="0" type="hidden">
+                                                                    </p>
+                                                                </form>
+                                                            </div><!-- #respond -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="clear"></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-xl-3">
-                                    <div class="row g-4 fruite">
-                                        <div class="col-lg-12">
-                                            <div class="input-group w-100 mx-auto d-flex mb-4">
-                                                <input type="search" class="form-control p-3" placeholder="keywords"
-                                                    aria-describedby="search-icon-1">
-                                                <span id="search-icon-1" class="input-group-text p-3"><i
-                                                        class="fa fa-search"></i></span>
-                                            </div>
-                                            <div class="mb-4">
-                                                <h4>Categories</h4>
-                                                <ul class="list-unstyled fruite-categorie">
-                                                    <li>
-                                                        <div class="d-flex justify-content-between fruite-name">
-                                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Apples</a>
-                                                            <span>(3)</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="d-flex justify-content-between fruite-name">
-                                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Oranges</a>
-                                                            <span>(5)</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="d-flex justify-content-between fruite-name">
-                                                            <a href="#"><i
-                                                                    class="fas fa-apple-alt me-2"></i>Strawbery</a>
-                                                            <span>(2)</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="d-flex justify-content-between fruite-name">
-                                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Banana</a>
-                                                            <span>(8)</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="d-flex justify-content-between fruite-name">
-                                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Pumpkin</a>
-                                                            <span>(5)</span>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                <div class="sidebar col-xl-3 col-lg-4 col-md-4 col-sm-12">
+                                    <div id="widget-area" class="widget-area shop-sidebar">
+
+                                        <div id="kobolg_products-2" class="widget kobolg widget_products">
+                                            <h2 class="widgettitle">Sản phẩm dành cho bạn<span class="arrow"></span>
+                                            </h2>
+                                            <ul id="product-list" class="product_list_widget">
+
+                                            </ul>
                                         </div>
 
-                                        ${user.type_views_1}
-                                        ${user.type_views_2}
-                                        ${user.type_views_3}
-                                        ${user.type_views_4}
-                                        <div class="col-lg-12">
-                                            <h4 class="mb-4">Gợi ý</h4>
-
-                                            <div id="product-list" class="d-flex flex-column">
-                                                <!-- Sản phẩm sẽ được thêm động vào đây -->
-                                            </div>
+                                        <div id="kobolg_product_categories-2"
+                                            class="widget kobolg widget_product_categories">
+                                            <h2 class="widgettitle">Danh mục sản phẩm<span class="arrow"></span></h2>
+                                            <ul class="product-categories">
+                                                <li
+                                                    class="cat-item cat-item-GAMING ${product.target == 'GAMING'? 'current-cat' : ''}">
+                                                    <a href="#">Gaming</a>
+                                                </li>
+                                                <li
+                                                    class="cat-item cat-item-SINHVIEN-VANPHONG ${product.target == 'SINHVIEN-VANPHONG'? 'current-cat' : ''}">
+                                                    <a href="#">Sinh viên - văn phòng</a>
+                                                </li>
+                                                <li
+                                                    class="cat-item cat-item-THIET-KE-DO-HOA ${product.target == 'THIET-KE-DO-HOA'? 'current-cat' : ''}">
+                                                    <a href="#">Thiết kế đồ hoạ</a>
+                                                </li>
+                                                <li
+                                                    class="cat-item cat-item-DOANH-NHAN ${product.target == 'DOANH-NHAN'? 'current-cat' : ''}">
+                                                    <a href="#">Doanh nhân</a>
+                                                </li>
+                                                <li
+                                                    class="cat-item cat-item-MONG-NHE ${product.target == 'MONG-NHE'? 'current-cat' : ''}">
+                                                    <a href="#">Mỏng nhẹ</a>
+                                                </li>
+                                                </li>
+                                            </ul>
                                         </div>
-
-                                        <div class="col-lg-12">
-                                            <h4 class="mb-4">Featured products</h4>
-                                            <div class="d-flex align-items-center justify-content-start">
-                                                <div class="rounded" style="width: 100px; height: 100px;">
-                                                    <img src="/client/img/featur-1.jpg" class="img-fluid rounded"
-                                                        alt="Image">
-                                                </div>
-                                                <div>
-                                                    <h6 class="mb-2">Big Banana</h6>
-                                                    <div class="d-flex mb-2">
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star"></i>
-                                                    </div>
-                                                    <div class="d-flex mb-2">
-                                                        <h5 class="fw-bold me-2">2.99 $</h5>
-                                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-start">
-                                                <div class="rounded" style="width: 100px; height: 100px;">
-                                                    <img src="/client/img/featur-2.jpg" class="img-fluid rounded"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <h6 class="mb-2">Big Banana</h6>
-                                                    <div class="d-flex mb-2">
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star"></i>
-                                                    </div>
-                                                    <div class="d-flex mb-2">
-                                                        <h5 class="fw-bold me-2">2.99 $</h5>
-                                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
+                                    </div><!-- .widget-area -->
+                                </div>
+                                <div class="col-md-12 col-sm-12 dreaming_related-product">
+                                    <div class="block-title">
+                                        <h2 class="product-grid-title">
+                                            <span>Related Products</span>
+                                        </h2>
+                                    </div>
+                                    <div class="owl-slick owl-products equal-container better-height"
+                                        data-slick="{&quot;arrows&quot;:false,&quot;slidesMargin&quot;:30,&quot;dots&quot;:true,&quot;infinite&quot;:false,&quot;slidesToShow&quot;:4}"
+                                        data-responsive="[{&quot;breakpoint&quot;:480,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesMargin&quot;:&quot;10&quot;}},{&quot;breakpoint&quot;:768,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesMargin&quot;:&quot;10&quot;}},{&quot;breakpoint&quot;:992,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesMargin&quot;:&quot;20&quot;}},{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesMargin&quot;:&quot;20&quot;}},{&quot;breakpoint&quot;:1500,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesMargin&quot;:&quot;30&quot;}}]">
+                                        <div
+                                            class="product-item style-01 post-27 product type-product status-publish has-post-thumbnail product_cat-table product_cat-new-arrivals product_cat-lamp product_tag-table product_tag-sock  instock shipping-taxable purchasable product-type-variable has-default-attributes ">
+                                            <div class="product-inner tooltip-left">
+                                                <div class="product-thumb">
+                                                    <a class="thumb-link" href="#" tabindex="0">
+                                                        <img class="img-responsive"
+                                                            src="/client/images/apro101-1-600x778.jpg" alt="Mac 27 Inch"
+                                                            width="600" height="778">
+                                                    </a>
+                                                    <div class="flash"><span class="onnew"><span
+                                                                class="text">New</span></span></div>
+                                                    <div class="group-button">
+                                                        <div class="yith-wcwl-add-to-wishlist">
+                                                            <div class="yith-wcwl-add-button show">
+                                                                <a href="#" class="add_to_wishlist">Add to Wishlist</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="kobolg product compare-button">
+                                                            <a href="#" class="compare button">Compare</a>
+                                                        </div>
+                                                        <a href="#" class="button yith-wcqv-button">Quick View</a>
+                                                        <div class="add-to-cart">
+                                                            <a href="#"
+                                                                class="button product_type_variable add_to_cart_button">Add
+                                                                to
+                                                                cart</a>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-start">
-                                                <div class="rounded" style="width: 100px; height: 100px;">
-                                                    <img src="/client/img/featur-3.jpg" class="img-fluid rounded"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <h6 class="mb-2">Big Banana</h6>
-                                                    <div class="d-flex mb-2">
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star"></i>
-                                                    </div>
-                                                    <div class="d-flex mb-2">
-                                                        <h5 class="fw-bold me-2">2.99 $</h5>
-                                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-start">
-                                                <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                                    <img src="/client/img/vegetable-item-4.jpg"
-                                                        class="img-fluid rounded" alt="">
-                                                </div>
-                                                <div>
-                                                    <h6 class="mb-2">Big Banana</h6>
-                                                    <div class="d-flex mb-2">
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star"></i>
-                                                    </div>
-                                                    <div class="d-flex mb-2">
-                                                        <h5 class="fw-bold me-2">2.99 $</h5>
-                                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-start">
-                                                <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                                    <img src="/client/img/vegetable-item-5.jpg"
-                                                        class="img-fluid rounded" alt="">
-                                                </div>
-                                                <div>
-                                                    <h6 class="mb-2">Big Banana</h6>
-                                                    <div class="d-flex mb-2">
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star"></i>
-                                                    </div>
-                                                    <div class="d-flex mb-2">
-                                                        <h5 class="fw-bold me-2">2.99 $</h5>
-                                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-start">
-                                                <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                                    <img src="/client/img/vegetable-item-6.jpg"
-                                                        class="img-fluid rounded" alt="">
-                                                </div>
-                                                <div>
-                                                    <h6 class="mb-2">Big Banana</h6>
-                                                    <div class="d-flex mb-2">
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star text-secondary"></i>
-                                                        <i class="fa fa-star"></i>
-                                                    </div>
-                                                    <div class="d-flex mb-2">
-                                                        <h5 class="fw-bold me-2">2.99 $</h5>
-                                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-center my-4">
-                                                <a href="#"
-                                                    class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew
-                                                    More</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="position-relative">
-                                                <img src="/client/img/banner-fruits.jpg" class="img-fluid w-100 rounded"
-                                                    alt="">
-                                                <div class="position-absolute"
-                                                    style="top: 50%; right: 10px; transform: translateY(-50%);">
-                                                    <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner
+                                                <div class="product-info equal-elem">
+                                                    <h3 class="product-name product_title">
+                                                        <a href="#" tabindex="0">Mac 27 Inch</a>
                                                     </h3>
+                                                    <div class="rating-wapper nostar">
+                                                        <div class="star-rating"><span style="width:0%">Rated <strong
+                                                                    class="rating">0</strong> out of 5</span></div>
+                                                        <span class="review">(0)</span>
+                                                    </div>
+                                                    <span class="price"><span class="kobolg-Price-amount amount"><span
+                                                                class="kobolg-Price-currencySymbol">$</span>60.00</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="product-item style-01 post-30 product type-product status-publish has-post-thumbnail product_cat-light product_cat-bed product_cat-specials product_tag-light product_tag-table product_tag-sock last instock featured downloadable shipping-taxable purchasable product-type-simple  ">
+                                            <div class="product-inner tooltip-left">
+                                                <div class="product-thumb">
+                                                    <a class="thumb-link" href="#" tabindex="0">
+                                                        <img class="img-responsive"
+                                                            src="/client/images/apro41-1-600x778.jpg"
+                                                            alt="White Watches" width="600" height="778">
+                                                    </a>
+                                                    <div class="flash">
+                                                        <span class="onnew"><span class="text">New</span></span>
+                                                    </div>
+                                                    <div class="group-button">
+                                                        <div class="yith-wcwl-add-to-wishlist">
+                                                            <div class="yith-wcwl-add-button show">
+                                                                <a href="#" class="add_to_wishlist">Add to Wishlist</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="kobolg product compare-button">
+                                                            <a href="#" class="compare button">Compare</a>
+                                                        </div>
+                                                        <a href="#" class="button yith-wcqv-button">Quick View</a>
+                                                        <div class="add-to-cart">
+                                                            <a href="#"
+                                                                class="button product_type_variable add_to_cart_button">Add
+                                                                to
+                                                                cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="product-info equal-elem">
+                                                    <h3 class="product-name product_title">
+                                                        <a href="#" tabindex="0">White Watches</a>
+                                                    </h3>
+                                                    <div class="rating-wapper nostar">
+                                                        <div class="star-rating"><span style="width:0%">Rated <strong
+                                                                    class="rating">0</strong> out of 5</span></div>
+                                                        <span class="review">(0)</span>
+                                                    </div>
+                                                    <span class="price"><span class="kobolg-Price-amount amount"><span
+                                                                class="kobolg-Price-currencySymbol">$</span>134.00</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="product-item style-01 post-35 product type-product status-publish has-post-thumbnail product_cat-chair product_cat-new-arrivals product_cat-lamp product_tag-light product_tag-hat product_tag-sock first instock shipping-taxable purchasable product-type-simple  ">
+                                            <div class="product-inner tooltip-left">
+                                                <div class="product-thumb">
+                                                    <a class="thumb-link" href="#" tabindex="0">
+                                                        <img class="img-responsive"
+                                                            src="/client/images/apro151-1-600x778.jpg"
+                                                            alt="Cellphone Factory" width="600" height="778">
+                                                    </a>
+                                                    <div class="flash">
+                                                        <span class="onsale"><span class="number">-11%</span></span>
+                                                        <span class="onnew"><span class="text">New</span></span>
+                                                    </div>
+                                                    <div class="group-button">
+                                                        <div class="yith-wcwl-add-to-wishlist">
+                                                            <div class="yith-wcwl-add-button show">
+                                                                <a href="#" class="add_to_wishlist">Add to Wishlist</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="kobolg product compare-button">
+                                                            <a href="#" class="compare button">Compare</a>
+                                                        </div>
+                                                        <a href="#" class="button yith-wcqv-button">Quick View</a>
+                                                        <div class="add-to-cart">
+                                                            <a href="#"
+                                                                class="button product_type_variable add_to_cart_button">Add
+                                                                to
+                                                                cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="product-info equal-elem">
+                                                    <h3 class="product-name product_title">
+                                                        <a href="#" tabindex="0">Cellphone Factory</a>
+                                                    </h3>
+                                                    <div class="rating-wapper nostar">
+                                                        <div class="star-rating"><span style="width:0%">Rated <strong
+                                                                    class="rating">0</strong> out of 5</span></div>
+                                                        <span class="review">(0)</span>
+                                                    </div>
+                                                    <span class="price"><del><span
+                                                                class="kobolg-Price-amount amount"><span
+                                                                    class="kobolg-Price-currencySymbol">$</span>89.00</span></del>
+                                                        <ins><span class="kobolg-Price-amount amount"><span
+                                                                    class="kobolg-Price-currencySymbol">$</span>79.00</span></ins></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="product-item style-01 post-25 product type-product status-publish has-post-thumbnail product_cat-light product_cat-chair product_cat-specials product_tag-light product_tag-sock  instock sale featured shipping-taxable purchasable product-type-simple ">
+                                            <div class="product-inner tooltip-left">
+                                                <div class="product-thumb">
+                                                    <a class="thumb-link" href="#" tabindex="-1">
+                                                        <img class="img-responsive"
+                                                            src="/client/images/apro13-1-600x778.jpg"
+                                                            alt="Meta Watches                                                "
+                                                            width="600" height="778">
+                                                    </a>
+                                                    <div class="flash">
+                                                        <span class="onnew"><span class="text">New</span></span>
+                                                    </div>
+                                                    <div class="group-button">
+                                                        <div class="yith-wcwl-add-to-wishlist">
+                                                            <div class="yith-wcwl-add-button show">
+                                                                <a href="#" class="add_to_wishlist">Add to Wishlist</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="kobolg product compare-button">
+                                                            <a href="#" class="compare button">Compare</a>
+                                                        </div>
+                                                        <a href="#" class="button yith-wcqv-button">Quick View</a>
+                                                        <div class="add-to-cart">
+                                                            <a href="#"
+                                                                class="button product_type_variable add_to_cart_button">Add
+                                                                to
+                                                                cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="product-info equal-elem">
+                                                    <h3 class="product-name product_title">
+                                                        <a href="#" tabindex="-1">Meta Watches </a>
+                                                    </h3>
+                                                    <div class="rating-wapper nostar">
+                                                        <div class="star-rating"><span style="width:0%">Rated <strong
+                                                                    class="rating">0</strong> out of 5</span></div>
+                                                        <span class="review">(0)</span>
+                                                    </div>
+                                                    <span class="price"><span class="kobolg-Price-amount amount"><span
+                                                                class="kobolg-Price-currencySymbol">$</span>109.00</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="product-item style-01 post-93 product type-product status-publish has-post-thumbnail product_cat-light product_cat-table product_cat-new-arrivals product_tag-table product_tag-sock last instock shipping-taxable purchasable product-type-simple ">
+                                            <div class="product-inner tooltip-left">
+                                                <div class="product-thumb">
+                                                    <a class="thumb-link" href="#" tabindex="-1">
+                                                        <img class="img-responsive"
+                                                            src="/client/images/apro181-2-600x778.jpg" alt="Red Mouse"
+                                                            width="600" height="778">
+                                                    </a>
+                                                    <div class="flash">
+                                                        <span class="onnew"><span class="text">New</span></span>
+                                                    </div>
+                                                    <div class="group-button">
+                                                        <div class="yith-wcwl-add-to-wishlist">
+                                                            <div class="yith-wcwl-add-button show">
+                                                                <a href="#" class="add_to_wishlist">Add to Wishlist</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="kobolg product compare-button">
+                                                            <a href="#" class="compare button">Compare</a>
+                                                        </div>
+                                                        <a href="#" class="button yith-wcqv-button">Quick View</a>
+                                                        <div class="add-to-cart">
+                                                            <a href="#"
+                                                                class="button product_type_variable add_to_cart_button">Add
+                                                                to
+                                                                cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="product-info equal-elem">
+                                                    <h3 class="product-name product_title">
+                                                        <a href="#" tabindex="-1">City
+                                                            life jumpers</a>
+                                                    </h3>
+                                                    <div class="rating-wapper nostar">
+                                                        <div class="star-rating"><span style="width:0%">Rated <strong
+                                                                    class="rating">0</strong> out of 5</span></div>
+                                                        <span class="review">(0)</span>
+                                                    </div>
+                                                    <span class="price"><span class="kobolg-Price-amount amount"><span
+                                                                class="kobolg-Price-currencySymbol">$</span>98.00</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="product-item style-01 post-22 product type-product status-publish has-post-thumbnail product_cat-table product_cat-bed product_cat-lamp product_tag-table product_tag-hat product_tag-sock first instock featured downloadable shipping-taxable purchasable product-type-simple ">
+                                            <div class="product-inner tooltip-left">
+                                                <div class="product-thumb">
+                                                    <a class="thumb-link" href="#" tabindex="-1">
+                                                        <img class="img-responsive"
+                                                            src="/client/images/apro171-1-600x778.jpg"
+                                                            alt="Photo Camera" width="600" height="778">
+                                                    </a>
+                                                    <div class="flash">
+                                                        <span class="onnew"><span class="text">New</span></span>
+                                                    </div>
+                                                    <form class="variations_form cart">
+                                                        <table class="variations">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="value">
+                                                                        <select title="box_style"
+                                                                            data-attributetype="box_style"
+                                                                            data-id="pa_color" class="attribute-select "
+                                                                            name="attribute_pa_color"
+                                                                            data-attribute_name="attribute_pa_color"
+                                                                            data-show_option_none="yes" tabindex="-1">
+                                                                            <option data-type="" data-pa_color=""
+                                                                                value="">Choose an
+                                                                                option
+                                                                            </option>
+                                                                            <option data-width="30" data-height="30"
+                                                                                data-type="color"
+                                                                                data-pa_color="#ff63cb" value="pink"
+                                                                                class="attached enabled">Pink
+                                                                            </option>
+                                                                            <option data-width="30" data-height="30"
+                                                                                data-type="color"
+                                                                                data-pa_color="#a825ea" value="purple"
+                                                                                class="attached enabled">Purple
+                                                                            </option>
+                                                                            <option data-width="30" data-height="30"
+                                                                                data-type="color"
+                                                                                data-pa_color="#db2b00" value="red"
+                                                                                class="attached enabled">Red
+                                                                            </option>
+                                                                        </select>
+                                                                        <div class="data-val attribute-pa_color"
+                                                                            data-attributetype="box_style"><a
+                                                                                class="change-value color" href="#"
+                                                                                style="background: #ff63cb;"
+                                                                                data-value="pink"></a><a
+                                                                                class="change-value color" href="#"
+                                                                                style="background: #a825ea;"
+                                                                                data-value="purple"></a><a
+                                                                                class="change-value color" href="#"
+                                                                                style="background: #db2b00;"
+                                                                                data-value="red"></a></div>
+                                                                        <a class="reset_variations" href="#"
+                                                                            tabindex="-1"
+                                                                            style="visibility: hidden;">Clear</a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </form>
+                                                    <div class="group-button">
+                                                        <div class="yith-wcwl-add-to-wishlist">
+                                                            <div class="yith-wcwl-add-button show">
+                                                                <a href="#" class="add_to_wishlist">Add to Wishlist</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="kobolg product compare-button">
+                                                            <a href="#" class="compare button">Compare</a>
+                                                        </div>
+                                                        <a href="#" class="button yith-wcqv-button">Quick View</a>
+                                                        <div class="add-to-cart">
+                                                            <a href="#"
+                                                                class="button product_type_variable add_to_cart_button">Select
+                                                                options</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="product-info equal-elem">
+                                                    <h3 class="product-name product_title">
+                                                        <a href="#" tabindex="-1">Photo Camera</a>
+                                                    </h3>
+                                                    <div class="rating-wapper nostar">
+                                                        <div class="star-rating"><span style="width:0%">Rated <strong
+                                                                    class="rating">0</strong> out of 5</span></div>
+                                                        <span class="review">(0)</span>
+                                                    </div>
+                                                    <span class="price"><span class="kobolg-Price-amount amount"><span
+                                                                class="kobolg-Price-currencySymbol">$</span>105.00</span>
+                                                        – <span class="kobolg-Price-amount amount"><span
+                                                                class="kobolg-Price-currencySymbol">$</span>110.00</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 kobolg_dreaming_upsell-product">
+                                    <div class="block-title">
+                                        <h2 class="product-grid-title">
+                                            <span>Upsell Products</span>
+                                        </h2>
+                                    </div>
+                                    <div class="owl-slick owl-products equal-container better-height"
+                                        data-slick="{&quot;arrows&quot;:false,&quot;slidesMargin&quot;:30,&quot;dots&quot;:true,&quot;infinite&quot;:false,&quot;slidesToShow&quot;:4}"
+                                        data-responsive="[{&quot;breakpoint&quot;:480,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesMargin&quot;:&quot;10&quot;}},{&quot;breakpoint&quot;:768,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesMargin&quot;:&quot;10&quot;}},{&quot;breakpoint&quot;:992,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesMargin&quot;:&quot;20&quot;}},{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesMargin&quot;:&quot;20&quot;}},{&quot;breakpoint&quot;:1500,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesMargin&quot;:&quot;30&quot;}}]">
+                                        <div
+                                            class="product-item style-01 post-27 product type-product status-publish has-post-thumbnail product_cat-table product_cat-new-arrivals product_cat-lamp product_tag-table product_tag-sock  instock shipping-taxable purchasable product-type-variable has-default-attributes ">
+                                            <div class="product-inner tooltip-left">
+                                                <div class="product-thumb">
+                                                    <a class="thumb-link" href="#" tabindex="0">
+                                                        <img class="img-responsive"
+                                                            src="/client/images/apro141-1-600x778.jpg"
+                                                            alt="Smart Monitor" width="600" height="778">
+                                                    </a>
+                                                    <div class="flash">
+                                                        <span class="onnew"><span class="text">New</span></span>
+                                                    </div>
+                                                    <div class="group-button">
+                                                        <div class="yith-wcwl-add-to-wishlist">
+                                                            <div class="yith-wcwl-add-button show">
+                                                                <a href="#" class="add_to_wishlist">Add to Wishlist</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="kobolg product compare-button">
+                                                            <a href="#" class="compare button">Compare</a>
+                                                        </div>
+                                                        <a href="#" class="button yith-wcqv-button">Quick View</a>
+                                                        <div class="add-to-cart">
+                                                            <a href="#"
+                                                                class="button product_type_external add_to_cart_button">Buy
+                                                                it on Amazon</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="product-info equal-elem">
+                                                    <h3 class="product-name product_title">
+                                                        <a href="#" tabindex="0">Dining Accessories</a>
+                                                    </h3>
+                                                    <div class="rating-wapper ">
+                                                        <div class="star-rating"><span style="width:100%">Rated <strong
+                                                                    class="rating">5.00</strong> out of 5</span></div>
+                                                        <span class="review">(1)</span>
+                                                    </div>
+                                                    <span class="price"><span class="kobolg-Price-amount amount"><span
+                                                                class="kobolg-Price-currencySymbol">$</span>207.00</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="product-item style-01 post-26 product type-product status-publish has-post-thumbnail product_cat-light product_cat-chair product_cat-sofas product_tag-light product_tag-hat last instock featured shipping-taxable product-type-external  ">
+                                            <div class="product-inner tooltip-left">
+                                                <div class="product-thumb">
+                                                    <a class="thumb-link" href="#" tabindex="0">
+                                                        <img class="img-responsive"
+                                                            src="/client/images/apro31-1-600x778.jpg"
+                                                            alt="Blue Smartphone" width="600" height="778">
+                                                    </a>
+                                                    <div class="flash">
+                                                        <span class="onnew"><span class="text">New</span></span>
+                                                    </div>
+                                                    <div class="group-button">
+                                                        <div class="yith-wcwl-add-to-wishlist">
+                                                            <div class="yith-wcwl-add-button show">
+                                                                <a href="#" class="add_to_wishlist">Add to Wishlist</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="kobolg product compare-button">
+                                                            <a href="#" class="compare button">Compare</a>
+                                                        </div>
+                                                        <a href="#" class="button yith-wcqv-button">Quick View</a>
+                                                        <div class="add-to-cart">
+                                                            <a href="#"
+                                                                class="button product_type_simple add_to_cart_button">Add
+                                                                to
+                                                                cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="product-info equal-elem">
+                                                    <h3 class="product-name product_title">
+                                                        <a href="#" tabindex="0">Blue Smartphone</a>
+                                                    </h3>
+                                                    <div class="rating-wapper nostar">
+                                                        <div class="star-rating"><span style="width:0%">Rated <strong
+                                                                    class="rating">0</strong> out of 5</span></div>
+                                                        <span class="review">(0)</span>
+                                                    </div>
+                                                    <span class="price"><span class="kobolg-Price-amount amount"><span
+                                                                class="kobolg-Price-currencySymbol">$</span>120.00</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="product-item style-01 post-37 product type-product status-publish has-post-thumbnail product_cat-chair product_cat-bed product_tag-light product_tag-hat product_tag-sock first instock shipping-taxable purchasable product-type-simple  ">
+                                            <div class="product-inner tooltip-left">
+                                                <div class="product-thumb">
+                                                    <a class="thumb-link kobolg-product-gallery__image" href="#"
+                                                        tabindex="0">
+                                                        <img class="img-responsive wp-post-image"
+                                                            src="/client/images/apro83-1-600x778.jpg"
+                                                            alt="Glasses – Red" width="600" height="778">
+                                                    </a>
+                                                    <div class="flash">
+                                                        <span class="onnew"><span class="text">New</span></span>
+                                                    </div>
+                                                    <div class="group-button">
+                                                        <div class="yith-wcwl-add-to-wishlist">
+                                                            <div class="yith-wcwl-add-button show">
+                                                                <a href="#" class="add_to_wishlist">Add to Wishlist</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="kobolg product compare-button">
+                                                            <a href="#" class="compare button">Compare</a>
+                                                        </div>
+                                                        <a href="#" class="button yith-wcqv-button">Quick View</a>
+                                                        <div class="add-to-cart">
+                                                            <a href="#"
+                                                                class="button product_type_simple add_to_cart_button">Add
+                                                                to
+                                                                cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="product-info equal-elem">
+                                                    <h3 class="product-name product_title">
+                                                        <a href="#" tabindex="0">Glasses – Red</a>
+                                                    </h3>
+                                                    <div class="rating-wapper nostar">
+                                                        <div class="star-rating"><span style="width:0%">Rated <strong
+                                                                    class="rating">0</strong> out of 5</span></div>
+                                                        <span class="review">(0)</span>
+                                                    </div>
+                                                    <span class="price"><span class="kobolg-Price-amount amount"><span
+                                                                class="kobolg-Price-currencySymbol">$</span>56.00</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="product-item style-01 post-1194 product_variation type-product_variation status-publish has-post-thumbnail product  instock shipping-taxable purchasable product-type-variation ">
+                                            <div class="product-inner tooltip-left">
+                                                <div class="product-thumb">
+                                                    <a class="thumb-link" href="#" tabindex="-1">
+                                                        <img class="img-responsive"
+                                                            src="/client/images/apro302-600x778.jpg"
+                                                            alt="Circle Watches" width="600" height="778">
+                                                    </a>
+                                                    <div class="flash">
+                                                        <span class="onnew"><span class="text">New</span></span>
+                                                    </div>
+                                                    <div class="group-button">
+                                                        <div class="yith-wcwl-add-to-wishlist">
+                                                            <div class="yith-wcwl-add-button show">
+                                                                <a href="#" class="add_to_wishlist">Add to Wishlist</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="kobolg product compare-button">
+                                                            <a href="#" class="compare button">Compare</a>
+                                                        </div>
+                                                        <a href="#" class="button yith-wcqv-button">Quick View</a>
+                                                        <div class="add-to-cart">
+                                                            <a href="#"
+                                                                class="button product_type_simple add_to_cart_button">Add
+                                                                to
+                                                                cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="product-info equal-elem">
+                                                    <h3 class="product-name product_title">
+                                                        <a href="#" tabindex="-1">Circle Watches</a>
+                                                    </h3>
+                                                    <div class="rating-wapper nostar">
+                                                        <div class="star-rating"><span style="width:0%">Rated <strong
+                                                                    class="rating">0</strong> out of 5</span></div>
+                                                        <span class="review">(0)</span>
+                                                    </div>
+                                                    <span class="price"><span class="kobolg-Price-amount amount"><span
+                                                                class="kobolg-Price-currencySymbol">$</span>79.00</span></span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- <h1 class="fw-bold mb-0">Related products</h1> -->
-                            <!-- <div class="vesitable">
-                                <div class="owl-carousel vegetable-carousel justify-content-center">
-                                    <div class="border border-primary rounded position-relative vesitable-item">
-                                        <div class="vesitable-img">
-                                            <img src="/client/img/vegetable-item-6.jpg"
-                                                class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                                            style="top: 10px; right: 10px;">Vegetable</div>
-                                        <div class="p-4 pb-0 rounded-bottom">
-                                            <h4>Parsely</h4>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te
-                                                incididunt</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold">$4.99 / kg</p>
-                                                <a href="#"
-                                                    class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                    cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="border border-primary rounded position-relative vesitable-item">
-                                        <div class="vesitable-img">
-                                            <img src="/client/img/vegetable-item-1.jpg"
-                                                class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                                            style="top: 10px; right: 10px;">Vegetable</div>
-                                        <div class="p-4 pb-0 rounded-bottom">
-                                            <h4>Parsely</h4>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te
-                                                incididunt</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold">$4.99 / kg</p>
-                                                <a href="#"
-                                                    class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                    cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="border border-primary rounded position-relative vesitable-item">
-                                        <div class="vesitable-img">
-                                            <img src="/client/img/vegetable-item-3.png"
-                                                class="img-fluid w-100 rounded-top bg-light" alt="">
-                                        </div>
-                                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                                            style="top: 10px; right: 10px;">Vegetable</div>
-                                        <div class="p-4 pb-0 rounded-bottom">
-                                            <h4>Banana</h4>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te
-                                                incididunt</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                                                <a href="#"
-                                                    class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                    cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="border border-primary rounded position-relative vesitable-item">
-                                        <div class="vesitable-img">
-                                            <img src="/client/img/vegetable-item-4.jpg"
-                                                class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                                            style="top: 10px; right: 10px;">Vegetable</div>
-                                        <div class="p-4 pb-0 rounded-bottom">
-                                            <h4>Bell Papper</h4>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te
-                                                incididunt</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                                                <a href="#"
-                                                    class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                    cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="border border-primary rounded position-relative vesitable-item">
-                                        <div class="vesitable-img">
-                                            <img src="/client/img/vegetable-item-5.jpg"
-                                                class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                                            style="top: 10px; right: 10px;">Vegetable</div>
-                                        <div class="p-4 pb-0 rounded-bottom">
-                                            <h4>Potatoes</h4>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te
-                                                incididunt</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                                                <a href="#"
-                                                    class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                    cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="border border-primary rounded position-relative vesitable-item">
-                                        <div class="vesitable-img">
-                                            <img src="/client/img/vegetable-item-6.jpg"
-                                                class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                                            style="top: 10px; right: 10px;">Vegetable</div>
-                                        <div class="p-4 pb-0 rounded-bottom">
-                                            <h4>Parsely</h4>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te
-                                                incididunt</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                                                <a href="#"
-                                                    class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                    cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="border border-primary rounded position-relative vesitable-item">
-                                        <div class="vesitable-img">
-                                            <img src="/client/img/vegetable-item-5.jpg"
-                                                class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                                            style="top: 10px; right: 10px;">Vegetable</div>
-                                        <div class="p-4 pb-0 rounded-bottom">
-                                            <h4>Potatoes</h4>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te
-                                                incididunt</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                                                <a href="#"
-                                                    class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                    cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="border border-primary rounded position-relative vesitable-item">
-                                        <div class="vesitable-img">
-                                            <img src="/client/img/vegetable-item-6.jpg"
-                                                class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                                            style="top: 10px; right: 10px;">Vegetable</div>
-                                        <div class="p-4 pb-0 rounded-bottom">
-                                            <h4>Parsely</h4>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te
-                                                incididunt</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                                                <a href="#"
-                                                    class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                    cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
                         </div>
                     </div>
-                    <!-- Single Product End -->
-
+                    <!-- Content End -->
 
                     <jsp:include page="../layout/footer.jsp" />
+                    <jsp:include page="../layout/foot.jsp" />
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-
-                    <!-- Back to Top -->
-                    <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
-                            class="fa fa-arrow-up"></i></a>
-
-
-                    <!-- JavaScript Libraries -->
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-                    <script src="/client/lib/easing/easing.min.js"></script>
-                    <script src="/client/lib/waypoints/waypoints.min.js"></script>
-                    <script src="/client/lib/lightbox/js/lightbox.min.js"></script>
-                    <script src="/client/lib/owlcarousel/owl.carousel.min.js"></script>
-
-                    <!-- Template Javascript -->
-                    <script src="/client/js/main.js"></script>
-                    <script
-                        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
                     <script>
-                        const a = "${user.type_views_1}"
-                        const b = "${user.type_views_2}"
-                        const c = "${user.type_views_3}"
-                        const d = "${user.type_views_4}"
-                        // Tạo đối tượng chứa các giá trị bạn muốn gửi
-                        const data = {
-                            gaming_view: a,
-                            mac_view: b,
-                            office_view: c,
-                            workstation_view: d
-                        };
+                        $(document).ready(function () {
+                            const a = "${user.type_views_1}";
+                            const b = "${user.type_views_2}";
+                            const c = "${user.type_views_3}";
+                            const d = "${user.type_views_4}";
 
-                        // Gửi dữ liệu tới server Flask
-                        fetch('http://127.0.0.1:5000/recommend', {
-                            method: 'POST', // Phương thức gửi là POST
-                            headers: {
-                                'Content-Type': 'application/json', // Đảm bảo server nhận dạng kiểu dữ liệu JSON
-                            },
-                            body: JSON.stringify(data) // Chuyển đổi dữ liệu thành chuỗi JSON
-                        })
-                            .then(response => response.json())  // Xử lý phản hồi từ server dưới dạng JSON
-                            .then(data => {
-                                console.log('Response from server:', data); // In kết quả từ server ra console
-                                const result = data.result;
+                            // Tạo đối tượng chứa dữ liệu gửi đến server
+                            const data = {
+                                gaming_view: a,
+                                mac_view: b,
+                                office_view: c,
+                                workstation_view: d
+                            };
 
-                                console.log(result)
+                            // Gửi dữ liệu tới server bằng AJAX
+                            $.ajax({
+                                url: 'http://127.0.0.1:5000/recommend',
+                                type: 'POST',
+                                contentType: 'application/json',
+                                data: JSON.stringify(data),
+                                success: function (response) {
+                                    console.log('Response from server:', response);
 
-                                // Lấy phần tử container
-                                const productList = document.getElementById("product-list");
+                                    // Gắn kết quả từ response
+                                    const result = response.result;
 
-                                // Tạo đối tượng định dạng số
-                                const formatter = new Intl.NumberFormat('vi-VN', {
-                                    style: 'currency',
-                                    currency: 'VND'
-                                });
+                                    // Debug: Kiểm tra xem `result` là gì
+                                    console.log('Result:', result);
 
-                                // Tạo các phần tử HTML động bằng DOM
-                                result.forEach(element => {
-                                    // Tạo thẻ <a> chứa sản phẩm
-                                    const productLink = document.createElement("a");
-                                    productLink.href = "/product/" + element.id; // Thay đổi URL phù hợp với hệ thống của bạn
-                                    productLink.className = "text-decoration-none text-dark product-link"; // Thêm lớp product-link
+                                    // Kiểm tra nếu `result` tồn tại và là mảng
+                                    if (Array.isArray(result) && result.length > 0) {
+                                        const productList = $("#product-list");
 
-                                    // Tạo thẻ chứa sản phẩm
-                                    const productDiv = document.createElement("div");
-                                    productDiv.className = "d-flex align-items-center justify-content-start mb-3";
+                                        // Tạo đối tượng định dạng số
+                                        const formatter = new Intl.NumberFormat('vi-VN', {
+                                            style: 'currency',
+                                            currency: 'VND'
+                                        });
 
-                                    // Tạo thẻ chứa hình ảnh
-                                    const imgDiv = document.createElement("div");
-                                    imgDiv.className = "rounded";
-                                    imgDiv.style.width = "100px";
-                                    imgDiv.style.height = "100px";
+                                        // Tạo HTML động
+                                        let htmlContent = "";
+                                        result.forEach(element => {
+                                            // Debug: Kiểm tra từng phần tử
+                                            console.log('Element:', element);
 
-                                    const img = document.createElement("img");
-                                    img.src = "/admin/images/product/" + element.image; // Thêm đường dẫn gốc vào đây
-                                    img.alt = element.name;
-                                    img.className = "img-fluid rounded";
+                                            // Truy cập các thuộc tính của đối tượng
+                                            const product_id = element.id || 'Unknown ID';
+                                            const product_name = element.name || 'No Name';
+                                            const product_image = element.image || 'no-image.png'; // sửa lại từ price -> image
+                                            const product_price = formatter.format(element.price || 0); // sửa lại từ image -> price và sử dụng formatter
 
-                                    // Gắn hình ảnh vào div
-                                    imgDiv.appendChild(img);
+                                            htmlContent += `
+                                                <li>
+                                                    <a href="/product/`+ product_id + `">
+                                                        <img src="/admin/images/product/`+ product_image + `"
+                                                            class="attachment-kobolg_thumbnail size-kobolg_thumbnail"
+                                                            alt="`+ product_name + `" width="600" height="778">
+                                                        <span class="product-title">`+ product_name + `</span>
+                                                    </a>
+                    
+                                                    <span class="kobolg-Price-amount amount">
+                                                        `+ product_price + `
+                                                        <!-- <span class="kobolg-Price-currencySymbol"> đ</span> -->
+                                                    </span>
+                                                </li>
+                                            `;
+                                        });
 
-                                    // Tạo thẻ chứa thông tin sản phẩm
-                                    const infoDiv = document.createElement("div");
-                                    infoDiv.style.marginLeft = "20px"; // Thêm margin-left cho toàn bộ thông tin
-
-                                    // Tạo tên sản phẩm
-                                    const productName = document.createElement("h6");
-                                    productName.className = "mb-2";
-                                    productName.style.marginBottom = "10px";
-                                    productName.textContent = element.name;
-
-                                    // Tạo div chứa giá sản phẩm
-                                    const priceDiv = document.createElement("div");
-                                    priceDiv.className = "d-flex mb-2";
-
-                                    const price = document.createElement("h5");
-                                    price.className = "fw-bold me-2";
-                                    price.style.marginBottom = "5px";
-                                    price.style.fontSize = "14px"; // Thu nhỏ kích thước chữ
-                                    price.textContent = formatter.format(element.price); // Định dạng số
-
-                                    // Gắn giá vào div
-                                    priceDiv.appendChild(price);
-
-                                    // Gắn tên và giá vào infoDiv
-                                    infoDiv.appendChild(productName);
-                                    infoDiv.appendChild(priceDiv);
-
-                                    // Gắn imgDiv và infoDiv vào productDiv
-                                    productDiv.appendChild(imgDiv);
-                                    productDiv.appendChild(infoDiv);
-
-                                    // Gắn productDiv vào productLink
-                                    productLink.appendChild(productDiv);
-
-                                    // Gắn productLink vào productList
-                                    productList.appendChild(productLink);
-                                });
-                            })
-                            .catch((error) => {
-                                console.error('Error:', error); // Xử lý lỗi nếu có
+                                        // Thêm HTML động vào container
+                                        productList.html(htmlContent);
+                                    } else {
+                                        console.warn('Result is empty or not an array.');
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error('Error:', error);
+                                }
                             });
+                        });
                     </script>
+
                 </body>
 
                 </html>

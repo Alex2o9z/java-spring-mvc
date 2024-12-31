@@ -1,0 +1,4 @@
+#factoryFilter .button#btnFilter:hover {
+    background-color: #0073e6;
+    cursor: pointer;
+}

@@ -1,18 +1,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
             <!DOCTYPE html>
             <html lang="en">
 
-            <head>
-                <meta charset="utf-8" />
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <meta name="description" content="" />
-                <meta name="author" content="" />
-                <title>Login - SB Admin</title>
-                <link href="/admin/css/styles.css" rel="stylesheet" />
-                <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+            <jsp:include page="../layout/head.jsp">
+                <jsp:param name="pageTitle" value="Xác nhận khuôn mặt" />
+            </jsp:include>
+
+            <body>
                 <style>
                     /* Phong cách cho canvas */
                     #canvas {
@@ -29,52 +26,109 @@
                         margin-left: 40px;
                     }
                 </style>
-            </head>
 
-            <body class="bg-primary">
+                <jsp:include page="../layout/header.jsp" />
 
-                <div id="layoutAuthentication">
-                    <div id="layoutAuthentication_content">
-                        <main>
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-5">
-                                        <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                            <div class="card-header">
-                                                <h3 class="text-center font-weight-light my-4">Đăng ký khuôn mặt</h3>
-                                            </div>
-                                            <div class="card-body">
+                <!--  Content Start -->
+                <main class="site-main  main-container no-sidebar" style="margin-top: -4.5rem;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="main-content col-md-12">
+                                <div class="page-main-content">
+                                    <div class="kobolg">
+                                        <div class="kobolg-notices-wrapper"></div>
+                                        <div class="u-columns col1-set" id="customer_login">
+                                            <div class="u-column0 col-0">
+                                                <h2>Xác thực khuôn mặt</h2>
+                                                <form class="kobolg-form kobolg-form-login login" method="post"
+                                                    action="/login">
 
-                                                <video id="video" autoplay playsinline style="display: none;"></video>
-                                                <canvas id="canvas" width="400" height="300"></canvas>
+                                                    <video id="video" autoplay playsinline
+                                                        style="display: none;"></video>
+                                                    <canvas id="canvas" width="400" height="300"></canvas>
 
-                                                <h2 id="status"></h2>
-                                                <h3 id="time"></h3>
-                                                <div class="mt-4 mb-0">
-                                                    <div class="d-grid">
-                                                        <button class="btn btn-primary btn-block" id="record">
+                                                    <h2 id="status"></h2>
+                                                    <h3 id="time"></h3>
+                                                    <!-- <div class="mt-4 mb-0">
+                                                        <div class="d-grid">
+                                                            <button class="btn btn-primary btn-block" id="record">
+                                                                Bắt đầu quét
+                                                            </button>
+                                                        </div>
+                                                    </div> -->
+
+                                                    <!-- <div class="row kobolg-form kobolg-form-login login">
+                                                        <div
+                                                            class="col kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
+                                                            <input type="hidden" name="${_csrf.parameterName}"
+                                                                value="${_csrf.token}" />
+                                                            <button type="submit" class="kobolg-Button button"
+                                                                name="login" value="Log in">Đăng nhập
+                                                            </button>
+                                                        </div>
+                                                        <div
+                                                            class="col kobolg-form-row kobolg-form-row--wide form-row form-row-wide align-self-center">
+                                                            Chưa có tài khoản?&nbsp;<a href="/register">Đăng ký!</a>
+                                                        </div>
+                                                    </div> -->
+
+                                                </form>
+
+                                                <!-- <div class="row">
+                                                    <div class="col">
+                                                        <hr>
+                                                    </div>
+                                                    <div class="col text-nowrap">
+                                                        Hoặc đăng nhập với
+                                                    </div>
+                                                    <div class="col">
+                                                        <hr>
+                                                    </div>
+                                                </div> -->
+                                                <br>
+                                                <div class="row kobolg-form kobolg-form-login login">
+                                                    <!-- <div
+                                                        class="col kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
+                                                        <button class="kobolg-Button button btn-block"
+                                                            onclick="document.location='/oauth2/authorization/google'">
+                                                            <span class="uicons-brands-google"></span>
+                                                            Google
+                                                        </button>
+                                                    </div>
+                                                    <div
+                                                        class="col kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
+                                                        <button class="kobolg-Button button btn-block"
+                                                            onclick="document.location='/oauth2/authorization/github'">
+                                                            <span class="uicons-brands-github"></span>
+                                                            Github
+                                                        </button>
+                                                    </div> -->
+                                                    <div
+                                                        class="col kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
+                                                        <button class="kobolg-Button button btn-block" id="record">
                                                             Bắt đầu quét
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div class="mt-4 mb-0">
-                                                    <div class="d-grid">
-                                                        <a class="btn btn-primary btn-block" href="/">
-                                                            Trở lại
-                                                        </a>
-                                                    </div>
-                                                </div>
+
+                                                <!-- <div
+                                                    class="kobolg-form-row kobolg-form-row--wide form-row form-row-wide text-center">
+                                                    <a href="my-account.htmllost-password/">Quên mật
+                                                        khẩu?</a>
+                                                </div> -->
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </main>
+                        </div>
                     </div>
-                </div>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-                    crossorigin="anonymous"></script>
-                <script src="/admin/js/scripts.js"></script>
+                </main>
+                <!-- Content End -->
+
+                <jsp:include page="../layout/footer.jsp" />
+                <jsp:include page="../layout/foot.jsp" />
                 <script>
                     const video = document.getElementById('video');
                     const canvas = document.getElementById('canvas');
