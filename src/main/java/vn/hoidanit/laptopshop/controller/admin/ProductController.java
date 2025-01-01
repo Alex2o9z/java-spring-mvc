@@ -3,6 +3,7 @@ package vn.hoidanit.laptopshop.controller.admin;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +30,9 @@ public class ProductController {
     private final ProductService productService;
     private final UploadService uploadService;
 
+    @Value("${stproject.general.value.page-size:Default 10}")
+    private int pageSize;
+
     public ProductController(ProductService productService, UploadService uploadService) {
         this.productService = productService;
         this.uploadService = uploadService;
@@ -51,12 +55,21 @@ public class ProductController {
             // TODO: handle exception
         }
 
-        Pageable pageable = PageRequest.of(page - 1, 5);
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
         Page<Product> prs = this.productService.fetchProducts(pageable);
         List<Product> listProducts = prs.getContent();
-        model.addAttribute("products", listProducts);
 
+        long totalResults = prs.getTotalElements();
+        int startResult = (page - 1) * pageSize + 1;
+        int endResult = Math.min(page * pageSize, (int) totalResults);
+
+        model.addAttribute("products", listProducts);
+        model.addAttribute("totalPages", prs.getTotalPages());
+        model.addAttribute("totalResults", totalResults);
+        model.addAttribute("totalResults", totalResults);
+        model.addAttribute("startResult", startResult);
         model.addAttribute("currentPage", page);
+        model.addAttribute("endResult", endResult);
         model.addAttribute("totalPages", prs.getTotalPages());
 
         return "admin/product/show";

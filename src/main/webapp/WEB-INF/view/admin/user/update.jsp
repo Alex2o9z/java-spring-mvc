@@ -1,105 +1,72 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
             <!DOCTYPE html>
             <html lang="en">
 
-            <head>
-                <meta charset="utf-8" />
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <meta name="description" content="" />
-                <meta name="author" content="" />
-                <title>Manage Products</title>
-                <link href="/admin/css/styles.css" rel="stylesheet" />
-                <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-                <script>
-                    $(document).ready(() => {
-                        const avatarFile = $("#avatarFile");
-                        avatarFile.change(function (e) {
-                            const imgURL = URL.createObjectURL(e.target.files[0]);
-                            $("#avatarPreview").attr("src", imgURL);
-                            $("#avatarPreview").css({ "display": "block" });
-                        });
-                    });
-                </script>
-            </head>
+            <jsp:include page="../layout/head.jsp">
+                <jsp:param name="pageTitle" value="Quản lí người dùng" />
+            </jsp:include>
 
-            <body class="sb-nav-fixed">
-                <jsp:include page="../layout/header.jsp" />
-                <div id="layoutSidenav">
+            <body id="page-top">
+
+                <!-- Page Wrapper -->
+                <div id="wrapper">
+
+                    <!-- Sidebar -->
                     <jsp:include page="../layout/sidebar.jsp" />
-                    <div id="layoutSidenav_content">
-                        <main>
-                            <div class="container-fluid px-4">
-                                <h1 class="mt-4">Manage Users</h1>
-                                <ol class="breadcrumb mb-4">
-                                    <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Users</li>
-                                </ol>
-                                <div class="mt-5">
-                                    <div class="row">
-                                        <div class="col-md-6 col-12 mx-auto">
-                                            <h3>Update a user</h3>
-                                            <hr />
-                                            <form:form method="post" action="/admin/user/update"
-                                                modelAttribute="currentUser">
+                    <!-- End of Sidebar -->
 
-                                                <div class="mb-3" style="display: none;">
-                                                    <label class="form-label">ID:</label>
-                                                    <form:input type="text" class="form-control" path="id" />
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Email:</label>
-                                                    <form:input type="email" class="form-control" path="email"
-                                                        disabled="true" />
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Phone number:</label>
-                                                    <form:input type="text" class="form-control" path="phone" />
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Full Name:</label>
-                                                    <form:input type="text" class="form-control" path="fullName" />
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Address:</label>
-                                                    <form:input type="text" class="form-control" path="address" />
-                                                </div>
-                                                <div class="mb-3 col-12 col-md-6">
-                                                    <label class="form-label">Role:</label>
-                                                    <form:select class="form-select" path="role.name">
-                                                        <form:option value="ADMIN">ADMIN</form:option>
-                                                        <form:option value="USER">USER</form:option>
-                                                    </form:select>
-                                                </div>
+                    <!-- Content Wrapper -->
+                    <div id="content-wrapper" class="d-flex flex-column">
 
-                                                <!-- <div class="mb-3 col-12 col-md-6">
-                                                    <label for="avatarFile" class="form-label">Avatar:</label>
-                                                    <input class="form-control" type="file" id="avatarFile"
-                                                        accept=".png, .jpg, .jpeg" name="sangFile" />
-                                                </div>
-                                                <div class="col-12 mb-3">
-                                                    <img style="max-height: 250px; display: block;" alt="avatar preview"
-                                                        id="avatarPreview" src="/images/avatar/${currentUser.avatar}">
-                                                </div> -->
-                                                <a href="/admin/user" class="btn btn-success">Back</a>
-                                                <button type="submit" class="btn btn-warning">Update</button>
-                                            </form:form>
-                                        </div>
+                        <!-- Main Content -->
+                        <div id="content">
 
-                                    </div>
+                            <!-- Topbar -->
+                            <jsp:include page="../layout/topbar.jsp" />
+                            <!-- End of Topbar -->
 
+                            <!-- Begin Page Content -->
+                            <div class="container-fluid">
+
+                                <!-- Page Heading -->
+                                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                    <h1 class="h3 mb-0 text-gray-800">Cập nhật thông tin người dùng</h1>
                                 </div>
+
+                                <!-- Message Content -->
+                                <jsp:include page="../layout/message.jsp" />
+                                <!-- End of Message Content -->
+
+
                             </div>
-                        </main>
+                            <!-- /.container-fluid -->
+
+                        </div>
+                        <!-- End of Main Content -->
+
+                        <!-- Footer -->
                         <jsp:include page="../layout/footer.jsp" />
+                        <!-- End of Footer -->
+
                     </div>
+                    <!-- End of Content Wrapper -->
+
                 </div>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-                    crossorigin="anonymous"></script>
-                <script src="/admin/js/scripts.js"></script>
+
+                <!-- Modal Content -->
+                <jsp:include page="../layout/deleteModal.jsp">
+                    <jsp:param name="entity" value="người dùng" />
+                    <jsp:param name="actionSubfolder" value="user" />
+                    <jsp:param name="modalAttribute" value="deleteUser" />
+                </jsp:include>
+
+                <!-- End of Page Wrapper -->
+
+                <jsp:include page="../layout/foot.jsp" />
+
             </body>
 
             </html>

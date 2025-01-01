@@ -1,72 +1,75 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
             <!DOCTYPE html>
             <html lang="en">
 
-            <head>
-                <meta charset="utf-8" />
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <meta name="description" content="" />
-                <meta name="author" content="" />
-                <title>Manage Products</title>
-                <link href="/admin/css/styles.css" rel="stylesheet" />
-                <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-            </head>
+            <jsp:include page="../layout/head.jsp">
+                <jsp:param name="pageTitle" value="Quản lí người dùng" />
+            </jsp:include>
 
-            <body class="sb-nav-fixed">
-                <jsp:include page="../layout/header.jsp" />
-                <div id="layoutSidenav">
+            <body id="page-top">
+
+                <!-- Page Wrapper -->
+                <div id="wrapper">
+
+                    <!-- Sidebar -->
                     <jsp:include page="../layout/sidebar.jsp" />
-                    <div id="layoutSidenav_content">
-                        <main>
-                            <div class="container-fluid px-4">
-                                <h1 class="mt-4">Manage Users</h1>
-                                <ol class="breadcrumb mb-4">
-                                    <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Users</li>
-                                </ol>
-                                <div class="mt-5">
-                                    <div class="row">
-                                        <div class="col-12 mx-auto">
-                                            <div class="d-flex justify-content-between">
-                                                <h3>User detail</h3>
-                                            </div>
+                    <!-- End of Sidebar -->
 
-                                            <hr>
+                    <!-- Content Wrapper -->
+                    <div id="content-wrapper" class="d-flex flex-column">
 
-                                            <div class="card" style="width: 60%;">
-                                                <div class="card-header">
-                                                    User information
-                                                </div>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item">ID: ${user.id}</li>
-                                                    <li class="list-group-item">Email: ${user.email}</li>
-                                                    <li class="list-group-item">Phone: ${user.phone}</li>
-                                                    <li class="list-group-item">Full name: ${user.fullName}</li>
-                                                    <li class="list-group-item">Address: ${user.address}</li>
-                                                    <li class="list-group-item">Role: ${user.role.name}</li>
-                                                    <li class="list-group-item"><img
-                                                            style="max-height: 250px; display: block;"
-                                                            src="/admin/images/avatar/${user.avatar}"></li>
-                                                </ul>
-                                            </div>
-                                            <a href="/admin/user" class="btn btn-success mt-3">Back</a>
+                        <!-- Main Content -->
+                        <div id="content">
 
-                                        </div>
+                            <!-- Topbar -->
+                            <jsp:include page="../layout/topbar.jsp" />
+                            <!-- End of Topbar -->
 
-                                    </div>
+                            <!-- Begin Page Content -->
+                            <div class="container-fluid">
+
+                                <!-- Page Heading -->
+                                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                    <h1 class="h3 mb-0 text-gray-800">Thông tin người dùng</h1>
+                                    <a href="/admin/user/create"
+                                        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                            class="fas fa-plus-circle fa-sm text-white-50"></i> Thêm người dùng</a>
 
                                 </div>
+
+                                <!-- Message Content -->
+                                <jsp:include page="../layout/message.jsp" />
+                                <!-- End of Message Content -->
+
                             </div>
-                        </main>
+                            <!-- /.container-fluid -->
+
+                        </div>
+                        <!-- End of Main Content -->
+
+                        <!-- Footer -->
                         <jsp:include page="../layout/footer.jsp" />
+                        <!-- End of Footer -->
+
                     </div>
+                    <!-- End of Content Wrapper -->
+
                 </div>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-                    crossorigin="anonymous"></script>
-                <script src="/admin/js/scripts.js"></script>
+
+                <!-- Modal Content -->
+                <jsp:include page="../layout/deleteModal.jsp">
+                    <jsp:param name="entity" value="người dùng" />
+                    <jsp:param name="actionSubfolder" value="user" />
+                    <jsp:param name="modalAttribute" value="deleteUser" />
+                </jsp:include>
+
+                <!-- End of Page Wrapper -->
+
+                <jsp:include page="../layout/foot.jsp" />
+
             </body>
 
             </html>

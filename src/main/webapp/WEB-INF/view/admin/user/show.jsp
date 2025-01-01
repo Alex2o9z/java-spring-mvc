@@ -1,110 +1,204 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
             <!DOCTYPE html>
             <html lang="en">
 
-            <head>
-                <meta charset="utf-8" />
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <meta name="description" content="" />
-                <meta name="author" content="" />
-                <title>Manage Products</title>
-                <link href="/admin/css/styles.css" rel="stylesheet" />
-                <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-            </head>
+            <jsp:include page="../layout/head.jsp">
+                <jsp:param name="pageTitle" value="Quản lí người dùng" />
+            </jsp:include>
 
-            <body class="sb-nav-fixed">
-                <jsp:include page="../layout/header.jsp" />
-                <div id="layoutSidenav">
+            <body id="page-top">
+
+                <!-- Page Wrapper -->
+                <div id="wrapper">
+
+                    <!-- Sidebar -->
                     <jsp:include page="../layout/sidebar.jsp" />
-                    <div id="layoutSidenav_content">
-                        <main>
-                            <div class="container-fluid px-4">
-                                <h1 class="mt-4">Manage Users</h1>
-                                <ol class="breadcrumb mb-4">
-                                    <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Users</li>
-                                </ol>
-                                <div class="mt-5">
-                                    <div class="row">
-                                        <div class="col-12 mx-auto">
-                                            <div class="d-flex justify-content-between">
-                                                <h3>Table user</h3>
-                                                <a href="/admin/user/create" class="btn btn-primary">Create</a>
-                                            </div>
+                    <!-- End of Sidebar -->
 
-                                            <hr>
+                    <!-- Content Wrapper -->
+                    <div id="content-wrapper" class="d-flex flex-column">
 
-                                            <table class="table table-bordered table-hover">
+                        <!-- Main Content -->
+                        <div id="content">
+
+                            <!-- Topbar -->
+                            <jsp:include page="../layout/topbar.jsp" />
+                            <!-- End of Topbar -->
+
+                            <!-- Begin Page Content -->
+                            <div class="container-fluid">
+
+                                <!-- Page Heading -->
+                                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                    <h1 class="h3 mb-0 text-gray-800">Quản lí người dùng</h1>
+                                    <a href="/admin/user/create"
+                                        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                            class="fas fa-plus-circle fa-sm text-white-50"></i> Thêm người dùng</a>
+
+                                </div>
+
+                                <!-- Message Content -->
+                                <jsp:include page="../layout/message.jsp" />
+                                <!-- End of Message Content -->
+
+                                <!-- DataTales Example -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Danh sách người dùng</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%"
+                                                cellspacing="0">
                                                 <thead>
                                                     <tr>
-                                                        <th>ID</th>
+                                                        <th>STT</th>
+                                                        <th>Họ và tên</th>
                                                         <th>Email</th>
-                                                        <th>Full Name</th>
-                                                        <th>Action</th>
+                                                        <th>Vai trò</th>
+                                                        <th>Hành động</th>
+                                                        <th>Loại</th>
+                                                        <th>Mã</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-
-                                                    <c:forEach var="user" items="${users}">
+                                                    <c:forEach var="user" items="${users}" varStatus="status">
                                                         <tr>
-                                                            <th>${user.id}</th>
-                                                            <td>${user.email}</td>
+                                                            <td>${status.index + 1}</td>
                                                             <td>${user.fullName}</td>
+                                                            <td>${user.email}</td>
+                                                            <td>${user.role.name}</td>
                                                             <td>
                                                                 <a class="btn btn-success"
-                                                                    href="/admin/user/${user.id}">View</a>
+                                                                    href="/admin/user/${user.id}">Xem thêm</a>
                                                                 <a class="btn btn-warning"
-                                                                    href="/admin/user/update/${user.id}">Update</a>
-                                                                <a class="btn btn-danger"
-                                                                    href="/admin/user/delete/${user.id}">Delete</a>
+                                                                    href="/admin/user/update/${user.id}">Cập nhật</a>
+                                                                <a class="btn btn-danger" href="#" data-toggle="modal"
+                                                                    data-target="#deleteModal"
+                                                                    data-entity-id="${user.id}"
+                                                                    data-entity-name="${user.fullName}"> Xoá
+                                                                </a>
                                                             </td>
+                                                            <td>
+                                                                <c:if test="${empty user.provider}">
+                                                                    LOCAL
+                                                                </c:if>
+                                                                ${user.provider}
+                                                            </td>
+                                                            <td>${user.id}</td>
                                                         </tr>
                                                     </c:forEach>
-
                                                 </tbody>
                                             </table>
-                                            <nav aria-label="Page navigation example">
-                                                <ul class="pagination justify-content-center">
-                                                    <li class="page-item">
-                                                        <a class="${1 eq currentPage ? 'disabled page-link' : 'page-link'}"
-                                                            href="/admin/user?page=${currentPage - 1}"
-                                                            aria-label="Previous">
-                                                            <span aria-hidden="true">&laquo;</span>
-                                                        </a>
-                                                    </li>
-                                                    <c:forEach begin="0" end="${totalPages - 1}" varStatus="loop">
-                                                        <li class="page-item">
-                                                            <a class="${(loop.index + 1) eq currentPage ? 'active page-link' : 'page-link'}"
-                                                                href="/admin/user?page=${loop.index + 1}">
-                                                                ${loop.index + 1}
-                                                            </a>
-                                                        </li>
-                                                    </c:forEach>
-                                                    <li class="page-item">
-                                                        <a class="${totalPages eq currentPage ? 'disabled page-link' : 'page-link'}"
-                                                            href="/admin/user?page=${currentPage + 1}"
-                                                            aria-label="Next">
-                                                            <span aria-hidden="true">&raquo;</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </nav>
+
+                                            <!-- Pagination -->
+                                            <c:if test="${totalPages > 0}">
+                                                <nav aria-label="Page navigation example">
+                                                    <div class="container-fluid pt-2">
+                                                        <div class="row justify-content-between">
+                                                            <div class="col-sm-auto">
+                                                                <span>Hiển thị ${startResult}–${endResult} trong
+                                                                    tổng số
+                                                                    ${totalResults} kết quả</span>
+                                                            </div>
+
+                                                            <div class="col-sm-auto">
+                                                                <ul class="pagination">
+                                                                    <!-- Previous Button -->
+                                                                    <li
+                                                                        class="page-item ${currentPage eq 1 ? 'disabled' : ''}">
+                                                                        <a class="page-link"
+                                                                            href="/admin/user?page=${currentPage - 1}${queryString}"
+                                                                            aria-label="Trước">
+                                                                            <span aria-hidden="true">Trước</span>
+                                                                        </a>
+                                                                    </li>
+
+                                                                    <!-- Pagination Numbers -->
+                                                                    <c:forEach begin="1" end="${totalPages}" var="i">
+                                                                        <c:choose>
+                                                                            <c:when test="${i eq currentPage}">
+                                                                                <li class="page-item active">
+                                                                                    <span class="page-link">
+                                                                                        ${i} <span
+                                                                                            class="sr-only">(current)</span>
+                                                                                    </span>
+                                                                                </li>
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <c:if
+                                                                                    test="${i le 2 || i ge totalPages - 1 || (i ge currentPage - 2 && i le currentPage + 2)}">
+                                                                                    <li class="page-item">
+                                                                                        <a class="page-link"
+                                                                                            href="/admin/user?page=${i}${queryString}">${i}</a>
+                                                                                    </li>
+                                                                                </c:if>
+                                                                                <c:if
+                                                                                    test="${i eq 3 && currentPage gt 5}">
+                                                                                    <li class="page-item">
+                                                                                        <span
+                                                                                            class="page-link dots">...</span>
+                                                                                    </li>
+                                                                                </c:if>
+                                                                                <c:if
+                                                                                    test="${i eq totalPages - 2 && currentPage lt totalPages - 4}">
+                                                                                    <li class="page-item">
+                                                                                        <span
+                                                                                            class="page-link dots">...</span>
+                                                                                    </li>
+                                                                                </c:if>
+                                                                            </c:otherwise>
+                                                                        </c:choose>
+                                                                    </c:forEach>
+
+                                                                    <!-- Next Button -->
+                                                                    <li
+                                                                        class="page-item ${currentPage eq totalPages ? 'disabled' : ''}">
+                                                                        <a class="page-link"
+                                                                            href="/admin/user?page=${currentPage + 1}${queryString}"
+                                                                            aria-label="Tiếp">
+                                                                            <span aria-hidden="true">Tiếp</span>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </nav>
+                                            </c:if>
                                         </div>
-
                                     </div>
-
                                 </div>
+
                             </div>
-                        </main>
+                            <!-- /.container-fluid -->
+
+                        </div>
+                        <!-- End of Main Content -->
+
+                        <!-- Footer -->
                         <jsp:include page="../layout/footer.jsp" />
+                        <!-- End of Footer -->
+
                     </div>
+                    <!-- End of Content Wrapper -->
+
                 </div>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-                    crossorigin="anonymous"></script>
-                <script src="/admin/js/scripts.js"></script>
+
+                <!-- Modal Content -->
+                <jsp:include page="../layout/deleteModal.jsp">
+                    <jsp:param name="entity" value="người dùng" />
+                    <jsp:param name="actionSubfolder" value="user" />
+                    <jsp:param name="modalAttribute" value="deleteUser" />
+                </jsp:include>
+
+                <!-- End of Page Wrapper -->
+
+                <jsp:include page="../layout/foot.jsp" />
+
             </body>
 
             </html>

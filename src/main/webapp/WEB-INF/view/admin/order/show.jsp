@@ -5,52 +5,66 @@
             <!DOCTYPE html>
             <html lang="en">
 
-            <head>
-                <meta charset="utf-8" />
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <meta name="description" content="" />
-                <meta name="author" content="" />
-                <title>Dashboard - SB Admin</title>
-                <link href="/admin/css/styles.css" rel="stylesheet" />
-                <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-            </head>
+            <jsp:include page="../layout/head.jsp">
+                <jsp:param name="pageTitle" value="Quản lí đơn hàng" />
+            </jsp:include>
 
-            <body class="sb-nav-fixed">
-                <jsp:include page="../layout/header.jsp" />
-                <div id="layoutSidenav">
+            <body id="page-top">
+
+                <!-- Page Wrapper -->
+                <div id="wrapper">
+
+                    <!-- Sidebar -->
                     <jsp:include page="../layout/sidebar.jsp" />
-                    <div id="layoutSidenav_content">
-                        <main>
-                            <div class="container-fluid px-4">
-                                <h1 class="mt-4">Manage Orders</h1>
-                                <ol class="breadcrumb mb-4">
-                                    <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Order</li>
-                                </ol>
-                                <div class="mt-5">
-                                    <div class="row">
-                                        <div class="col-12 mx-auto">
-                                            <div class="d-flex">
-                                                <h3>Table Orders</h3>
-                                            </div>
+                    <!-- End of Sidebar -->
 
-                                            <hr />
-                                            <table class=" table table-bordered table-hover">
+                    <!-- Content Wrapper -->
+                    <div id="content-wrapper" class="d-flex flex-column">
+
+                        <!-- Main Content -->
+                        <div id="content">
+
+                            <!-- Topbar -->
+                            <jsp:include page="../layout/topbar.jsp" />
+                            <!-- End of Topbar -->
+
+                            <!-- Begin Page Content -->
+                            <div class="container-fluid">
+
+                                <!-- Page Heading -->
+                                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                    <h1 class="h3 mb-0 text-gray-800">Quản lí đơn hàng</h1>
+                                    <a href="/admin/product/create"
+                                        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                            class="fas fa-plus-circle fa-sm text-white-50"></i> Thêm đơn hàng</a>
+
+                                </div>
+
+                                <!-- DataTales Example -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Danh sách đơn hàng</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%"
+                                                cellspacing="0">
                                                 <thead>
                                                     <tr>
-                                                        <th>ID</th>
-                                                        <th>Total Price</th>
-                                                        <th>User</th>
-                                                        <th>Status</th>
-                                                        <th>Payment</th>
-                                                        <th>Action</th>
+                                                        <th>STT</th>
+                                                        <th>Mã</th>
+                                                        <th>Tổng tiền</th>
+                                                        <th>Người mua</th>
+                                                        <th>Tình trạng</th>
+                                                        <th>Phương thức thanh toán</th>
+                                                        <th>Hành động</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <c:forEach var="order" items="${orders}">
+                                                    <c:forEach var="order" items="${orders}" varStatus="status">
                                                         <tr>
-                                                            <th>${order.id}</th>
+                                                            <th>${status.index + 1}</th>
+                                                            <td>${order.id}</td>
                                                             <td>
                                                                 <fmt:formatNumber type="number"
                                                                     value="${order.totalPrice}" /> đ
@@ -62,59 +76,127 @@
                                                                 <div>Ref: ${order.paymentRef}</div>
                                                                 <div>Method: ${order.paymentMethod}</div>
                                                             </td>
+
                                                             <td>
                                                                 <a href="/admin/order/${order.id}"
-                                                                    class="btn btn-success">View</a>
+                                                                    class="btn btn-success">Xem thêm</a>
                                                                 <a href="/admin/order/update/${order.id}"
-                                                                    class="btn btn-warning  mx-2">Update</a>
-                                                                <a href="/admin/order/delete/${order.id}"
-                                                                    class="btn btn-danger">Delete</a>
+                                                                    class="btn btn-warning  mx-2">Cập nhật</a>
+                                                                <a class="btn btn-danger" href="#" data-toggle="modal"
+                                                                    data-target="#deleteModal"
+                                                                    data-entity-id="${order.id}"
+                                                                    data-entity-name="${order.id}"> Xoá
+                                                                </a>
                                                             </td>
                                                         </tr>
-
                                                     </c:forEach>
-
                                                 </tbody>
                                             </table>
-                                            <nav aria-label="Page navigation example">
-                                                <ul class="pagination justify-content-center">
-                                                    <li class="page-item">
-                                                        <a class="${1 eq currentPage ? 'disabled page-link' : 'page-link'}"
-                                                            href="/admin/order?page=${currentPage - 1}"
-                                                            aria-label="Previous">
-                                                            <span aria-hidden="true">&laquo;</span>
-                                                        </a>
-                                                    </li>
-                                                    <c:forEach begin="0" end="${totalPages - 1}" varStatus="loop">
-                                                        <li class="page-item">
-                                                            <a class="${(loop.index + 1) eq currentPage ? 'active page-link' : 'page-link'}"
-                                                                href="/admin/order?page=${loop.index + 1}">
-                                                                ${loop.index + 1}
-                                                            </a>
-                                                        </li>
-                                                    </c:forEach>
-                                                    <li class="page-item">
-                                                        <a class="${totalPages eq currentPage ? 'disabled page-link' : 'page-link'}"
-                                                            href="/admin/order?page=${currentPage + 1}"
-                                                            aria-label="Next">
-                                                            <span aria-hidden="true">&raquo;</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </nav>
+
+                                            <!-- Pagination -->
+                                            <c:if test="${totalPages > 0}">
+                                                <nav aria-label="Page navigation example">
+                                                    <div class="container-fluid pt-2">
+                                                        <div class="row justify-content-between">
+                                                            <div class="col-sm-auto">
+                                                                <span>Hiển thị ${startResult}–${endResult} trong
+                                                                    tổng số ${totalResults} kết quả</span>
+                                                            </div>
+
+                                                            <div class="col-sm-auto">
+                                                                <ul class="pagination">
+                                                                    <!-- Previous Button -->
+                                                                    <li
+                                                                        class="page-item ${currentPage eq 1 ? 'disabled' : ''}">
+                                                                        <a class="page-link"
+                                                                            href="/admin/user?page=${currentPage - 1}${queryString}"
+                                                                            aria-label="Trước">
+                                                                            <span aria-hidden="true">Trước</span>
+                                                                        </a>
+                                                                    </li>
+
+                                                                    <!-- Pagination Numbers -->
+                                                                    <c:forEach begin="1" end="${totalPages}" var="i">
+                                                                        <c:choose>
+                                                                            <c:when test="${i eq currentPage}">
+                                                                                <li class="page-item active">
+                                                                                    <span class="page-link">
+                                                                                        ${i} <span
+                                                                                            class="sr-only">(current)</span>
+                                                                                    </span>
+                                                                                </li>
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <c:if
+                                                                                    test="${i le 2 || i ge totalPages - 1 || (i ge currentPage - 2 && i le currentPage + 2)}">
+                                                                                    <li class="page-item">
+                                                                                        <a class="page-link"
+                                                                                            href="/admin/user?page=${i}${queryString}">${i}</a>
+                                                                                    </li>
+                                                                                </c:if>
+                                                                                <c:if
+                                                                                    test="${i eq 3 && currentPage gt 5}">
+                                                                                    <li class="page-item">
+                                                                                        <span
+                                                                                            class="page-link dots">...</span>
+                                                                                    </li>
+                                                                                </c:if>
+                                                                                <c:if
+                                                                                    test="${i eq totalPages - 2 && currentPage lt totalPages - 4}">
+                                                                                    <li class="page-item">
+                                                                                        <span
+                                                                                            class="page-link dots">...</span>
+                                                                                    </li>
+                                                                                </c:if>
+                                                                            </c:otherwise>
+                                                                        </c:choose>
+                                                                    </c:forEach>
+
+                                                                    <!-- Next Button -->
+                                                                    <li
+                                                                        class="page-item ${currentPage eq totalPages ? 'disabled' : ''}">
+                                                                        <a class="page-link"
+                                                                            href="/admin/user?page=${currentPage + 1}${queryString}"
+                                                                            aria-label="Tiếp">
+                                                                            <span aria-hidden="true">Tiếp</span>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </nav>
+                                            </c:if>
                                         </div>
-
                                     </div>
-
                                 </div>
+
                             </div>
-                        </main>
+                            <!-- /.container-fluid -->
+
+
+                        </div>
+                        <!-- End of Main Content -->
+
+                        <!-- Footer -->
                         <jsp:include page="../layout/footer.jsp" />
+                        <!-- End of Footer -->
+
                     </div>
+                    <!-- End of Content Wrapper -->
+
                 </div>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-                    crossorigin="anonymous"></script>
-                <script src="js/scripts.js"></script>
+                <!-- End of Page Wrapper -->
+
+                <!-- Modal Content -->
+                <jsp:include page="../layout/deleteModal.jsp">
+                    <jsp:param name="entity" value="đơn hàng" />
+                    <jsp:param name="actionSubfolder" value="order" />
+                    <jsp:param name="modalAttribute" value="deleteOrder" />
+                </jsp:include>
+
+                <jsp:include page="../layout/foot.jsp" />
+
             </body>
 
             </html>

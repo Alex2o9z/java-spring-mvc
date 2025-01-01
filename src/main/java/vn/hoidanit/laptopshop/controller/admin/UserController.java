@@ -3,6 +3,7 @@ package vn.hoidanit.laptopshop.controller.admin;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import vn.hoidanit.laptopshop.domain.User;
@@ -29,6 +31,9 @@ public class UserController {
     private final UserService userService;
     private final UploadService uploadService;
     private final PasswordEncoder passwordEncoder;
+
+    @Value("${stproject.general.value.page-size:Default 10}")
+    private int pageSize;
 
     public UserController(UserService userService, UploadService uploadService,
             PasswordEncoder passwordEncoder) {
@@ -62,13 +67,20 @@ public class UserController {
             // TODO: handle exception
         }
 
-        Pageable pageable = PageRequest.of(page - 1, 5);
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
         Page<User> usersPage = this.userService.getAllUsers(pageable);
         List<User> users = usersPage.getContent();
-        model.addAttribute("users", users);
 
+        long totalResults = usersPage.getTotalElements();
+        int startResult = (page - 1) * pageSize + 1;
+        int endResult = Math.min(page * pageSize, (int) totalResults);
+
+        model.addAttribute("users", users);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", usersPage.getTotalPages());
+        model.addAttribute("totalResults", totalResults);
+        model.addAttribute("startResult", startResult);
+        model.addAttribute("endResult", endResult);
         return "admin/user/show";
     }
 
@@ -144,9 +156,20 @@ public class UserController {
         return "admin/user/delete";
     }
 
+    // @PostMapping("/admin/user/delete")
+    // public String postDeleteUser(Model model, @ModelAttribute("deleteUser") User
+    // user) {
+    // this.userService.deleteById(user.getId());
+    // return "redirect:/admin/user";
+    // }
     @PostMapping("/admin/user/delete")
-    public String postDeleteUser(Model model, @ModelAttribute("deleteUser") User user) {
-        this.userService.deleteById(user.getId());
+    public String postDeleteUser(RedirectAttributes redirectAttributes, @ModelAttribute("deleteUser") User user) {
+        try {
+            this.userService.deleteById(user.getId());
+            redirectAttributes.addFlashAttribute("successMessage", "Người dùng đã được xoá thành công.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Xoá người dùng thất bại. Vui lòng thử lại.");
+        }
         return "redirect:/admin/user";
     }
 
