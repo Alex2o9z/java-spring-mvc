@@ -6,7 +6,7 @@
             <html lang="en">
 
             <jsp:include page="../layout/head.jsp">
-                <jsp:param name="pageTitle" value="Quản lí người dùng" />
+                <jsp:param name="pageTitle" value="Cập nhật người dùng" />
             </jsp:include>
 
             <body id="page-top">
@@ -40,6 +40,74 @@
                                 <jsp:include page="../layout/message.jsp" />
                                 <!-- End of Message Content -->
 
+                                <!-- DataTales Example -->
+                                <div class="card shadow mb-4">
+                                    <div
+                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-primary">Cập nhật thông tin tài khoản
+                                            <span class="text-danger">${currentUser.fullName}</span>
+                                        </h6>
+                                        <a href="/admin/user" class="btn btn-primary">Trở về</a>
+                                    </div>
+                                    <div class="card-body">
+                                        <form:form method="post" action="/admin/user/update"
+                                            modelAttribute="currentUser">
+                                            <div class="form-group row justify-content-md-center d-none">
+                                                <label for="id" class="col-md-1 col-form-label">ID:</label>
+                                                <div class="col-md-3">
+                                                    <form:input type="text" id="id" class="form-control-plaintext"
+                                                        path="id" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row justify-content-md-center">
+                                                <label for="email" class="col-md-1 col-form-label">Email:</label>
+                                                <div class="col-md-3">
+                                                    <form:input type="text" id="email" class="form-control-plaintext"
+                                                        path="email" aria-readonly="true" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row justify-content-md-center">
+                                                <label for="fullName" class="col-md-1 col-form-label">Họ và tên:</label>
+                                                <div class="col-md-3">
+                                                    <form:input type="text" id="fullName" class="form-control"
+                                                        path="fullName" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row justify-content-md-center">
+                                                <label for="phone" class="col-md-1 col-form-label">Số điện
+                                                    thoại:</label>
+                                                <div class="col-md-3">
+                                                    <form:input type="text" id="phone" class="form-control"
+                                                        path="phone" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row justify-content-md-center">
+                                                <label for="address" class="col-md-1 col-form-label">Địa chỉ:</label>
+                                                <div class="col-md-3">
+                                                    <form:input type="text" id="address" class="form-control"
+                                                        path="address" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row justify-content-md-center">
+                                                <label for="role" class="col-md-1 col-form-label">Vai trò:</label>
+                                                <div class="col-md-3">
+                                                    <form:select id="role" class="form-control" path="role.name">
+                                                        <form:option value="ADMIN">ADMIN</form:option>
+                                                        <form:option value="USER">USER</form:option>
+                                                    </form:select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row justify-content-md-center">
+                                                <button class="btn btn-warning btn-icon-split mt-3" type="submit">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </span>
+                                                    <span class="text">Cập nhật</span>
+                                                </button>
+                                            </div>
+                                        </form:form>
+                                    </div>
+                                </div>
 
                             </div>
                             <!-- /.container-fluid -->
@@ -55,14 +123,6 @@
                     <!-- End of Content Wrapper -->
 
                 </div>
-
-                <!-- Modal Content -->
-                <jsp:include page="../layout/deleteModal.jsp">
-                    <jsp:param name="entity" value="người dùng" />
-                    <jsp:param name="actionSubfolder" value="user" />
-                    <jsp:param name="modalAttribute" value="deleteUser" />
-                </jsp:include>
-
                 <!-- End of Page Wrapper -->
 
                 <jsp:include page="../layout/foot.jsp" />

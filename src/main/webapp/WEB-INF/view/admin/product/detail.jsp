@@ -1,78 +1,134 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-            <!DOCTYPE html>
-            <html lang="en">
+            <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-            <head>
-                <meta charset="utf-8" />
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <meta name="description" content="" />
-                <meta name="author" content="" />
-                <title>Manage Products</title>
-                <link href="/admin/css/styles.css" rel="stylesheet" />
-                <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-            </head>
+                <!DOCTYPE html>
+                <html lang="en">
 
-            <body class="sb-nav-fixed">
-                <jsp:include page="../layout/header.jsp" />
-                <div id="layoutSidenav">
-                    <jsp:include page="../layout/sidebar.jsp" />
-                    <div id="layoutSidenav_content">
-                        <main>
-                            <div class="container-fluid px-4">
-                                <h1 class="mt-4">Manage Products</h1>
-                                <ol class="breadcrumb mb-4">
-                                    <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="/admin/product">Products</a></li>
-                                    <li class="breadcrumb-item active">Detail Product</li>
-                                </ol>
-                                <div class="mt-5">
-                                    <div class="row">
-                                        <div class="col-12 mx-auto">
-                                            <div class="d-flex justify-content-between">
-                                                <h3>Product detail</h3>
-                                            </div>
+                <jsp:include page="../layout/head.jsp">
+                    <jsp:param name="pageTitle" value="Quản lí sản phẩm" />
+                </jsp:include>
 
-                                            <hr>
+                <body id="page-top">
 
-                                            <div class="card" style="width: 60%;">
-                                                <div class="card-header">
-                                                    Product information
-                                                </div>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item">ID: ${product.id}</li>
-                                                    <li class="list-group-item">Name: ${product.name}</li>
-                                                    <li class="list-group-item">Price: ${product.price}</li>
-                                                    <li class="list-group-item">Short description: ${product.shortDesc}
-                                                    </li>
-                                                    <li class="list-group-item">Quantity: ${product.quantity}</li>
-                                                    <li class="list-group-item">Detail description:
-                                                        ${product.detailDesc}
-                                                    </li>
-                                                    <li class="list-group-item">Factory: ${product.factory}</li>
-                                                    <li class="list-group-item">Target: ${product.target}</li>
-                                                    <li class="list-group-item"><img
-                                                            style="max-height: 250px; display: block;"
-                                                            src="/admin/images/product/${product.image}"></li>
-                                                </ul>
-                                            </div>
-                                            <a href="/admin/product" class="btn btn-success mt-3">Back</a>
+                    <!-- Page Wrapper -->
+                    <div id="wrapper">
 
+                        <!-- Sidebar -->
+                        <jsp:include page="../layout/sidebar.jsp" />
+                        <!-- End of Sidebar -->
+
+                        <!-- Content Wrapper -->
+                        <div id="content-wrapper" class="d-flex flex-column">
+
+                            <!-- Main Content -->
+                            <div id="content">
+
+                                <!-- Topbar -->
+                                <jsp:include page="../layout/topbar.jsp" />
+                                <!-- End of Topbar -->
+
+                                <!-- Begin Page Content -->
+                                <div class="container-fluid">
+
+                                    <!-- Page Heading -->
+                                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                        <h1 class="h3 mb-0 text-gray-800">Quản lí sản phẩm</h1>
+                                        <a href="/admin/product/update/${product.id}"
+                                            class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm"><i
+                                                class="fas fa-pencil-alt fa-sm text-white-50"></i> Cập nhật sản phẩm</a>
+                                    </div>
+
+                                    <!-- Message Content -->
+                                    <jsp:include page="../layout/message.jsp" />
+                                    <!-- End of Message Content -->
+
+                                    <!-- DataTales Example -->
+                                    <div class="card shadow mb-4">
+                                        <div
+                                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                            <h6 class="m-0 font-weight-bold text-primary">Thông tin sản phẩm
+                                                <span class="text-danger">${product.name}</span>
+                                            </h6>
+                                            <a href="/admin/product" class="btn btn-primary">Trở về</a>
                                         </div>
-
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="dataTable" width="100%"
+                                                    cellspacing="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th class="col-md-3">ID</th>
+                                                            <td>${product.id}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Tên sản phẩm</th>
+                                                            <td>${product.name}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Giá</th>
+                                                            <td>
+                                                                <fmt:formatNumber type="number"
+                                                                    value="${product.price}" /> đ
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Mô tả tóm tắt</th>
+                                                            <td>${product.shortDesc}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Mô tả chi tiết</th>
+                                                            <td>${product.detailDesc}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Số lượng còn lại</th>
+                                                            <td>${product.quantity}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Hãng</th>
+                                                            <td>${product.factory}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Danh mục</th>
+                                                            <td>${product.target}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Ảnh sản phẩm</th>
+                                                            <td>
+                                                                <c:if test="${empty product.image}">
+                                                                    <span class="text-muted">(Chưa có)</span>
+                                                                </c:if>
+                                                                <c:if test="${not empty product.image}">
+                                                                    <img style="max-height: 250px; display: block;"
+                                                                        src="/admin/images/product/${product.image}">
+                                                                </c:if>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </div>
-                            </div>
-                        </main>
-                        <jsp:include page="../layout/footer.jsp" />
-                    </div>
-                </div>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-                    crossorigin="anonymous"></script>
-                <script src="/admin/js/scripts.js"></script>
-            </body>
+                                <!-- /.container-fluid -->
 
-            </html>
+                            </div>
+                            <!-- End of Main Content -->
+
+                            <!-- Footer -->
+                            <jsp:include page="../layout/footer.jsp" />
+                            <!-- End of Footer -->
+
+                        </div>
+                        <!-- End of Content Wrapper -->
+
+                    </div>
+                    <!-- End of Page Wrapper -->
+
+                    <jsp:include page="../layout/foot.jsp" />
+
+                </body>
+
+                </html>

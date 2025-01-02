@@ -97,34 +97,66 @@ public class UserController {
         return "admin/user/create";
     }
 
+    // @PostMapping("/admin/user/create")
+    // public String createUserPage(Model model,
+    // @ModelAttribute("newUser") @Valid User user,
+    // BindingResult newUserBindingResult,
+    // @RequestParam("imageFile") MultipartFile file) {
+
+    // // List<FieldError> errors = newUserBindingResult.getFieldErrors();
+    // // for (FieldError error : errors) {
+    // // System.out.println(">>>>>>>>>>>>>>>>>>" + error.getField() + " - " +
+    // // error.getDefaultMessage());
+    // // }
+
+    // // validate
+    // if (newUserBindingResult.hasErrors()) {
+    // return "/admin/user/create";
+    // }
+
+    // // uploadFile
+    // String avatar = this.uploadService.handleSaveUploadfile(file, "avatar");
+
+    // // hashPass
+    // String hashPassword = this.passwordEncoder.encode(user.getPassword());
+
+    // user.setAvatar(avatar);
+    // user.setPassword(hashPassword);
+    // user.setRole(this.userService.geRoleByName(user.getRole().getName()));
+    // this.userService.handleSaveUser(user);
+    // return "redirect:/admin/user";
+    // }
     @PostMapping("/admin/user/create")
     public String createUserPage(Model model,
             @ModelAttribute("newUser") @Valid User user,
             BindingResult newUserBindingResult,
-            @RequestParam("sangFile") MultipartFile file) {
-
-        // List<FieldError> errors = newUserBindingResult.getFieldErrors();
-        // for (FieldError error : errors) {
-        // System.out.println(">>>>>>>>>>>>>>>>>>" + error.getField() + " - " +
-        // error.getDefaultMessage());
-        // }
-
-        // validate
+            @RequestParam("imageFile") MultipartFile file,
+            RedirectAttributes redirectAttributes) {
+        // Validate input
         if (newUserBindingResult.hasErrors()) {
-            return "/admin/user/create";
+            model.addAttribute("errorMessage", "Invalid input. Please fix the errors and try again.");
+            return "/admin/user/create"; // Trả về lại trang create với thông báo lỗi
         }
+        try {
+            // Upload file
+            String avatar = this.uploadService.handleSaveUploadfile(file, "avatar");
+            // Hash password
+            String hashPassword = this.passwordEncoder.encode(user.getPassword());
 
-        // uploadFile
-        String avatar = this.uploadService.handleSaveUploadfile(file, "avatar");
+            user.setAvatar(avatar);
+            user.setPassword(hashPassword);
+            user.setRole(this.userService.geRoleByName(user.getRole().getName()));
 
-        // hashPass
-        String hashPassword = this.passwordEncoder.encode(user.getPassword());
+            // Save user
+            this.userService.handleSaveUser(user);
 
-        user.setAvatar(avatar);
-        user.setPassword(hashPassword);
-        user.setRole(this.userService.geRoleByName(user.getRole().getName()));
-        this.userService.handleSaveUser(user);
-        return "redirect:/admin/user";
+            redirectAttributes.addFlashAttribute("successMessage", "User created successfully!");
+            return "redirect:/admin/user"; // Chuyển hướng về danh sách user
+        } catch (Exception e) {
+            // Handle exceptions and return error message
+            model.addAttribute("errorMessage", "An error occurred while creating the user. Please try again.");
+            return "/admin/user/create"; // Quay lại trang create với thông báo lỗi
+        }
     }
 
     @RequestMapping("/admin/user/update/{id}")
@@ -134,8 +166,23 @@ public class UserController {
         return "admin/user/update";
     }
 
+    // @PostMapping("/admin/user/update")
+    // public String postUpdateUser(Model model, @ModelAttribute("currentUser") User
+    // user) {
+    // User currentUser = this.userService.getUserById(user.getId());
+    // if (currentUser != null) {
+    // currentUser.setAddress(user.getAddress());
+    // currentUser.setFullName(user.getFullName());
+    // currentUser.setPhone(user.getPhone());
+    // currentUser.setRole(this.userService.geRoleByName(user.getRole().getName()));
+    // this.userService.handleSaveUser(currentUser);
+    // }
+    // return "redirect:/admin/user";
+    // }
     @PostMapping("/admin/user/update")
-    public String postUpdateUser(Model model, @ModelAttribute("currentUser") User user) {
+    public String postUpdateUser(Model model,
+            @ModelAttribute("currentUser") User user,
+            RedirectAttributes redirectAttributes) {
         User currentUser = this.userService.getUserById(user.getId());
         if (currentUser != null) {
             currentUser.setAddress(user.getAddress());
@@ -143,8 +190,14 @@ public class UserController {
             currentUser.setPhone(user.getPhone());
             currentUser.setRole(this.userService.geRoleByName(user.getRole().getName()));
             this.userService.handleSaveUser(currentUser);
+
+            // Gửi thông báo thành công qua RedirectAttributes
+            redirectAttributes.addFlashAttribute("successMessage", "Cập nhật thông tin tài khoản thành công!");
+        } else {
+            // Gửi thông báo lỗi nếu không tìm thấy user
+            redirectAttributes.addFlashAttribute("errorMessage", "Không tìm thấy tài khoản!");
         }
-        return "redirect:/admin/user";
+        return "redirect:/admin/user/update/" + user.getId();
     }
 
     @GetMapping("/admin/user/delete/{id}")
@@ -166,9 +219,11 @@ public class UserController {
     public String postDeleteUser(RedirectAttributes redirectAttributes, @ModelAttribute("deleteUser") User user) {
         try {
             this.userService.deleteById(user.getId());
-            redirectAttributes.addFlashAttribute("successMessage", "Người dùng đã được xoá thành công.");
+            redirectAttributes.addFlashAttribute("successMessage",
+                    "Người dùng " + user.getFullName() + " đã được xoá thành công.");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Xoá người dùng thất bại. Vui lòng thử lại.");
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    "Xoá người dùng " + user.getFullName() + " thất bại. Vui lòng thử lại.");
         }
         return "redirect:/admin/user";
     }

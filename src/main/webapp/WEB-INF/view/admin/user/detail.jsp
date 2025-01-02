@@ -6,7 +6,7 @@
             <html lang="en">
 
             <jsp:include page="../layout/head.jsp">
-                <jsp:param name="pageTitle" value="Quản lí người dùng" />
+                <jsp:param name="pageTitle" value="Thông tin người dùng" />
             </jsp:include>
 
             <body id="page-top">
@@ -34,15 +34,81 @@
                                 <!-- Page Heading -->
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                     <h1 class="h3 mb-0 text-gray-800">Thông tin người dùng</h1>
-                                    <a href="/admin/user/create"
-                                        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                            class="fas fa-plus-circle fa-sm text-white-50"></i> Thêm người dùng</a>
-
+                                    <a href="/admin/user/update/${user.id}"
+                                        class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm"><i
+                                            class="fas fa-pencil-alt fa-sm text-white-50"></i> Cập nhật thông
+                                        tin</a>
                                 </div>
 
                                 <!-- Message Content -->
                                 <jsp:include page="../layout/message.jsp" />
                                 <!-- End of Message Content -->
+
+                                <!-- DataTales Example -->
+                                <div class="card shadow mb-4">
+                                    <div
+                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-primary">Thông tin tài khoản
+                                            <span class="text-danger">${user.fullName}</span>
+                                        </h6>
+                                        <a href="/admin/user" class="btn btn-primary">Trở về</a>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%"
+                                                cellspacing="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <td>${user.id}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Email</th>
+                                                        <td>${user.email}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Số điện thoại</th>
+                                                        <td>
+                                                            <c:if test="${empty user.phone}">
+                                                                <span class="text-muted">(Chưa có)</span>
+                                                            </c:if>
+                                                            ${user.phone}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Họ và tên</th>
+                                                        <td>${user.fullName}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Địa chỉ</th>
+                                                        <td>
+                                                            <c:if test="${empty user.address}">
+                                                                <span class="text-muted">(Chưa có)</span>
+                                                            </c:if>
+                                                            ${user.address}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Vai trò</th>
+                                                        <td>${user.role.name}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Ảnh đại diện</th>
+                                                        <td>
+                                                            <c:if test="${empty user.avatar}">
+                                                                <span class="text-muted">(Chưa có)</span>
+                                                            </c:if>
+                                                            <c:if test="${not empty user.avatar}">
+                                                                <img style="max-height: 250px; display: block;"
+                                                                    src="/admin/images/avatar/${user.avatar}">
+                                                            </c:if>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
                             <!-- /.container-fluid -->
@@ -58,14 +124,6 @@
                     <!-- End of Content Wrapper -->
 
                 </div>
-
-                <!-- Modal Content -->
-                <jsp:include page="../layout/deleteModal.jsp">
-                    <jsp:param name="entity" value="người dùng" />
-                    <jsp:param name="actionSubfolder" value="user" />
-                    <jsp:param name="modalAttribute" value="deleteUser" />
-                </jsp:include>
-
                 <!-- End of Page Wrapper -->
 
                 <jsp:include page="../layout/foot.jsp" />

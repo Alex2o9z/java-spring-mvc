@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import vn.hoidanit.laptopshop.domain.Order;
 import vn.hoidanit.laptopshop.domain.Order_;
@@ -98,8 +99,15 @@ public class OrderController {
     }
 
     @PostMapping("/admin/order/update")
-    public String handleUpdateOrder(@ModelAttribute("newOrder") Order order) {
-        this.orderService.updateOrder(order);
+    public String handleUpdateOrder(RedirectAttributes redirectAttributes, @ModelAttribute("newOrder") Order order) {
+        try {
+            this.orderService.updateOrder(order);
+            redirectAttributes.addFlashAttribute("successMessage",
+                    "Đã cập nhật đơn hàng " + order.getId() + " thành công.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    "Cập nhật đơn hàng " + order.getId() + " thất bại. Vui lòng thử lại.");
+        }
         return "redirect:/admin/order";
     }
 }

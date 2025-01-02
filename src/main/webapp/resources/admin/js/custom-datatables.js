@@ -25,4 +25,4 @@ $('#dataTable').DataTable({
             "orderableReverse": "Đảo ngược thứ tự cột này"
         }
     }
-})
+});

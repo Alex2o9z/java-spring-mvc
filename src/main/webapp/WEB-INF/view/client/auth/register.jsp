@@ -50,19 +50,6 @@
                                                         <div class="col">
                                                             <p
                                                                 class="kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
-                                                                <label for="inputFirstName">Tên&nbsp;<span
-                                                                        class="required">*</span></label>
-                                                                <form:input type="text"
-                                                                    class="kobolg-Input kobolg-Input--text input-text form-control ${not empty errorFirstName ? 'is-invalid' : ''}"
-                                                                    name="firstName" id="inputFirstName"
-                                                                    autocomplete="given-name" value=""
-                                                                    path="firstName" />
-                                                                ${errorFirstName}
-                                                            </p>
-                                                        </div>
-                                                        <div class="col">
-                                                            <p
-                                                                class="kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
                                                                 <label for="inputLastName">Họ&nbsp;<span
                                                                         class="required">*</span></label>
                                                                 <form:input type="text"
@@ -71,6 +58,19 @@
                                                                     autocomplete="family-name" value=""
                                                                     path="lastName" />
                                                                 ${errorLastName}
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p
+                                                                class="kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
+                                                                <label for="inputFirstName">Tên&nbsp;<span
+                                                                        class="required">*</span></label>
+                                                                <form:input type="text"
+                                                                    class="kobolg-Input kobolg-Input--text input-text form-control ${not empty errorFirstName ? 'is-invalid' : ''}"
+                                                                    name="firstName" id="inputFirstName"
+                                                                    autocomplete="given-name" value=""
+                                                                    path="firstName" />
+                                                                ${errorFirstName}
                                                             </p>
                                                         </div>
                                                     </div>

@@ -1,5 +1,7 @@
 package vn.hoidanit.laptopshop.controller.admin;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import vn.hoidanit.laptopshop.domain.Product;
@@ -24,6 +27,7 @@ import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.service.ProductService;
 import vn.hoidanit.laptopshop.service.UploadService;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ProductController {
@@ -85,7 +89,7 @@ public class ProductController {
     public String createUserPage(Model model,
             @ModelAttribute("newProduct") @Valid Product product,
             BindingResult newProductBindingResult,
-            @RequestParam("sangFile") MultipartFile file) {
+            @RequestParam("imageFile") MultipartFile file) {
 
         // validate
         List<FieldError> errors = newProductBindingResult.getFieldErrors();
@@ -93,7 +97,7 @@ public class ProductController {
             System.out.println(">>>>>>>>>>>>>>>>>>" + error.getField() + " - " + error.getDefaultMessage());
         }
         if (newProductBindingResult.hasErrors()) {
-            return "/admin/product/create";
+            return "admin/product/create";
         }
 
         // uploadFile
@@ -108,23 +112,25 @@ public class ProductController {
     public String getDetailProductPage(Model model, @PathVariable long id) {
         Product product = this.productService.fetchProductById(id).get();
         model.addAttribute("product", product);
-        return "/admin/product/detail";
+        return "admin/product/detail";
     }
 
     @GetMapping("/admin/product/update/{id}")
     public String getUpdateProductPage(Model model, @PathVariable long id) {
         Product product = this.productService.fetchProductById(id).get();
         model.addAttribute("currentProduct", product);
-        return "/admin/product/update";
+        return "admin/product/update";
     }
 
     @PostMapping("/admin/product/update")
     public String handleUpdateProduct(@ModelAttribute("currentProduct") @Valid Product product,
             BindingResult newProductBindingResult,
-            @RequestParam("sangFile") MultipartFile file) {
+            @RequestParam("imageFile") MultipartFile file,
+            RedirectAttributes redirectAttributes) {
         // validate
         if (newProductBindingResult.hasErrors()) {
-            return "/admin/product/update";
+            redirectAttributes.addFlashAttribute("errorMessage", "Có lỗi xảy ra khi cập nhật thông tin sản phẩm" +product.getName()+", vui lòng thử lại!");
+            return "admin/product/update";  
         }
         Product currentProduct = this.productService.fetchProductById(product.getId()).get();
         if (currentProduct != null) {
@@ -144,8 +150,9 @@ public class ProductController {
 
             this.productService.handleSaveProduct(currentProduct);
         }
+        redirectAttributes.addFlashAttribute("successMessage", "Cập nhật thông tin sản phẩm "+product.getName()+" thành công!");
 
-        return "redirect:/admin/product";
+        return "redirect:/admin/product"; 
     }
 
     @GetMapping("/admin/product/delete/{id}")

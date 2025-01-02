@@ -1,164 +1,219 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
             <!DOCTYPE html>
             <html lang="en">
 
-            <head>
-                <meta charset="utf-8" />
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <meta name="description" content="" />
-                <meta name="author" content="" />
-                <title>Manage Products</title>
-                <link href="/admin/css/styles.css" rel="stylesheet" />
-                <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-                <script>
-                    $(document).ready(() => {
-                        const avatarFile = $("#avatarFile");
-                        const orgImage = "${currentProduct.image}";
-                        if (orgImage) {
-                            const urlImage = "/admin/images/product/" + orgImage;
-                            $("#avatarPreview").attr("src", urlImage);
-                            $("#avatarPreview").css({ "display": "block" });
-                        }
+            <jsp:include page="../layout/head.jsp">
+                <jsp:param name="pageTitle" value="Cập nhật sản phẩm" />
+            </jsp:include>
 
-                        avatarFile.change(function (e) {
-                            const imgURL = URL.createObjectURL(e.target.files[0]);
-                            $("#avatarPreview").attr("src", imgURL);
-                            $("#avatarPreview").css({ "display": "block" });
-                        });
-                    });
-                </script>
-            </head>
+            <body id="page-top">
 
-            <body class="sb-nav-fixed">
-                <jsp:include page="../layout/header.jsp" />
-                <div id="layoutSidenav">
+                <!-- Page Wrapper -->
+                <div id="wrapper">
+
+                    <!-- Sidebar -->
                     <jsp:include page="../layout/sidebar.jsp" />
-                    <div id="layoutSidenav_content">
-                        <main>
-                            <div class="container-fluid px-4">
-                                <h1 class="mt-4">Manage Users</h1>
-                                <ol class="breadcrumb mb-4">
-                                    <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="/admin/product">Products</a></li>
-                                    <li class="breadcrumb-item active">Update Product</li>
-                                </ol>
-                                <div class="mt-5">
-                                    <div class="row">
-                                        <div class="col-md-6 col-12 mx-auto">
-                                            <h3>Update a product</h3>
-                                            <hr />
-                                            <form:form method="post" action="/admin/product/update"
-                                                modelAttribute="currentProduct" class="row"
-                                                enctype="multipart/form-data">
-                                                <c:set var="errorName">
-                                                    <form:errors path="name" cssClass="invalid-feedback" />
-                                                </c:set>
-                                                <c:set var="errorPrice">
-                                                    <form:errors path="price" cssClass="invalid-feedback" />
-                                                </c:set>
-                                                <c:set var="errorDetailDesc">
-                                                    <form:errors path="detailDesc" cssClass="invalid-feedback" />
-                                                </c:set>
-                                                <c:set var="errorShortDesc">
-                                                    <form:errors path="shortDesc" cssClass="invalid-feedback" />
-                                                </c:set>
-                                                <c:set var="errorQuantity">
-                                                    <form:errors path="quantity" cssClass="invalid-feedback" />
-                                                </c:set>
+                    <!-- End of Sidebar -->
 
-                                                <div class="mb-3" style="display: none;">
-                                                    <label class="form-label">ID:</label>
-                                                    <form:input type="text" class="form-control" path="id" />
-                                                </div>
+                    <!-- Content Wrapper -->
+                    <div id="content-wrapper" class="d-flex flex-column">
 
-                                                <div class="mb-3 col-12 col-md-6">
-                                                    <label class="form-label">Name:</label>
-                                                    <form:input type="name"
-                                                        class="form-control ${not empty errorName ? 'is-invalid' : ''}"
-                                                        path="name" />
-                                                    ${errorName}
-                                                </div>
+                        <!-- Main Content -->
+                        <div id="content">
 
-                                                <div class="mb-3 col-12 col-md-6">
-                                                    <label class="form-label">Price:</label>
-                                                    <form:input type="number"
-                                                        class="form-control ${not empty errorPrice ? 'is-invalid' : ''}"
-                                                        path="price" />
-                                                </div>
+                            <!-- Topbar -->
+                            <jsp:include page="../layout/topbar.jsp" />
+                            <!-- End of Topbar -->
 
-                                                <div class="mb-3 col-12 col-md-6">
-                                                    <label class="form-label">Short description:</label>
-                                                    <form:input type="text"
-                                                        class="form-control ${not empty errorShortDesc ? 'is-invalid' : ''}"
-                                                        path="shortDesc" />
-                                                </div>
+                            <!-- Begin Page Content -->
+                            <div class="container-fluid">
 
-                                                <div class="mb-3 col-12 col-md-6">
-                                                    <label class="form-label">Quantity:</label>
-                                                    <form:input type="number"
-                                                        class="form-control ${not empty errorQuantity ? 'is-invalid' : ''}"
-                                                        path="quantity" />
-                                                </div>
+                                <!-- Page Heading -->
+                                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                    <h1 class="h3 mb-0 text-gray-800">Quản lí sản phẩm</h1>
+                                </div>
 
-                                                <div class="mb-3 col-12">
-                                                    <label class="form-label">Detail description:</label>
-                                                    <form:input type="text"
-                                                        class="form-control ${not empty errorDetailDesc ? 'is-invalid' : ''}"
-                                                        path="detailDesc" />
-                                                </div>
+                                <!-- Message Content -->
+                                <jsp:include page="../layout/message.jsp" />
+                                <!-- End of Message Content -->
 
-                                                <div class="mb-3 col-12 col-md-6">
-                                                    <label class="form-label">Factory:</label>
-                                                    <form:select class="form-select" path="factory">
-                                                        <form:option value="Apple">Apple</form:option>
-                                                        <form:option value="Asus">Asus</form:option>
-                                                        <form:option value="Lenovo">Lenovo</form:option>
-                                                    </form:select>
-                                                </div>
-
-                                                <div class="mb-3 col-12 col-md-6">
-                                                    <label class="form-label">Target:</label>
-                                                    <form:select class="form-select" path="target">
-                                                        <form:option value="Gaming">Gaming</form:option>
-                                                        <form:option value="SinhVien">Sinh viên</form:option>
-                                                        <form:option value="DoanhNhan">Doanh nhân</form:option>
-                                                    </form:select>
-                                                </div>
-
-                                                <div class="mb-3 col-12 col-md-6">
-                                                    <label for="avatarFile" class="form-label">Avatar:</label>
-                                                    <input class="form-control" type="file" id="avatarFile"
-                                                        accept=".png, .jpg, .jpeg" name="sangFile" />
-                                                </div>
-
-                                                <div class="col-12 mb-3">
-                                                    <img style="max-height: 250px; display: none;" alt="avatar preview"
-                                                        id="avatarPreview">
-                                                </div>
-
-                                                <div class="col-12 mb-5">
-                                                    <a href="/admin/product" class="btn btn-success">Back</a>
-                                                    <button type="submit" class="btn btn-primary">Update</button>
-                                                </div>
-
-                                            </form:form>
+                                <!-- DataTales Example -->
+                                <form:form method="post" action="/admin/product/update" modelAttribute="currentProduct"
+                                    enctype="multipart/form-data">
+                                    <div class="card shadow mb-4">
+                                        <div
+                                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                            <h6 class="m-0 font-weight-bold text-primary">Cập nhật thông tin tài khoản
+                                                <span class="text-danger">${currentProduct.name}</span>
+                                            </h6>
+                                            <a href="/admin/product" class="btn btn-primary">Trở về</a>
                                         </div>
+                                        <div class="card-body">
+                                            <c:set var="errorName">
+                                                <form:errors path="name" cssClass="invalid-feedback" />
+                                            </c:set>
+                                            <c:set var="errorPrice">
+                                                <form:errors path="price" cssClass="invalid-feedback" />
+                                            </c:set>
+                                            <c:set var="errorDetailDesc">
+                                                <form:errors path="detailDesc" cssClass="invalid-feedback" />
+                                            </c:set>
+                                            <c:set var="errorShortDesc">
+                                                <form:errors path="shortDesc" cssClass="invalid-feedback" />
+                                            </c:set>
+                                            <c:set var="errorQuantity">
+                                                <form:errors path="quantity" cssClass="invalid-feedback" />
+                                            </c:set>
 
+                                            <div class="form-group row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group row justify-content-md-center d-none">
+                                                        <label for="id" class="col-md-4 col-form-label">ID:</label>
+                                                        <div class="col-md-8">
+                                                            <form:input type="text" id="id"
+                                                                class="form-control-plaintext" path="id" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row justify-content-md-center">
+                                                        <label for="name" class="col-md-4 col-form-label">Tên sản
+                                                            phẩm:</label>
+                                                        <div class="col-md-8">
+                                                            <form:input type="text" id="name"
+                                                                class="form-control ${not empty errorName ? 'is-invalid' : ''}"
+                                                                path="name" />
+                                                            ${errorName}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row justify-content-md-center">
+                                                        <label for="price" class="col-md-4 col-form-label">Giá:</label>
+                                                        <div class="col-md-8">
+                                                            <form:input type="number" id="price"
+                                                                class="form-control ${not empty errorPrice ? 'is-invalid' : ''}"
+                                                                path="price" />
+                                                            ${errorPrice}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row justify-content-md-center">
+                                                        <label for="quantity" class="col-md-4 col-form-label">Số
+                                                            lượng:</label>
+                                                        <div class="col-md-8">
+                                                            <form:input type="number" id="quantity"
+                                                                class="form-control ${not empty errorQuantity ? 'is-invalid' : ''}"
+                                                                path="quantity" />
+                                                            ${errorQuantity}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row justify-content-md-center">
+                                                        <label for="shortDesc" class="col-md-4 col-form-label">Mô tả tóm
+                                                            tắt:</label>
+                                                        <div class="col-md-8">
+                                                            <form:textarea rows="3" type="text" id="shortDesc"
+                                                                class="form-control ${not empty errorShortDesc ? 'is-invalid' : ''}"
+                                                                path="shortDesc" />
+                                                            ${errorShortDesc}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row justify-content-md-center">
+                                                        <label for="detailDesc" class="col-md-4 col-form-label">Mô tả
+                                                            chi tiết:</label>
+                                                        <div class="col-md-8">
+                                                            <form:textarea rows="10" type="text" id="detailDesc"
+                                                                class="form-control ${not empty errorDetailDesc ? 'is-invalid' : ''}"
+                                                                path="detailDesc" />
+                                                            ${errorDetailDesc}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+
+                                                    <div class="form-group row justify-content-md-center">
+                                                        <label for="factory"
+                                                            class="col-md-4 col-form-label">Hãng:</label>
+                                                        <div class="col-md-8">
+                                                            <form:select id="factory" class="form-control"
+                                                                path="factory">
+                                                                <form:option value="Apple">Apple</form:option>
+                                                                <form:option value="Asus">Asus</form:option>
+                                                                <form:option value="Lenovo">Lenovo</form:option>
+                                                            </form:select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row justify-content-md-center">
+                                                        <label for="target" class="col-md-4 col-form-label">Danh
+                                                            mục:</label>
+                                                        <div class="col-md-8">
+                                                            <form:select id="target" class="form-control" path="target">
+                                                                <form:option value="Gaming">Gaming</form:option>
+                                                                <form:option value="SinhVien">Sinh viên</form:option>
+                                                                <form:option value="DoanhNhan">Doanh nhân</form:option>
+                                                            </form:select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row justify-content-md-center">
+                                                        <label for="avatarFile" class="col-md-4 col-form-label">Ảnh sản
+                                                            phẩm:</label>
+                                                        <div class="col-md-8">
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="avatarFile" accept=".png, .jpg, .jpeg"
+                                                                    name="imageFile" lang="vi">
+                                                                <label class="custom-file-label" for="avatarFile">Chọn
+                                                                    ảnh từ thiết bị</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row justify-content-md-end">
+                                                        <div class="col-md-8 d-flex justify-content-center">
+                                                            <img style="max-height: 250px; display: none;" alt=""
+                                                                id="avatarPreview">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group row justify-content-md-center">
+                                                <button class="btn btn-warning btn-icon-split mt-3" type="submit">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </span>
+                                                    <span class="text">Cập nhật</span>
+                                                </button>
+                                            </div>
+
+                                        </div>
                                     </div>
 
-                                </div>
                             </div>
-                        </main>
+                            </form:form>
+                            <!-- /.container-fluid -->
+
+                        </div>
+                        <!-- End of Main Content -->
+
+                        <!-- Footer -->
                         <jsp:include page="../layout/footer.jsp" />
+                        <!-- End of Footer -->
+
                     </div>
+                    <!-- End of Content Wrapper -->
+
                 </div>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-                    crossorigin="anonymous"></script>
-                <script src="/admin/js/scripts.js"></script>
+                <!-- End of Page Wrapper -->
+
+                <jsp:include page="../layout/foot.jsp" />
+
             </body>
 
             </html>

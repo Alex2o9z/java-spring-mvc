@@ -34,11 +34,11 @@
                                 <!-- Page Heading -->
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                     <h1 class="h3 mb-0 text-gray-800">Quản lí đơn hàng</h1>
-                                    <a href="/admin/product/create"
-                                        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                            class="fas fa-plus-circle fa-sm text-white-50"></i> Thêm đơn hàng</a>
-
                                 </div>
+
+                                <!-- Message Content -->
+                                <jsp:include page="../layout/message.jsp" />
+                                <!-- End of Message Content -->
 
                                 <!-- DataTales Example -->
                                 <div class="card shadow mb-4">
@@ -109,7 +109,7 @@
                                                                     <li
                                                                         class="page-item ${currentPage eq 1 ? 'disabled' : ''}">
                                                                         <a class="page-link"
-                                                                            href="/admin/user?page=${currentPage - 1}${queryString}"
+                                                                            href="/admin/order?page=${currentPage - 1}${queryString}"
                                                                             aria-label="Trước">
                                                                             <span aria-hidden="true">Trước</span>
                                                                         </a>
@@ -131,7 +131,7 @@
                                                                                     test="${i le 2 || i ge totalPages - 1 || (i ge currentPage - 2 && i le currentPage + 2)}">
                                                                                     <li class="page-item">
                                                                                         <a class="page-link"
-                                                                                            href="/admin/user?page=${i}${queryString}">${i}</a>
+                                                                                            href="/admin/order?page=${i}${queryString}">${i}</a>
                                                                                     </li>
                                                                                 </c:if>
                                                                                 <c:if
@@ -156,7 +156,7 @@
                                                                     <li
                                                                         class="page-item ${currentPage eq totalPages ? 'disabled' : ''}">
                                                                         <a class="page-link"
-                                                                            href="/admin/user?page=${currentPage + 1}${queryString}"
+                                                                            href="/admin/order?page=${currentPage + 1}${queryString}"
                                                                             aria-label="Tiếp">
                                                                             <span aria-hidden="true">Tiếp</span>
                                                                         </a>

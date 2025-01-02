@@ -52,17 +52,7 @@
 
     <!-- Page level custom scripts -->
     <script src="/admin/js/demo/datatables-demo.js"></script>
-    <script src="/admin/js/custom-text-datatables.js"></script>
+    <script src="/admin/js/custom-datatables.js"></script>
     <script src="/admin/js/custom.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(() => {
-            const avatarFile = $("#avatarFile");
-            avatarFile.change(function (e) {
-                const imgURL = URL.createObjectURL(e.target.files[0]);
-                $("#avatarPreview").attr("src", imgURL);
-                $("#avatarPreview").css({ "display": "block" });
-            });
-        });
-    </script>

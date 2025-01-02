@@ -41,6 +41,10 @@
 
                                     </div>
 
+                                    <!-- Message Content -->
+                                    <jsp:include page="../layout/message.jsp" />
+                                    <!-- End of Message Content -->
+
                                     <!-- DataTales Example -->
                                     <div class="card shadow mb-4">
                                         <div class="card-header py-3">
@@ -106,7 +110,7 @@
                                                                         <li
                                                                             class="page-item ${currentPage eq 1 ? 'disabled' : ''}">
                                                                             <a class="page-link"
-                                                                                href="/admin/user?page=${currentPage - 1}${queryString}"
+                                                                                href="/admin/product?page=${currentPage - 1}${queryString}"
                                                                                 aria-label="Trước">
                                                                                 <span aria-hidden="true">Trước</span>
                                                                             </a>
@@ -129,7 +133,7 @@
                                                                                         test="${i le 2 || i ge totalPages - 1 || (i ge currentPage - 2 && i le currentPage + 2)}">
                                                                                         <li class="page-item">
                                                                                             <a class="page-link"
-                                                                                                href="/admin/user?page=${i}${queryString}">${i}</a>
+                                                                                                href="/admin/product?page=${i}${queryString}">${i}</a>
                                                                                         </li>
                                                                                     </c:if>
                                                                                     <c:if
@@ -154,7 +158,7 @@
                                                                         <li
                                                                             class="page-item ${currentPage eq totalPages ? 'disabled' : ''}">
                                                                             <a class="page-link"
-                                                                                href="/admin/user?page=${currentPage + 1}${queryString}"
+                                                                                href="/admin/product?page=${currentPage + 1}${queryString}"
                                                                                 aria-label="Tiếp">
                                                                                 <span aria-hidden="true">Tiếp</span>
                                                                             </a>

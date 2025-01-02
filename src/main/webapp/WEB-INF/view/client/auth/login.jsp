@@ -37,13 +37,17 @@
                                                             value="">
                                                     </p>
 
-                                                    <p
+                                                    <p id="show_hide_password"
                                                         class="kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
                                                         <label for="password">Mật khẩu&nbsp;<span
                                                                 class="required">*</span></label>
                                                         <input class="kobolg-Input kobolg-Input--text input-text"
                                                             type="password" name="password" id="password"
                                                             autocomplete="current-password">
+                                                        <a href="" class="text-secondary position-absolute"
+                                                            style="margin-top: 1rem; margin-left: -3rem;">
+                                                            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                                        </a>
                                                     </p>
 
                                                     <p
