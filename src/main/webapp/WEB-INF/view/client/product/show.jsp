@@ -204,7 +204,7 @@
                                     </c:if>
 
                                 </div>
-                                <div id="factoryFilter" class="sidebar col-xl-3 col-lg-4 col-md-4 col-sm-12">
+                                <div id="formFilter" class="sidebar col-xl-3 col-lg-4 col-md-4 col-sm-12">
                                     <div id="widget-area" class="widget-area shop-sidebar">
 
                                         <!-- <div id="kobolg_product_search-2" class="widget kobolg widget_product_search">
