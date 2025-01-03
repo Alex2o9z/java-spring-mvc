@@ -13,21 +13,27 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Value;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import vn.hoidanit.laptopshop.domain.Cart;
 import vn.hoidanit.laptopshop.domain.CartDetail;
+import vn.hoidanit.laptopshop.domain.Order;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.Product_;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.service.VNPayService;
+import vn.hoidanit.laptopshop.domain.dto.OrderRequestDTO;
 import vn.hoidanit.laptopshop.domain.dto.ProductCriteriaDTO;
 import vn.hoidanit.laptopshop.service.ProductService;
 import vn.hoidanit.laptopshop.service.UserService;
@@ -137,6 +143,7 @@ public class ItemController {
 
         model.addAttribute("cartDetails", cartDetails);
         model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("orderRequestDTO", new OrderRequestDTO());
 
         return "client/cart/checkout";
     }
@@ -148,35 +155,77 @@ public class ItemController {
         return "redirect:/checkout";
     }
 
-    @PostMapping("/place-order")
+    // @PostMapping("/place-order")
+    // public String handlePlaceOrder(
+    // HttpServletRequest request,
+    // @RequestParam("receiverName") String receiverName,
+    // @RequestParam("receiverAddress") String receiverAddress,
+    // @RequestParam("receiverPhone") String receiverPhone,
+    // @RequestParam("paymentMethod") String paymentMethod,
+    // @RequestParam("totalPrice") String totalPrice) throws
+    // UnsupportedEncodingException {
+    // User currentUser = new User();// null
+    // HttpSession session = request.getSession(false);
+    // long id = (long) session.getAttribute("id");
+    // currentUser.setId(id);
+
+    // final String uuid = UUID.randomUUID().toString().replace("-", "");
+
+    // this.productService.handlePlaceOrder(currentUser, session,
+    // receiverName, receiverAddress, receiverPhone,
+    // paymentMethod, uuid);
+
+    // if (!paymentMethod.equals("COD")) {
+    // // todo: redirect to VNPAY
+    // String ip = this.vNPayService.getIpAddress(request);
+    // String vnpUrl =
+    // this.vNPayService.generateVNPayURL(Double.parseDouble(totalPrice), uuid, ip);
+
+    // return "redirect:" + vnpUrl;
+    // }
+
+    // return "redirect:/thanks";
+
+    // }
+
+    @PostMapping("/checkout")
     public String handlePlaceOrder(
             HttpServletRequest request,
-            @RequestParam("receiverName") String receiverName,
-            @RequestParam("receiverAddress") String receiverAddress,
-            @RequestParam("receiverPhone") String receiverPhone,
             @RequestParam("paymentMethod") String paymentMethod,
-            @RequestParam("totalPrice") String totalPrice) throws UnsupportedEncodingException {
-        User currentUser = new User();// null
+            @RequestParam("totalPrice") String totalPrice,
+            @Valid @ModelAttribute("orderRequestDTO") OrderRequestDTO orderRequestDTO,
+            BindingResult result, Model model, RedirectAttributes redirectAttributes)
+            throws UnsupportedEncodingException {
+
+        User currentUser = new User();
         HttpSession session = request.getSession(false);
         long id = (long) session.getAttribute("id");
         currentUser.setId(id);
 
+        // Kiểm tra lỗi validate
+        if (result.hasErrors()) {
+            Cart cart = this.productService.fetchByUser(currentUser);
+            List<CartDetail> cartDetails = cart == null ? new ArrayList<CartDetail>() : cart.getCartDetails();
+
+            model.addAttribute("cartDetails", cartDetails);
+            model.addAttribute("totalPrice", totalPrice);
+            return "client/cart/checkout";
+        }
+
         final String uuid = UUID.randomUUID().toString().replace("-", "");
 
         this.productService.handlePlaceOrder(currentUser, session,
-                receiverName, receiverAddress, receiverPhone,
-                paymentMethod, uuid);
+                orderRequestDTO.getReceiverName(), orderRequestDTO.getReceiverAddress(),
+                orderRequestDTO.getReceiverPhone(), paymentMethod, uuid);
 
         if (!paymentMethod.equals("COD")) {
             // todo: redirect to VNPAY
             String ip = this.vNPayService.getIpAddress(request);
-            String vnpUrl = this.vNPayService.generateVNPayURL(Double.parseDouble(totalPrice), uuid, ip);
-
+            String vnpUrl = this.vNPayService.generateVNPayURL(Double.parseDouble(totalPrice),
+                    uuid, ip);
             return "redirect:" + vnpUrl;
         }
-
         return "redirect:/thanks";
-
     }
 
     @GetMapping("/thanks")

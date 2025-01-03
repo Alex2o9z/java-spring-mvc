@@ -582,3 +582,15 @@ if (params.has('sort')) {
     const sort = params.get('sort');
     $(`input[type="radio"][name="radio-sort"][value="${sort}"]`).prop('checked', true);
 }
+
+
+// validate
+$(document).ready(function () {
+    $(".invalid-feedback").each(function () {
+        const errorsHtml = $(this).html().trim();
+        const errors = errorsHtml.split(/<br\s*\/?>/);
+        if (errors.length > 0) {
+            $(this).html(errors[0].trim());
+        }
+    });
+});
