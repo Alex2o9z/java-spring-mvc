@@ -50,4 +50,12 @@ public class ProductSpecs {
                 root.get(Product_.PRICE), min, max);
     }
 
+    // search
+    public static Specification<Product> searchByKeyword(String keyword) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.or(
+                criteriaBuilder.like(root.get(Product_.NAME), "%" + keyword + "%"),
+                criteriaBuilder.like(root.get(Product_.SHORT_DESC), "%" + keyword + "%"),
+                criteriaBuilder.like(root.get(Product_.DETAIL_DESC), "%" + keyword + "%"));
+    }
+
 }

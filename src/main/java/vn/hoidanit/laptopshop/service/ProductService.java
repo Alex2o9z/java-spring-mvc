@@ -120,6 +120,38 @@ public class ProductService {
         return combinedSpec;
     }
 
+    // Search page
+    public Page<Product> fetchProductsWithSpecForSearch(Pageable page, ProductCriteriaDTO productCriteriaDTO) {
+        Specification<Product> combinedSpec = Specification.where(null);
+
+        // Search by name, short_desc, or detail_desc
+        if (productCriteriaDTO.getSearchTerm() != null && productCriteriaDTO.getSearchTerm().isPresent()) {
+            String searchTerm = productCriteriaDTO.getSearchTerm().get();
+            Specification<Product> searchSpec = ProductSpecs.searchByKeyword(searchTerm);
+            combinedSpec = combinedSpec.and(searchSpec);
+        }
+
+        // Filter by target
+        if (productCriteriaDTO.getTarget() != null && productCriteriaDTO.getTarget().isPresent()) {
+            Specification<Product> targetSpec = ProductSpecs.matchListTarget(productCriteriaDTO.getTarget().get());
+            combinedSpec = combinedSpec.and(targetSpec);
+        }
+
+        // Filter by factory
+        if (productCriteriaDTO.getFactory() != null && productCriteriaDTO.getFactory().isPresent()) {
+            Specification<Product> factorySpec = ProductSpecs.matchListFactory(productCriteriaDTO.getFactory().get());
+            combinedSpec = combinedSpec.and(factorySpec);
+        }
+
+        // Filter by price
+        if (productCriteriaDTO.getPrice() != null && productCriteriaDTO.getPrice().isPresent()) {
+            Specification<Product> priceSpec = this.buildPriceSpecification(productCriteriaDTO.getPrice().get());
+            combinedSpec = combinedSpec.and(priceSpec);
+        }
+
+        return this.productRepository.findAll(combinedSpec, page);
+    }
+
     public Optional<Product> fetchProductById(Long id) {
         return this.productRepository.findById(id);
     }

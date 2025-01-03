@@ -262,4 +262,56 @@ public class ItemController {
         model.addAttribute("queryString", qs);
         return "client/product/show";
     }
+
+    @GetMapping("/search")
+    public String getSearchPage(
+            Model model,
+            ProductCriteriaDTO productCriteriaDTO,
+            HttpServletRequest request) {
+        int page = 1;
+
+        try {
+            if (productCriteriaDTO.getPage().isPresent()) {
+                page = Integer.parseInt(productCriteriaDTO.getPage().get());
+            }
+        } catch (Exception e) {
+            // Ignore exception and keep default page = 1
+        }
+
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+
+        // Handle sort by price
+        if (productCriteriaDTO.getSort() != null && productCriteriaDTO.getSort().isPresent()) {
+            String sort = productCriteriaDTO.getSort().get();
+            if (sort.equals("gia-tang-dan")) {
+                pageable = PageRequest.of(page - 1, pageSize, Sort.by(Product_.PRICE).ascending());
+            } else if (sort.equals("gia-giam-dan")) {
+                pageable = PageRequest.of(page - 1, pageSize, Sort.by(Product_.PRICE).descending());
+            }
+        }
+
+        // Fetch products with search functionality
+        Page<Product> prs = this.productService.fetchProductsWithSpecForSearch(pageable, productCriteriaDTO);
+
+        List<Product> products = prs.getContent().size() > 0 ? prs.getContent() : new ArrayList<>();
+
+        String qs = request.getQueryString();
+        if (qs != null && !qs.isBlank()) {
+            qs = qs.replace("page=" + page, "");
+        }
+
+        long totalResults = prs.getTotalElements();
+        int startResult = (page - 1) * pageSize + 1;
+        int endResult = Math.min(page * pageSize, (int) totalResults);
+
+        model.addAttribute("products", products);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", prs.getTotalPages());
+        model.addAttribute("totalResults", totalResults);
+        model.addAttribute("startResult", startResult);
+        model.addAttribute("endResult", endResult);
+        model.addAttribute("queryString", qs);
+        return "client/search/show";
+    }
+
 }

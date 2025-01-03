@@ -115,7 +115,7 @@
                                 </div>
 
                                 <!-- block search start -->
-                                <div class="header-search">
+                                <!-- <div class="header-search">
                                     <div class="block-search">
                                         <form role="search" method="get"
                                             class="form-search block-search-form kobolg-live-search-form">
@@ -127,6 +127,34 @@
                                             </div>
                                             <input name="post_type" value="product" type="hidden">
                                             <input name="taxonomy" value="product_cat" type="hidden">
+
+                                            <button type="submit" class="btn-submit">
+                                                <span class="flaticon-search"></span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div> -->
+                                <div class="header-search">
+                                    <div class="block-search">
+                                        <form role="search" method="get"
+                                            class="form-search block-search-form kobolg-live-search-form"
+                                            action="/search">
+                                            <div class="form-content search-box results-search">
+                                                <div class="inner">
+                                                    <!-- Input for search term -->
+                                                    <input autocomplete="off" class="searchfield txt-livesearch input"
+                                                        name="searchTerm" value="${param.searchTerm}"
+                                                        placeholder="Tìm kiếm sản phẩm..." type="text">
+                                                </div>
+                                            </div>
+                                            <!-- Hidden fields for additional filters -->
+                                            <!-- <input name="post_type" value="product" type="hidden">
+                                            <input name="taxonomy" value="product_cat" type="hidden"> -->
+
+                                            <!-- Other optional filters (if needed in the backend) -->
+                                            <!-- <input type="hidden" name="target" value="${param.target}">
+                                            <input type="hidden" name="factory" value="${param.factory}">
+                                            <input type="hidden" name="price" value="${param.price}"> -->
 
                                             <button type="submit" class="btn-submit">
                                                 <span class="flaticon-search"></span>
