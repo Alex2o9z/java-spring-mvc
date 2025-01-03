@@ -2,3 +2,23 @@
     background-color: #0073e6;
     cursor: pointer;
 }
+
+/* FaceLogin - Phong cách cho canvas */
+#canvas {
+    border: 5px solid #11afe8;
+    /* Viền xanh */
+    border-radius: 20px;
+    /* Bo góc */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    /* Đổ bóng nhẹ */
+    background-color: #fff;
+    /* Nền trắng cho canvas */
+    /* padding: 1px; */
+    /* Khoảng cách giữa viền và nội dung */
+    margin-left: 40px;
+}
+
+/* FaceLogin Modal Icon */
+.modal .modal-dialog .icon-container {
+    font-size: 50px;
+}
