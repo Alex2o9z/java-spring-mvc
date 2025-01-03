@@ -106,7 +106,7 @@ public class HomePageController {
         long id = (long) session.getAttribute("id");
         currentUser.setId(id);
 
-        List<Order> orders = this.orderService.fetchOrderByUser(currentUser);
+        List<Order> orders = this.orderService.fetchOrderByUserDesc(currentUser);
         model.addAttribute("orders", orders);
 
         return "client/cart/order-history";
@@ -120,6 +120,11 @@ public class HomePageController {
     @GetMapping("/face-register")
     public String getFaceRegisterPage(Model model) {
         return "client/auth/face-register";
+    }
+
+    @GetMapping("/contact")
+    public String getContactPage(Model model) {
+        return "client/others/contact";
     }
 
 }

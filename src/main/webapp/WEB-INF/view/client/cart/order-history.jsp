@@ -37,14 +37,14 @@
                                                 class="shop_table shop_table_responsive cart kobolg-cart-form__contents"
                                                 cellspacing="0">
                                                 <thead>
-                                                    <tr>
-                                                        <th class="product-remove">&nbsp;</th>
-                                                        <th class="product-thumbnail">&nbsp;</th>
-                                                        <th class="product-name">Sản phẩm</th>
-                                                        <th class="product-price">Giá</th>
-                                                        <th class="product-quantity">Số lượng</th>
-                                                        <th class="product-subtotal">Thành tiền</th>
-                                                        <th class="product-status">Trạng thái</th>
+                                                    <tr class="bg-primary">
+                                                        <th class="product-remove text-white">Mã đơn</th>
+                                                        <th class="product-thumbnail text-white">&nbsp;</th>
+                                                        <th class="product-name text-white">Sản phẩm</th>
+                                                        <th class="product-price text-white">Giá</th>
+                                                        <th class="product-quantity text-white">Số lượng</th>
+                                                        <th class="product-subtotal text-white">Thành tiền</th>
+                                                        <th class="product-status text-white">Trạng thái</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -56,22 +56,38 @@
                                                         </tr>
                                                     </c:if>
                                                     <c:forEach var="order" items="${orders}" varStatus="status">
-                                                        <tr class="kobolg-cart-form__cart-item cart_item">
-                                                            <td class="product-remove">
-                                                                Order #${order.id}
+                                                        <tr
+                                                            class="kobolg-cart-form__cart-item cart_item border border-top table-secondary">
+                                                            <td class="product-subtotal">
+                                                                #${order.id}
                                                             </td>
                                                             <td class="product-remove"></td>
                                                             <td class="product-remove"></td>
                                                             <td class="product-remove"></td>
                                                             <td class="product-remove"></td>
-                                                            <td class="product-remove">
+                                                            <td class="product-subtotal">
                                                                 <fmt:formatNumber type="number"
                                                                     value="${order.totalPrice}" />
                                                                 <span class="kobolg-Price-currencySymbol">
                                                                     đ</span>
                                                             </td>
-                                                            <td class="product-remove">
-                                                                ${order.status}
+                                                            <td class="product-subtotal">
+                                                                <!-- ${order.status} -->
+                                                                <c:choose>
+                                                                    <c:when test="${order.status eq 'PENDING'}">
+                                                                        <span class="text-primary">Chờ xử lí</span>
+                                                                    </c:when>
+                                                                    <c:when test="${order.status eq 'SHIPPING'}">
+                                                                        <span class="text-warning">Đang vận
+                                                                            chuyển</span>
+                                                                    </c:when>
+                                                                    <c:when test="${order.status eq 'COMPLETE'}">
+                                                                        <span class="text-success">Đã hoàn thành</span>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <span class="text-danger">Đã huỷ</span>
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </td>
                                                         </tr>
                                                         <c:forEach var="orderDetail" items="${order.orderDetails}">
@@ -98,16 +114,17 @@
                                                                     </span>
                                                                 </td>
                                                                 <td class="product-quantity" data-title="Quantity">
-                                                                    <div class="quantity">
+                                                                    <!-- <div class="quantity">
                                                                         <span class="qty-label">Số lượng:</span>
                                                                         <div class="control">
                                                                             <input type="text" title="Qty"
                                                                                 class="input-qty input-text qty text"
                                                                                 value="${orderDetail.quantity}">
                                                                         </div>
-                                                                    </div>
+                                                                    </div> -->
+                                                                    x${orderDetail.quantity}
                                                                 </td>
-                                                                <td class="product-subtotal" data-title="Total">
+                                                                <td class="product-price" data-title="Total">
                                                                     <span class="kobolg-Price-amount amount">
                                                                         <fmt:formatNumber type="number"
                                                                             value="${orderDetail.price * orderDetail.quantity}" />
@@ -118,26 +135,6 @@
                                                             </tr>
                                                         </c:forEach>
                                                     </c:forEach>
-                                                    <tr>
-                                                        <td colspan="6" class="actions">
-                                                            <div class="coupon">
-                                                                <label for="coupon_code">Mã khuyến mãi:</label>
-                                                                <input type="text" name="coupon_code" class="input-text"
-                                                                    id="coupon_code" value=""
-                                                                    placeholder="Mã khuyến mã">
-                                                                <button type="submit" class="button" name="apply_coupon"
-                                                                    value="Apply coupon">Nhập mã
-                                                                </button>
-                                                            </div>
-                                                            <button type="submit" class="button" name="update_cart"
-                                                                value="Update cart" disabled="">Cập nhật giỏ hàng
-                                                            </button>
-                                                            <input type="hidden" id="kobolg-cart-nonce"
-                                                                name="kobolg-cart-nonce" value="f41b5bf554"><input
-                                                                type="hidden" name="_wp_http_referer"
-                                                                value="/kobolg/cart/">
-                                                        </td>
-                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </form>
@@ -211,180 +208,6 @@
                                                 </div>
                                             </div>
                                         </c:if>
-
-                                        <!-- Cross sell products -->
-                                        <!-- <div class="col-md-12 col-sm-12 dreaming_crosssell-product">
-                                        <div class="block-title">
-                                            <h2 class="product-grid-title">
-                                                <span>Cross Sell Products</span>
-                                            </h2>
-                                        </div>
-                                        <div class="owl-slick owl-products equal-container better-height"
-                                            data-slick="{&quot;arrows&quot;:false,&quot;slidesMargin&quot;:30,&quot;dots&quot;:true,&quot;infinite&quot;:false,&quot;slidesToShow&quot;:4}"
-                                            data-responsive="[{&quot;breakpoint&quot;:480,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesMargin&quot;:&quot;10&quot;}},{&quot;breakpoint&quot;:768,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesMargin&quot;:&quot;10&quot;}},{&quot;breakpoint&quot;:992,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesMargin&quot;:&quot;20&quot;}},{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesMargin&quot;:&quot;20&quot;}},{&quot;breakpoint&quot;:1500,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesMargin&quot;:&quot;30&quot;}}]">
-                                            <div
-                                                class="product-item style-01 post-278 page type-page status-publish hentry">
-                                                <div class="product-inner tooltip-left">
-                                                    <div class="product-thumb">
-                                                        <a class="thumb-link" href="#" tabindex="0">
-                                                            <img class="img-responsive"
-                                                                src="/client/images/apro51012-1-600x778.jpg"
-                                                                alt="Multi Cellphone" width="600" height="778">
-                                                        </a>
-                                                        <div class="flash">
-                                                            <span class="onsale"><span
-                                                                    class="number">-21%</span></span>
-                                                            <span class="onnew"><span
-                                                                    class="text">New</span></span>
-                                                        </div>
-                                                        <div class="group-button">
-                                                            <div class="yith-wcwl-add-to-wishlist">
-                                                                <div class="yith-wcwl-add-button show">
-                                                                    <a href="#" class="add_to_wishlist">
-                                                                        Add to Wishlist</a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="kobolg product compare-button"><a
-                                                                    href="#" class="compare button">Compare</a>
-                                                            </div>
-                                                            <a href="#" class="button yith-wcqv-button">Quick
-                                                                View</a>
-                                                            <div class="add-to-cart">
-                                                                <a href="#"
-                                                                    class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add
-                                                                    to cart
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-info equal-elem">
-                                                        <h3 class="product-name product_title">
-                                                            <a href="#" tabindex="0">Multi Cellphone</a>
-                                                        </h3>
-                                                        <div class="rating-wapper nostar">
-                                                            <div class="star-rating"><span
-                                                                    style="width:0%">Rated <strong
-                                                                        class="rating">0</strong> out of
-                                                                    5</span></div>
-                                                            <span class="review">(0)</span>
-                                                        </div>
-                                                        <span class="price"><del><span
-                                                                    class="kobolg-Price-amount amount"><span
-                                                                        class="kobolg-Price-currencySymbol">$</span>125.00</span></del>
-                                                            <ins><span class="kobolg-Price-amount amount"><span
-                                                                        class="kobolg-Price-currencySymbol">$</span>99.00</span></ins></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="product-item style-01 post-36 product type-product status-publish has-post-thumbnail product_cat-table product_cat-bed product_tag-light product_tag-table product_tag-sock first instock sale shipping-taxable purchasable product-type-simple">
-                                                <div class="product-inner tooltip-left">
-                                                    <div class="product-thumb">
-                                                        <a class="thumb-link" href="#" tabindex="0">
-                                                            <img class="img-responsive"
-                                                                src="/client/images/apro71-1-600x778.jpg"
-                                                                alt="Gaming Mouse" width="600" height="778">
-                                                        </a>
-                                                        <div class="flash">
-                                                            <span class="onsale"><span
-                                                                    class="number">-18%</span></span>
-                                                            <span class="onnew"><span
-                                                                    class="text">New</span></span>
-                                                        </div>
-                                                        <div class="group-button">
-                                                            <div class="yith-wcwl-add-to-wishlist">
-                                                                <div class="yith-wcwl-add-button show">
-                                                                    <a href="#" class="add_to_wishlist">
-                                                                        Add to Wishlist</a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="kobolg product compare-button"><a
-                                                                    href="#" class="compare button">Compare</a>
-                                                            </div>
-                                                            <a href="#" class="button yith-wcqv-button">Quick
-                                                                View</a>
-                                                            <div class="add-to-cart">
-                                                                <a href="#"
-                                                                    class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add
-                                                                    to cart
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-info equal-elem">
-                                                        <h3 class="product-name product_title">
-                                                            <a href="#" tabindex="0">Gaming Mouse</a>
-                                                        </h3>
-                                                        <div class="rating-wapper nostar">
-                                                            <div class="star-rating"><span
-                                                                    style="width:0%">Rated <strong
-                                                                        class="rating">0</strong> out of
-                                                                    5</span></div>
-                                                            <span class="review">(0)</span>
-                                                        </div>
-                                                        <span class="price"><del><span
-                                                                    class="kobolg-Price-amount amount"><span
-                                                                        class="kobolg-Price-currencySymbol">$</span>109.00</span></del>
-                                                            <ins><span class="kobolg-Price-amount amount"><span
-                                                                        class="kobolg-Price-currencySymbol">$</span>89.00</span></ins></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="product-item style-01 post-32 product type-product status-publish has-post-thumbnail product_cat-light product_cat-chair product_cat-sofas product_tag-hat product_tag-sock  instock sale featured shipping-taxable purchasable product-type-simple">
-                                                <div class="product-inner tooltip-left">
-                                                    <div class="product-thumb">
-                                                        <a class="thumb-link" href="#" tabindex="0">
-                                                            <img class="img-responsive"
-                                                                src="/client/images/apro91-1-600x778.jpg"
-                                                                alt="Classic Watches" width="600" height="778">
-                                                        </a>
-                                                        <div class="flash">
-                                                            <span class="onnew"><span
-                                                                    class="text">New</span></span>
-                                                        </div>
-                                                        <div class="group-button">
-                                                            <div class="yith-wcwl-add-to-wishlist">
-                                                                <div class="yith-wcwl-add-button show">
-                                                                    <a href="#" class="add_to_wishlist">
-                                                                        Add to Wishlist</a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="kobolg product compare-button"><a
-                                                                    href="#" class="compare button">Compare</a>
-                                                            </div>
-                                                            <a href="#" class="button yith-wcqv-button">Quick
-                                                                View</a>
-                                                            <div class="add-to-cart">
-                                                                <a href="#"
-                                                                    class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add
-                                                                    to cart
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-info equal-elem">
-                                                        <h3 class="product-name product_title">
-                                                            <a href="#" tabindex="0">Classic Watches</a>
-                                                        </h3>
-                                                        <div class="rating-wapper nostar">
-                                                            <div class="star-rating"><span
-                                                                    style="width:0%">Rated <strong
-                                                                        class="rating">0</strong> out of
-                                                                    5</span></div>
-                                                            <span class="review">(0)</span>
-                                                        </div>
-                                                        <span class="price"><span
-                                                                class="kobolg-Price-amount amount"><span
-                                                                    class="kobolg-Price-currencySymbol">$</span>89.00</span>
-                                                            – <span class="kobolg-Price-amount amount"><span
-                                                                    class="kobolg-Price-currencySymbol">$</span>139.00</span></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
                                     </div>
                                 </div>
                             </div>
