@@ -92,19 +92,6 @@
                                                             Chưa có tài khoản?&nbsp;<a href="/register">Đăng ký!</a>
                                                         </div>
                                                     </div>
-
-                                                    <!-- <div class="row">
-                                                        <div
-                                                            class="col kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
-                                                            <a href="my-account.htmllost-password/">Quên mật
-                                                                khẩu?</a>
-                                                        </div>
-                                                        <div
-                                                            class="col kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
-                                                            Chưa có tài khoản?&nbsp;<a href="/register">Đăng ký!</a>
-                                                        </div>
-                                                    </div> -->
-
                                                 </form>
 
                                                 <div class="row">
@@ -145,11 +132,11 @@
                                                     </div>
                                                 </div>
 
-                                                <div
+                                                <!-- <div
                                                     class="kobolg-form-row kobolg-form-row--wide form-row form-row-wide text-center">
                                                     <a href="my-account.htmllost-password/">Quên mật
                                                         khẩu?</a>
-                                                </div>
+                                                </div> -->
 
                                             </div>
                                         </div>

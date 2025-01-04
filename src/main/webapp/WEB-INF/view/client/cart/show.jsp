@@ -121,7 +121,7 @@
                                                                 </td>
                                                             </tr>
                                                         </c:forEach>
-                                                        <tr>
+                                                        <!-- <tr>
                                                             <td colspan="6" class="actions">
                                                                 <div class="coupon">
                                                                     <label for="coupon_code">Mã khuyến mãi:</label>
@@ -140,7 +140,7 @@
                                                                     type="hidden" name="_wp_http_referer"
                                                                     value="/kobolg/cart/">
                                                             </td>
-                                                        </tr>
+                                                        </tr> -->
                                                     </tbody>
                                                 </table>
                                             </div>

@@ -92,24 +92,37 @@ fetch_interval = setInterval(async () => {
                 const password = data.pass;
                 const yourname = data.username;
 
-                if (distance > 0.6) {
-                    return;
-                }
-
-                // Hiển thị modal Bootstrap
-                $('#welcomeMessage').text(`Chào mừng, ${yourname}!`);
-                $('#welcomeModal').modal('show');
-
-                // Xử lý khi người dùng nhấn "Tiếp tục"
-                document.getElementById('confirmLogin').addEventListener('click', () => {
-                    document.getElementById('result_label').innerText = `Kết quả: ${label}`;
-                    document.getElementById('username').value = label;
-                    document.getElementById('password').value = password;
-
-                    document.getElementById("form_login").submit();
-                    $('#welcomeModal').modal('hide');
+                // if (distance > 0.6) {
+                //     return;
+                // }
+                if (yourname == undefined) {
+                    // Hiển thị modal Bootstrap
                     clearInterval(fetch_interval);
-                });
+                    $('#welcomeModalLabel').text(`Xác nhận khuôn mặt không thành công`);
+                    $('#welcomeMessage').text(`Không tìm thấy khuôn mặt phù hợp`);
+                    $('#welcomeModal').modal('show');
+
+                    // Xử lý khi người dùng nhấn "Tiếp tục"
+                    document.getElementById('confirmLogin').addEventListener('click', () => {
+                        location.reload();
+                        $('#welcomeModal').modal('hide');
+                    });
+                } else {
+                    clearInterval(fetch_interval);
+                    // Hiển thị modal Bootstrap
+                    $('#welcomeMessage').text(`Chào mừng, ${yourname}!`);
+                    $('#welcomeModal').modal('show');
+
+                    // Xử lý khi người dùng nhấn "Tiếp tục"
+                    document.getElementById('confirmLogin').addEventListener('click', () => {
+                        document.getElementById('result_label').innerText = `Kết quả: ${label}`;
+                        document.getElementById('username').value = label;
+                        document.getElementById('password').value = password;
+
+                        document.getElementById("form_login").submit();
+                        $('#welcomeModal').modal('hide');
+                    });
+                }
             } else {
                 console.error('Lỗi xử lý ảnh:', await response.text());
             }
@@ -117,7 +130,7 @@ fetch_interval = setInterval(async () => {
             console.error('Lỗi kết nối đến server:', err);
         }
     }, 1100); // Dừng sau 2 giây
-}, 1000 / 2);
+}, 1000 / 1);
 
 // $(document).ready(function () {
 //     $('#welcomeModal').modal('show');

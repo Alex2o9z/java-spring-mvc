@@ -207,7 +207,7 @@
                                                     <span class="count" id="sumCart">${sessionScope.sum}</span>
                                                 </a>
                                             </div>
-                                            <div class="widget kobolg widget_shopping_cart">
+                                            <!-- <div class="widget kobolg widget_shopping_cart">
                                                 <div class="widget_shopping_cart_content">
                                                     <h3 class="minicart-title">Giỏ hàng<span
                                                             class="minicart-number-items">${sessionScope.sum}</span>
@@ -261,7 +261,7 @@
                                                             toán</a>
                                                     </p>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </c:if>
                                     <c:if test="${empty pageContext.request.userPrincipal}">
@@ -371,97 +371,61 @@
                 <div class="header-mobile-right">
                     <div class="header-control-inner">
                         <div class="meta-dreaming">
-                            <div class="menu-item block-user block-dreaming kobolg-dropdown">
-                                <a class="block-link" href="#">
-                                    <span class="flaticon-profile"></span>
-                                </a>
-                                <ul class="sub-menu">
-                                    <li
-                                        class="menu-item kobolg-MyAccount-navigation-link kobolg-MyAccount-navigation-link--dashboard is-active">
-                                        <a href="#">Dashboard</a>
-                                    </li>
-                                    <li
-                                        class="menu-item kobolg-MyAccount-navigation-link kobolg-MyAccount-navigation-link--orders">
-                                        <a href="#">Orders</a>
-                                    </li>
-                                    <li
-                                        class="menu-item kobolg-MyAccount-navigation-link kobolg-MyAccount-navigation-link--downloads">
-                                        <a href="#">Downloads</a>
-                                    </li>
-                                    <li
-                                        class="menu-item kobolg-MyAccount-navigation-link kobolg-MyAccount-navigation-link--edit-addresses">
-                                        <a href="#">Addresses</a>
-                                    </li>
-                                    <li
-                                        class="menu-item kobolg-MyAccount-navigation-link kobolg-MyAccount-navigation-link--edit-account">
-                                        <a href="#">Account details</a>
-                                    </li>
-                                    <li
-                                        class="menu-item kobolg-MyAccount-navigation-link kobolg-MyAccount-navigation-link--customer-logout">
-                                        <a href="#">Logout</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="block-minicart block-dreaming kobolg-mini-cart kobolg-dropdown">
-                                <div class="shopcart-dropdown block-cart-link" data-kobolg="kobolg-dropdown">
-                                    <a class="block-link link-dropdown" href="/cart">
-                                        <span class="flaticon-online-shopping-cart"></span>
-                                        <span class="count" id="sumCart">${sessionScope.sum}</span>
+                            <c:if test="${not empty pageContext.request.userPrincipal}">
+                                <div class="menu-item block-user block-dreaming kobolg-dropdown">
+                                    <a class="block-link" href="#">
+                                        <span class="flaticon-profile"></span>
                                     </a>
+                                    <ul class="sub-menu">
+                                        <li
+                                            class="menu-item kobolg-MyAccount-navigation-link kobolg-MyAccount-navigation-link--customer-account">
+                                            <a href="#">Quản lí tài khoản</a>
+                                        </li>
+                                        <li
+                                            class="menu-item kobolg-MyAccount-navigation-link kobolg-MyAccount-navigation-link--face-register is-active">
+                                            <a href="/face-register">Thiết lập khuôn mặt</a>
+                                        </li>
+                                        <li
+                                            class="menu-item kobolg-MyAccount-navigation-link kobolg-MyAccount-navigation-link--orders-history">
+                                            <a href="/order-history">Lịch sử mua hàng</a>
+                                        </li>
+                                        <li
+                                            class="menu-item kobolg-MyAccount-navigation-link kobolg-MyAccount-navigation-link--customer-logout">
+                                            <form id="logout" method="post" action="/logout">
+                                                <input type="hidden" name="${_csrf.parameterName}"
+                                                    value="${_csrf.token}" />
+                                                <a href="javascript:$('#logout').submit();">Đăng xuất</a>
+                                                <!-- <button type="submit" class="kobolg-Button button" name="logout"
+                                                    value="Log out">Đăng xuất
+                                                </button> -->
+                                            </form>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <div class="widget kobolg widget_shopping_cart">
-                                    <div class="widget_shopping_cart_content">
-                                        <h3 class="minicart-title">Giỏ hàng<span
-                                                class="minicart-number-items">${sessionScope.sum}</span>
-                                        </h3>
-                                        <ul class="kobolg-mini-cart cart_list product_list_widget">
-                                            <li class="kobolg-mini-cart-item mini_cart_item">
-                                                <a href="#" class="remove remove_from_cart_button">×</a>
-                                                <a href="#">
-                                                    <img src="/client/images/apro134-1-600x778.jpg"
-                                                        class="attachment-kobolg_thumbnail size-kobolg_thumbnail"
-                                                        alt="img" width="600" height="778">T-shirt with skirt –
-                                                    Pink&nbsp;
-                                                </a>
-                                                <span class="quantity">1 × <span
-                                                        class="kobolg-Price-amount amount"><span
-                                                            class="kobolg-Price-currencySymbol">$</span>150.00</span></span>
-                                            </li>
-                                            <li class="kobolg-mini-cart-item mini_cart_item">
-                                                <a href="#" class="remove remove_from_cart_button">×</a>
-                                                <a href="#">
-                                                    <img src="/client/images/apro1113-600x778.jpg"
-                                                        class="attachment-kobolg_thumbnail size-kobolg_thumbnail"
-                                                        alt="img" width="600" height="778">Red Consoles&nbsp;
-                                                </a>
-                                                <span class="quantity">1 × <span
-                                                        class="kobolg-Price-amount amount"><span
-                                                            class="kobolg-Price-currencySymbol">$</span>129.00</span></span>
-                                            </li>
-                                            <li class="kobolg-mini-cart-item mini_cart_item">
-                                                <a href="#" class="remove remove_from_cart_button">×</a>
-                                                <a href="#">
-                                                    <img src="/client/images/apro201-1-600x778.jpg"
-                                                        class="attachment-kobolg_thumbnail size-kobolg_thumbnail"
-                                                        alt="img" width="600" height="778">Smart Monitor&nbsp;
-                                                </a>
-                                                <span class="quantity">1 × <span
-                                                        class="kobolg-Price-amount amount"><span
-                                                            class="kobolg-Price-currencySymbol">$</span>139.00</span></span>
-                                            </li>
-                                        </ul>
-                                        <p class="kobolg-mini-cart__total total"><strong>Subtotal:</strong>
-                                            <span class="kobolg-Price-amount amount"><span
-                                                    class="kobolg-Price-currencySymbol">$</span>418.00</span>
-                                        </p>
-                                        <p class="kobolg-mini-cart__buttons buttons">
-                                            <a href="/cart" class="button kobolg-forward">Xem giỏ hàng</a>
-                                            <a href="#" class="button checkout kobolg-forward">
-                                                Thanh toán</a>
-                                        </p>
+                                <div class="block-minicart block-dreaming kobolg-mini-cart kobolg-dropdown">
+                                    <div class="shopcart-dropdown block-cart-link">
+                                        <!-- data-kobolg="kobolg-dropdown" -->
+                                        <a class="block-link link-dropdown" href="/cart">
+                                            <span class="flaticon-online-shopping-cart"></span>
+                                            <span class="count" id="sumCart">${sessionScope.sum}</span>
+                                        </a>
                                     </div>
                                 </div>
-                            </div>
+                            </c:if>
+                            <c:if test="${empty pageContext.request.userPrincipal}">
+                                <div class="header-nav-inner">
+                                    <div class="box-header-nav menu-nocenter">
+                                        <ul id="menu-primary-menu"
+                                            class="clone-main-menu kobolg-clone-mobile-menu kobolg-nav main-menu">
+                                            <li id="menu-item-237"
+                                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-237 parent">
+                                                <a class="kobolg-menu-item-title" title="Đăng nhập" href="/login">Đăng
+                                                    nhập</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </c:if>
                         </div>
                     </div>
                 </div>

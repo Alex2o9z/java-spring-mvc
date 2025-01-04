@@ -23,7 +23,6 @@
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                         <button class="btn btn-primary">Đăng xuất ngay</button>
                     </form>
-                    <!-- <a class="btn btn-primary" href="login.html">Đăng xuất ngay</a> -->
                 </div>
             </div>
         </div>

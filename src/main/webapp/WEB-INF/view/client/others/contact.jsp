@@ -78,7 +78,7 @@
                 </div>
                 <!-- Content End -->
 
-                <jsp:include page="../components/newsletter.jsp" />
+                <!-- <jsp:include page="../components/newsletter.jsp" /> -->
                 <jsp:include page="../layout/footer.jsp" />
                 <jsp:include page="../layout/foot.jsp" />
             </body>

@@ -22,3 +22,12 @@
 .modal .modal-dialog .icon-container {
     font-size: 50px;
 }
+
+/* Product page image */
+.kobolg-product-gallery .flex-control-nav.flex-control-thumbs {
+    display: none !important;
+}
+
+.kobolg-product-gallery .flex-viewport {
+    width: 100% !important;
+}

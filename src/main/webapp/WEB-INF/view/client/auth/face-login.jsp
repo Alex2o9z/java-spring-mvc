@@ -111,21 +111,7 @@
                                                             Github
                                                         </button>
                                                     </div>
-                                                    <!-- <div
-                                                        class="col kobolg-form-row kobolg-form-row--wide form-row form-row-wide">
-                                                        <button class="kobolg-Button button btn-block"
-                                                            onclick="document.location='/face-login'">
-                                                            Xác nhận khuôn mặt
-                                                        </button>
-                                                    </div> -->
                                                 </div>
-
-                                                <!-- <div
-                                                    class="kobolg-form-row kobolg-form-row--wide form-row form-row-wide text-center">
-                                                    <a href="my-account.htmllost-password/">Quên mật
-                                                        khẩu?</a>
-                                                </div> -->
-
                                             </div>
                                         </div>
                                     </div>

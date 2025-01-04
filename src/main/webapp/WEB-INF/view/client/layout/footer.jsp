@@ -148,7 +148,7 @@
             </div>
             <!-- Copyright End -->
         </footer>
-        <div class="footer-device-mobile">
+        <!-- <div class="footer-device-mobile">
             <div class="wapper">
                 <div class="footer-device-mobile-item device-home">
                     <a href="/">
@@ -186,5 +186,5 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Footer End -->

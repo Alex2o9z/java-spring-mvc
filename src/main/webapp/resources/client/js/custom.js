@@ -373,9 +373,12 @@
     });
 
     function isLogin() {
-        const navElement = $("#navbarCollapse");
-        const childLogin = navElement.find('a.a-login');
-        if (childLogin.length > 0) {
+        // const navElement = $("#header");
+        // const childLogin = navElement.find('a.a-login');
+        // if (childLogin.length > 0) {
+        //     return false;
+        // }
+        if ('${empty pageContext.request.userPrincipal}') {
             return false;
         }
         return true;
