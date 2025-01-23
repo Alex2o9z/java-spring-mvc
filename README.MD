@@ -2,5 +2,58 @@
 Java Spring MVC (dự án laptopshop)
 
 ## Setup
-Config:
-- src > main > resources > application.properties
+Config: `src > main > resources > application.properties`
+
+```
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/laptopshop
+spring.datasource.username=root
+spring.datasource.password=123456
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.show-sql: true
+
+# #config spring security
+# spring.security.user.name=sang
+# spring.security.user.password=123456
+
+
+#config view engine
+# spring.mvc.view.prefix=/WEB-INF/view/
+# spring.mvc.view.suffix=.jsp
+
+
+#default = 1MB
+spring.servlet.multipart.max-file-size=50MB
+
+#default = 10 MB (form data)
+spring.servlet.multipart.max-request-size=50MB
+
+
+logging.level.org.springframework.security=DEBUG
+
+
+#config session
+spring.session.store-type=jdbc
+spring.session.timeout=30m
+spring.session.jdbc.initialize-schema=always
+#server.servlet.session.timeout
+#spring.session.jdbc.table-name=SPRING_SESSION
+
+#config general values
+stproject.general.value.page-size=10
+
+#config vnpay
+hoidanit.vnpay.tmn-code=
+hoidanit.vnpay.hash-secret=
+hoidanit.vnpay.vnp-url=https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+hoidanit.vnpay.vnp-return-url=http://localhost:8080/thanks
+
+#config oauth2 google
+spring.security.oauth2.client.registration.google.client-id=
+spring.security.oauth2.client.registration.google.client-secret=
+spring.security.oauth2.client.registration.google.scope=email,profile
+
+#config oauth2 github
+spring.security.oauth2.client.registration.github.client-id=
+spring.security.oauth2.client.registration.github.client-secret=
+```

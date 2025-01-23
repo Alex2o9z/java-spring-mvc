@@ -218,6 +218,10 @@
                                                                 </a>
                                                             </c:forEach>
                                                         </span>
+                                                        <span class="posted_in">
+                                                            Hãng:
+                                                            <a href="#" rel="tag">${product.factory}</a>
+                                                        </span>
 
                                                         <!-- <span class="tagged_as">Tags: <a href="#" rel="tag">Game &
                                                                 Consoles</a>, <a href="#" rel="tag">Sock</a></span> -->
@@ -275,7 +279,8 @@
                                                 id="tab-additional_information" role="tabpanel"
                                                 aria-labelledby="tab-title-additional_information">
                                                 <h2>Additional information</h2>
-                                                <table class="shop_attributes">
+                                                <div id="specification-table"></div>
+                                                <!-- <table class="shop_attributes">
                                                     <tbody>
                                                         <tr>
                                                             <th>Model</th>
@@ -326,7 +331,7 @@
                                                             </td>
                                                         </tr>
                                                     </tbody>
-                                                </table>
+                                                </table> -->
 
                                             </div>
                                             <!-- <div class="kobolg-Tabs-panel kobolg-Tabs-panel--reviews panel entry-content kobolg-tab"
@@ -868,6 +873,25 @@
                                 }
                             });
                         });
+                    </script>
+                    <script>
+                        // Parse JSON từ chuỗi
+                        var specification = JSON.parse('${product.specification}'); // Sử dụng specification đã được truyền từ controller
+
+                        // Tạo bảng HTML
+                        var tableHTML = '<table class="shop_attributes"><tbody>';
+
+                        // Duyệt qua các key-value trong JSON
+                        for (var key in specification) {
+                            if (specification.hasOwnProperty(key)) {
+                                tableHTML += '<tr><th>' + key + '</th><td><p>' + specification[key] + '</p></td></tr>';
+                            }
+                        }
+
+                        tableHTML += '</tbody></table>';
+
+                        // Chèn bảng vào DOM
+                        document.getElementById('specification-table').innerHTML = tableHTML;
                     </script>
 
                 </body>

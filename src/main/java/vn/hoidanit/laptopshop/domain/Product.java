@@ -44,6 +44,17 @@ public class Product {
     private String factory;
     private String target;
 
+    @Column(name = "specification", columnDefinition = "json")
+    private String specification;
+
+    public String getSpecification() {
+        return specification;
+    }
+
+    public void setSpecification(String specification) {
+        this.specification = specification;
+    }
+
     public long getId() {
         return id;
     }

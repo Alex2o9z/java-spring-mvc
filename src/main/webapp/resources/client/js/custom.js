@@ -378,7 +378,12 @@
         // if (childLogin.length > 0) {
         //     return false;
         // }
-        if ('${empty pageContext.request.userPrincipal}') {
+        // if ('${empty pageContext.request.userPrincipal}') {
+        //     return false;
+        // }
+        const navElement = $("#header");
+        const childLogin = navElement.find('.flaticon-profile');
+        if (childLogin.length = 0) {
             return false;
         }
         return true;

@@ -560,12 +560,134 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <div id="recommend-section" class="section-001 d-none">
+                        <div class="container">
+                            <div class="kobolg-heading style-01">
+                                <div class="heading-inner">
+                                    <h3 class="title">
+                                        Sản phẩm dành cho bạn</h3>
+                                    <!-- <div class="subtitle">
+                                        Made with care for your little ones, our products are perfect for every
+                                        occasion. Check it out.
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="kobolg-products style-04">
+                                <div id="product-recommend"
+                                    class="response-product product-list-owl owl-slick equal-container better-height"
+                                    data-slick="{&quot;arrows&quot;:true,&quot;slidesMargin&quot;:30,&quot;dots&quot;:true,&quot;infinite&quot;:false,&quot;speed&quot;:300,&quot;slidesToShow&quot;:4,&quot;rows&quot;:1}"
+                                    data-responsive="[{&quot;breakpoint&quot;:480,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesMargin&quot;:&quot;10&quot;}},{&quot;breakpoint&quot;:768,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesMargin&quot;:&quot;10&quot;}},{&quot;breakpoint&quot;:992,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesMargin&quot;:&quot;20&quot;}},{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesMargin&quot;:&quot;20&quot;}},{&quot;breakpoint&quot;:1500,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesMargin&quot;:&quot;30&quot;}}]">
+                                    <!-- // recommend -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- Content End -->
 
                 <!-- <jsp:include page="../components/newsletter.jsp" /> -->
                 <jsp:include page="../layout/footer.jsp" />
                 <jsp:include page="../layout/foot.jsp" />
+
+                <script>
+                    $(document).ready(function () {
+                        const a = "${user.type_views_1}";
+                        const b = "${user.type_views_2}";
+                        const c = "${user.type_views_3}";
+                        const d = "${user.type_views_4}";
+
+                        // Tạo đối tượng chứa dữ liệu gửi đến server
+                        const data = {
+                            gaming_view: a,
+                            mac_view: b,
+                            office_view: c,
+                            workstation_view: d
+                        };
+
+                        // Gửi dữ liệu tới server bằng AJAX
+                        $.ajax({
+                            url: 'http://127.0.0.1:5000/recommend',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify(data),
+                            success: function (response) {
+                                console.log('Response from server:', response);
+
+                                // Gắn kết quả từ response
+                                const result = response.result;
+
+                                // Debug: Kiểm tra xem `result` là gì
+                                console.log('Result:', result);
+
+                                // Kiểm tra nếu `result` tồn tại và là mảng
+                                if (Array.isArray(result) && result.length > 0) {
+                                    const productList = $("#product-recommend");
+
+                                    // Tạo đối tượng định dạng số
+                                    const formatter = new Intl.NumberFormat('vi-VN', {
+                                        style: 'currency',
+                                        currency: 'VND'
+                                    });
+
+                                    // Tạo HTML động
+                                    let htmlContent = "";
+                                    result.forEach(element => {
+                                        // Debug: Kiểm tra từng phần tử
+                                        console.log('Element:', element);
+
+                                        // Truy cập các thuộc tính của đối tượng
+                                        const product_id = element.id || 'Unknown ID';
+                                        const product_name = element.name || 'No Name';
+                                        const product_image = element.image || 'no-image.png'; // sửa lại từ price -> image
+                                        const product_price = formatter.format(element.price || 0); // sửa lại từ image -> price và sử dụng formatter
+
+                                        htmlContent += `   
+                                    <div
+                                        class="product-item recent-product style-04 rows-space-0 post-93 product type-product status-publish has-post-thumbnail product_cat-light product_cat-table product_cat-new-arrivals product_tag-table product_tag-sock first instock shipping-taxable purchasable product-type-simple  ">
+                                        <div class="product-inner tooltip-top tooltip-all-top">
+                                            <div class="product-thumb">
+                                                <a class="thumb-link" href="#" tabindex="0">
+                                                    <img class="img-responsive"
+                                                        src="/admin/images/product/`+ product_image + `"
+                                                        alt="`+ product_name + `"
+                                                        width="270" height="350">
+                                                </a>
+                                                <div class="group-button">
+                                                    <div class="add-to-cart">
+                                                        <a href="#"
+                                                            class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add
+                                                            to
+                                                            cart</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-info">
+                                                <h3 class="product-name product_title">
+                                                    <a href="#" tabindex="0">`+ product_name + `</a>
+                                                </h3>
+                                                <span class="price"><span class="kobolg-Price-amount amount">`+ product_price + `</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        `;
+                                    });
+
+                                    // Thêm HTML động vào container
+                                    productList.html(htmlContent);
+                                    $('#recommend-section').removeClass('d-none');
+                                } else {
+                                    console.warn('Result is empty or not an array.');
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error:', error);
+                            }
+                        });
+                    });
+                </script>
+
             </body>
 
             </html>

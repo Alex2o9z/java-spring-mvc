@@ -52,7 +52,7 @@ public class HomePageController {
     @GetMapping("/")
     public String getHomePage(Model model) {
         // List<Product> products = this.productService.fetchProducts();
-        Pageable pageable = PageRequest.of(0, 10);
+        Pageable pageable = PageRequest.of(0, 8);
         Page<Product> prs = this.productService.fetchProducts(pageable);
         List<Product> products = prs.getContent();
 
@@ -120,6 +120,27 @@ public class HomePageController {
     @GetMapping("/face-register")
     public String getFaceRegisterPage(Model model) {
         return "client/auth/face-register";
+    }
+
+    // @GetMapping("/profile")
+    // public String getProfilePage(Model model) {
+    // return "client/auth/profile";
+    // }
+    @GetMapping("/profile")
+    public String getProfilePage(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        long id = (long) session.getAttribute("id");
+        // currentUser.setId(id);
+        User user = userService.getUserById(id);
+
+        // Kiểm tra xem người dùng có tồn tại không
+        if (user != null) {
+            model.addAttribute("currentUser", user); // Truyền thông tin người dùng vào model
+        } else {
+            model.addAttribute("error", "User not found.");
+        }
+
+        return "client/auth/profile"; // Trả về view profile
     }
 
     @GetMapping("/contact")

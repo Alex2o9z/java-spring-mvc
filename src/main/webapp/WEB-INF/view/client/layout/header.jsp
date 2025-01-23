@@ -176,7 +176,7 @@
                                             <ul class="sub-menu">
                                                 <li
                                                     class="menu-item kobolg-MyAccount-navigation-link kobolg-MyAccount-navigation-link--customer-account">
-                                                    <a href="#">Quản lí tài khoản</a>
+                                                    <a href="/profile">Quản lí tài khoản</a>
                                                 </li>
                                                 <li
                                                     class="menu-item kobolg-MyAccount-navigation-link kobolg-MyAccount-navigation-link--face-register is-active">

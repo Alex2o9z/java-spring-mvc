@@ -53,6 +53,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             if (user == null) {
                 // create new user
                 User oUser = new User();
+                Long type_view = (long) 0;
                 oUser.setEmail(email);
                 oUser.setAvatar(
                         registrationId.equalsIgnoreCase("github") ? "default-github.png" : "default-google.png");
@@ -60,6 +61,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 oUser.setProvider(registrationId.equalsIgnoreCase("github") ? "GITHUB" : "GOOGLE");
                 oUser.setPassword("default"); // fix bug later
                 oUser.setRole(userRole);
+                oUser.setType_views_1(type_view);
+                oUser.setType_views_2(type_view);
+                oUser.setType_views_3(type_view);
+                oUser.setType_views_4(type_view);
 
                 this.userService.saveUser(oUser);
             } else {
